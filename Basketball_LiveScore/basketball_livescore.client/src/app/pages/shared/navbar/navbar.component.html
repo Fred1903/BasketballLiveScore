@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" class="navbar">
+  <!-- Logo and Brand -->
+  <button mat-icon-button class="logo" routerLink="/">
+    <img src="assets/logo.png" alt="Logo" width="30" height="30">
+  </button>
+  <span class="brand">Basketball Live Score</span>
+
+  <!-- Links -->
+  <div class="spacer"></div>
+  <button mat-button
+          routerLink="/players"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }">
+    Players
+  </button>
+  <button mat-button
+          routerLink="/teams"
+          routerLinkActive="active-link">
+    Teams
+  </button>
+  <button mat-button
+          routerLink="/matches"
+          routerLinkActive="active-link">
+    Matches
+  </button>
+  <button mat-button
+          routerLink="/players/create"
+          routerLinkActive="active-link">
+    Create Player
+  </button>
+</mat-toolbar>

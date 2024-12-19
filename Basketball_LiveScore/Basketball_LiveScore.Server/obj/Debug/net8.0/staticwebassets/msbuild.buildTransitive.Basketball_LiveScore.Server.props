@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Basketball_LiveScore.Server.props" />
+</Project>

@@ -1,0 +1,55 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  margin-right: 10px;
+  border-radius: 50%; /* Makes the logo round */
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+button {
+  font-weight: bold;
+}
+
+mat-toolbar {
+  background: linear-gradient(45deg, #2196f3, #1e88e5);
+  color: #fff;
+}
+
+mat-toolbar button.mat-button {
+  color: white;
+  text-transform: capitalize;
+}
+
+mat-toolbar button.mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+button.mat-button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button.mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); 
+  color: #ffeb3b; 
+}
+
+
+.active-link {
+  font-weight: bold;
+  border-bottom: 2px solid #ffeb3b; 
+}
