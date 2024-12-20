@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "Wwcb6LHo2CdVX1CNP16wtu0zBgZfFIUhN6R/UWDFrrs=",
+  "Hash": "wJsCOMvx3cCr0+6OWi44LFhBmRENl7qr50G10nF3vWo=",
   "Source": "Basketball_LiveScore.Server",
   "BasePath": "_content/Basketball_LiveScore.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\Basketball_LiveScore\\basketball_livescore.client\\basketball_livescore.client.esproj",
+      "Identity": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\basketball_livescore.client.esproj",
       "Version": 2,
       "Source": "basketball_livescore.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",

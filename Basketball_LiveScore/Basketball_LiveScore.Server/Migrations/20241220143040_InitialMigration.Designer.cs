@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Basketball_LiveScore.Server.Migrations
 {
     [DbContext(typeof(BasketballDBContext))]
-    [Migration("20241219142031_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241220143040_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,9 +39,6 @@ namespace Basketball_LiveScore.Server.Migrations
                     b.Property<int>("HomeTeamId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("PlayerId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("matchDate")
                         .HasMaxLength(10)
                         .HasColumnType("timestamp with time zone");
@@ -52,9 +49,7 @@ namespace Basketball_LiveScore.Server.Migrations
 
                     b.HasIndex("HomeTeamId");
 
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("Match");
+                    b.ToTable("Match", (string)null);
                 });
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Player", b =>
@@ -70,9 +65,8 @@ namespace Basketball_LiveScore.Server.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<int>("Heigth")
-                        .HasMaxLength(3)
-                        .HasColumnType("integer");
+                    b.Property<double>("Height")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -80,22 +74,23 @@ namespace Basketball_LiveScore.Server.Migrations
                         .HasColumnType("character varying(30)");
 
                     b.Property<int>("Number")
-                        .HasMaxLength(2)
                         .HasColumnType("integer");
 
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("TeamId")
+                    b.Property<string>("Team")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("TeamId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Player");
+                    b.ToTable("Player", (string)null);
                 });
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Team", b =>
@@ -106,14 +101,18 @@ namespace Basketball_LiveScore.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Coach")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Team");
+                    b.ToTable("Team", (string)null);
                 });
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Match", b =>
@@ -130,10 +129,6 @@ namespace Basketball_LiveScore.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Basketball_LiveScore.Server.Models.Player", null)
-                        .WithMany("Matches")
-                        .HasForeignKey("PlayerId");
-
                     b.Navigation("AwayTeam");
 
                     b.Navigation("HomeTeam");
@@ -141,18 +136,9 @@ namespace Basketball_LiveScore.Server.Migrations
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Player", b =>
                 {
-                    b.HasOne("Basketball_LiveScore.Server.Models.Team", "Team")
+                    b.HasOne("Basketball_LiveScore.Server.Models.Team", null)
                         .WithMany("Players")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("Basketball_LiveScore.Server.Models.Player", b =>
-                {
-                    b.Navigation("Matches");
+                        .HasForeignKey("TeamId");
                 });
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Team", b =>

@@ -1,0 +1,29 @@
+<div class="form-container">
+  <h2>Create Team</h2>
+  <form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+    <!-- Team Name -->
+    <app-form-input *ngIf="nameControl"
+                    label="Team Name"
+                    placeholder="Enter team name"
+                    [control]="nameControl"
+                    [errorMessage]="'Team name is required (max 30 characters).'">
+    </app-form-input>
+
+    <!-- Coach -->
+    <app-form-input *ngIf="coachControl"
+                    label="Coach"
+                    placeholder="Enter coach name"
+                    [control]="coachControl"
+                    [errorMessage]="'Coach name is required (max 50 characters).'">
+    </app-form-input>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="teamForm.invalid">
+      Create Team
+    </button>
+  </form>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+

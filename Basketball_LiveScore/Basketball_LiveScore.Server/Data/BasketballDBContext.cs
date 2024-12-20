@@ -14,8 +14,16 @@ namespace Basketball_LiveScore.Server.Data
         {
         }
 
-        public DbSet<Basketball_LiveScore.Server.Models.Player> Player { get; set; } = default!;
-        public DbSet<Basketball_LiveScore.Server.Models.Team> Team { get; set; } = default!;
-        public DbSet<Basketball_LiveScore.Server.Models.Match> Match { get; set; } = default!;
+        public DbSet<Player> Players { get; set; } = default!;
+        public DbSet<Team> Teams { get; set; } = default!;
+        public DbSet<Match> Matches { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //On précise les tables car sinon va créer des tables Matches, Teams et Players
+            modelBuilder.Entity<Team>().ToTable("Team");
+            modelBuilder.Entity<Match>().ToTable("Match");
+            modelBuilder.Entity<Player>().ToTable("Player");
+        }
     }
 }

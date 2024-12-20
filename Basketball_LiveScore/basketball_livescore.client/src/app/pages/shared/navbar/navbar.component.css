@@ -37,7 +37,7 @@ mat-toolbar button.mat-button {
 
 mat-toolbar button.mat-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
-}
+} 
 
 button.mat-button {
   transition: background-color 0.3s ease, color 0.3s ease;

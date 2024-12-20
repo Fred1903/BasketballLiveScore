@@ -9,26 +9,27 @@ namespace Basketball_LiveScore.Server.Models
 
         [Required]
         [MaxLength(30)]
-        public string FirstName { get; set; }
+        public string ?FirstName { get; set; }
 
         [Required]
         [MaxLength(30)]
-        public string LastName { get; set; }
+        public string ?LastName { get; set; }
 
         [Required]
-        [MaxLength(2)]
+        [Range(0, 99)]
         public int Number { get; set; }
 
         [Required]
-        [MaxLength(20)]
         public PlayerPosition Position { get; set; }
 
         [Required]
-        [MaxLength(3)]
-        public Double Heigth { get; set; }
+        [Range(1.5, 2.5)]
+        public Double Height { get; set; }
 
         [Required]
-        public Team Team { get; set; }
-        public List<Match> Matches { get; set; } = new List<Match>();
+        public string ?Team { get; set; }
+
+        /*public Team ?Team { get; set; }
+        public List<Match> Matches { get; set; } = new List<Match>();*/
     }
 }

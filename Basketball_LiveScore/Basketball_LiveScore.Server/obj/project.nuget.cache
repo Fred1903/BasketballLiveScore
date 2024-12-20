@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3j9h/qZ3Drw=",
+  "dgSpecHash": "vc5nbAf5tf8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj",
+  "projectFilePath": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ff\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\ff\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

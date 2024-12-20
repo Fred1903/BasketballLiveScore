@@ -6761,11 +6761,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj",
+      "projectUniqueName": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj",
       "projectName": "Basketball_LiveScore.Server",
-      "projectPath": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj",
+      "projectPath": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj",
       "packagesPath": "C:\\Users\\ff\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\Basketball_LiveScore\\Basketball_LiveScore.Server\\obj\\",
+      "outputPath": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -2,84 +2,54 @@
   <h2>Create Player</h2>
   <form [formGroup]="playerForm" (ngSubmit)="onSubmit()">
     <!-- First Name -->
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input id="firstName"
-             type="text"
-             formControlName="firstName"
-             class="form-control"
-             placeholder="Enter first name" />
-      <div *ngIf="playerForm.get('firstName')?.invalid && playerForm.get('firstName')?.touched">
-        <small class="text-danger">First name is required (max 30 characters).</small>
-      </div>
-    </div>
+    <app-form-input *ngIf="firstNameControl"
+                    label="First Name"
+                    placeholder="Enter first name"
+                    [control]="firstNameControl"
+                    [errorMessage]="'First name is required (max 30 characters).'">
+    </app-form-input>
 
     <!-- Last Name -->
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input id="lastName"
-             type="text"
-             formControlName="lastName"
-             class="form-control"
-             placeholder="Enter last name" />
-      <div *ngIf="playerForm.get('lastName')?.invalid && playerForm.get('lastName')?.touched">
-        <small class="text-danger">Last name is required (max 30 characters).</small>
-      </div>
-    </div>
+    <app-form-input *ngIf="lastNameControl"
+                    label="Last Name"
+                    placeholder="Enter last name"
+                    [control]="lastNameControl"
+                    [errorMessage]="'Last name is required (max 30 characters).'">
+    </app-form-input>
 
-    <!-- Number -->
-    <div class="form-group">
-      <label for="number">Number</label>
-      <input id="number"
-             type="number"
-             formControlName="number"
-             class="form-control"
-             placeholder="Enter jersey number" />
-      <div *ngIf="playerForm.get('number')?.invalid && playerForm.get('number')?.touched">
-        <small class="text-danger">Number is required (0-99).</small>
-      </div>
-    </div>
+    <app-form-input *ngIf="numberControl"
+                    label="Number"
+                    placeholder="Enter jersey number"
+                    [control]="numberControl"
+                    type="number"
+                    [errorMessage]="'Number is required (0-99).'">
+    </app-form-input>
 
-    <!-- Position -->
-    <div class="form-group">
-      <label for="position">Position</label>
-      <select id="position" formControlName="position" class="form-control">
-        <option *ngFor="let position of positions" [value]="position">
-          {{ position }}
-        </option>
-      </select>
-      <div *ngIf="playerForm.get('position')?.invalid && playerForm.get('position')?.touched">
-        <small class="text-danger">Position is required.</small>
-      </div>
-    </div>
+    <app-form-input *ngIf="heightControl"
+                    label="Height"
+                    placeholder="Enter height"
+                    [control]="heightControl"
+                    type="number"
+                    [errorMessage]="'Height is required (1.5-2.5).'">
+    </app-form-input>
 
-    <!-- Height -->
-    <div class="form-group">
-      <label for="height">Height (cm)</label>
-      <input id="height"
-             type="number"
-             formControlName="height"
-             class="form-control"
-             placeholder="Enter height in cm" />
-      <div *ngIf="playerForm.get('height')?.invalid && playerForm.get('height')?.touched">
-        <small class="text-danger">Height is required (100-300 cm).</small>
-      </div>
-    </div>
+    <app-form-dropdown *ngIf="positionControl"
+                       label="Position"
+                       [options]="positionsOptions"
+                       [control]="positionControl"
+                       [errorMessage]="'Position is required.'">
+    </app-form-dropdown>
 
-    <!-- Team -->
-    <div class="form-group">
-      <label for="teamId">Team</label>
-      <select id="teamId" formControlName="teamId" class="form-control">
-        <option *ngFor="let team of teams" [value]="team.id">
-          {{ team.name }}
-        </option>
-      </select>
-      <div *ngIf="playerForm.get('teamId')?.invalid && playerForm.get('teamId')?.touched">
-        <small class="text-danger">Team is required.</small>
-      </div>
-    </div>
+    <app-form-dropdown *ngIf="teamControl"
+                       label="Team"
+                       [options]="teamsOptions"
+                       [control]="teamControl"
+                       [errorMessage]="'Team is required.'">
+    </app-form-dropdown>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary" [disabled]="playerForm.invalid">Create Player</button>
+    <button type="submit" class="btn btn-primary" [disabled]="playerForm.invalid">
+      Create Player
+    </button>
   </form>
 </div>

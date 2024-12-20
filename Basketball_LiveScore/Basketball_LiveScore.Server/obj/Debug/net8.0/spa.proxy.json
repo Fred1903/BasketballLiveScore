@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:4200",
 "RedirectUrl": "",
 "LaunchCommand": "npm start",
-"WorkingDirectory": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\Basketball_LiveScore\\Basketball_LiveScore.Server\\..\\basketball_livescore.client",
+"WorkingDirectory": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\..\\basketball_livescore.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

@@ -14,17 +14,17 @@ namespace Basketball_LiveScore.Server.DTO
         public string LastName { get; set; }
 
         [Required]
-        [MaxLength(2)]
+        [Range(0, 99)]
         public int Number { get; set; }
 
         [Required]
-        [MaxLength(20)]
         public PlayerPosition Position { get; set; }
 
         [Required]
-        [MaxLength(3)]
-        public Double Heigth { get; set; }
-
-        //public int teamId { get; set; }
+        [Range(1.5, 2.5)]
+        public Double Height { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string? Team { get; set; }
     }
 }

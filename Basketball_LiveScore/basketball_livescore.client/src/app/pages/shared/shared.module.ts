@@ -6,12 +6,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FormInputComponent } from './form-input/form-input.component';
+import { FormDropdownComponent } from './form-dropdown/form-dropdown.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent // Declare the NavbarComponent
+    NavbarComponent,
+    FormInputComponent,
+    FormDropdownComponent
   ],
   imports: [
     CommonModule,
@@ -19,10 +23,13 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
   ],
   exports: [
-    NavbarComponent // Export so it can be used in other modules
+    NavbarComponent, // Export so it can be used in other modules
+    FormInputComponent,
+    FormDropdownComponent,
   ]
 })
 export class SharedModule { }
