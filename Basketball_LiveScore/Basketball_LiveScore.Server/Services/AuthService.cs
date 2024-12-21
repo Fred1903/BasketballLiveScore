@@ -70,5 +70,45 @@ namespace Basketball_LiveScore.Server.Services
 
             return GenerateJwtToken(user);
         }
+
+        public async Task<string> RegisterUser(UserRegister newUser)
+        {
+            ////Verif si tous les champs sont rempli
+            if (string.IsNullOrEmpty(newUser.Username) || string.IsNullOrEmpty(newUser.Password) ||
+                string.IsNullOrEmpty(newUser.Email) || string.IsNullOrEmpty(newUser.FirstName) ||
+                string.IsNullOrEmpty(newUser.LastName))
+            {
+                throw new ArgumentException("Please complete all fields.");
+            }
+
+            //Vérif si username ou email existe déjà
+            if (userService.GetByUsername(newUser.Username) != null)
+            {
+                throw new InvalidOperationException("Username already exists.");
+            }
+
+            if (userService.GetByEmail(newUser.Email) != null)
+            {
+                throw new InvalidOperationException("There is already an account with this email.");
+            }
+            var hashedPassword = HashPassword(newUser.Password);
+            var createdUser = new User
+            {
+                Username = newUser.Username,
+                PasswordHash = hashedPassword,
+                Email = newUser.Email,
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName,
+                Role = "User"
+            };
+            var result = await userService.AddUser(createdUser);
+            if (!result)
+            {
+                throw new Exception("User registration failed.");
+            }
+            return "User registered successfully.";
+        }
+
+
     }
 }

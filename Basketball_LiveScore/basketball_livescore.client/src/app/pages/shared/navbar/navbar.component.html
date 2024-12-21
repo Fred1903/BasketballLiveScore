@@ -11,14 +11,17 @@
     <button mat-button routerLink="/players" routerLinkActive="active-link">Players</button>
     <button mat-button routerLink="/teams" routerLinkActive="active-link">Teams</button>
     <button mat-button routerLink="/matches" routerLinkActive="active-link">Matches</button>
-    <button mat-button routerLink="/players/create" routerLinkActive="active-link">Create Player</button>
-    <button mat-button routerLink="/teams/create" routerLinkActive="active-link">Create Team</button>
+    <ng-container *ngIf="isAdmin">
+      <button mat-button routerLink="/players/create" routerLinkActive="active-link">Create Player</button>
+      <button mat-button routerLink="/teams/create" routerLinkActive="active-link">Create Team</button>
+      <button mat-button routerLink="/matches/create" routerLinkActive="active-link">Create Match</button>
+    </ng-container>
     <button mat-button (click)="logout()">Logout</button>
   </ng-container>
 
-  <!-- Qd user est déconnecté -->
-  <ng-template #guestLinks>
-    <button mat-button routerLink="/login" routerLinkActive="active-link">Log In</button>
-    <button mat-button routerLink="/signin" routerLinkActive="active-link">Sign In</button>
-  </ng-template>
+    <!-- Qd user est déconnecté -->
+    <ng-template #guestLinks>
+      <button mat-button routerLink="/login" routerLinkActive="active-link">Log In</button>
+      <button mat-button routerLink="/signup" routerLinkActive="active-link">Sign In</button>
+    </ng-template>
 </mat-toolbar>

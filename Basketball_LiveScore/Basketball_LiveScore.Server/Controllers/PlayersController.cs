@@ -3,6 +3,7 @@ using Basketball_LiveScore.Server.Models;
 using Basketball_LiveScore.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Basketball_LiveScore.Server.Utilities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Basketball_LiveScore.Server.Controllers
 {
@@ -17,6 +18,7 @@ namespace Basketball_LiveScore.Server.Controllers
             this.playerService = playerService;
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreatePlayer([FromBody] CreatePlayerDTO playerDto)
@@ -37,6 +39,11 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AuthenticatedUsers")]
+        [HttpGet("playersOfTeam")]
+
+
+        [Authorize(Policy = "AuthenticatedUsers")]
         [HttpGet("positions")]
         public IActionResult GetPositions()
         {//pour pouvoir use p.GetDescription obligé d'importer Utilities

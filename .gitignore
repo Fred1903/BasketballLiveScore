@@ -82,3 +82,20 @@ Thumbs.db
 
 # Exclude test files
 /test-results/
+
+
+*.Designer.cs
+*ModelSnapshot.cs
+*.csproj.user
+*.userosscache
+/packages
+/project.lock.json
+/project.fragment.lock.json
+/test
+**/*.TestResults
+*.trx
+*.Coverage
+/bin/
+*/bin/
+*/obj/
+    

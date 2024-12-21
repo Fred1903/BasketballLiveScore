@@ -1,0 +1,63 @@
+<div class="form-container">
+  <h2 class="text-center">Create Match</h2>
+  <form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
+    <div class="teams-container">
+      <!-- Team 1 -->
+      <div class="team">
+        <h4 class="team-title">Team 1</h4>
+        <app-form-dropdown *ngIf="team1Control"
+                           label="Team 1"
+                           [options]="teamsOptions"
+                           [control]="team1Control"
+                           [errorMessage]="'Team 1 is required.'"
+                           (change)="onTeamChange(1)">
+        </app-form-dropdown>
+
+        <div *ngIf="team1Players.length > 0" class="players-container">
+          <h5 class="players-title">Players for Team 1</h5>
+          <div class="player-card" *ngFor="let player of team1Players">
+            <label class="player-checkbox">
+              <input type="checkbox" [value]="player.id" (change)="togglePlayer(player.id, 1)">
+              {{ player.firstName }} {{ player.lastName }} (#{{ player.number }})
+            </label>
+            <label class="player-checkbox">
+              <input type="checkbox" (change)="toggleStarter(player.id, 1)"> Starter
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team 2 -->
+      <div class="team">
+        <h4 class="team-title">Team 2</h4>
+        <app-form-dropdown *ngIf="team2Control"
+                           label="Team 2"
+                           [options]="teamsOptions"
+                           [control]="team2Control"
+                           [errorMessage]="'Team 2 is required.'"
+                           (change)="onTeamChange(2)">
+        </app-form-dropdown>
+
+        <div *ngIf="team2Players.length > 0" class="players-container">
+          <h5 class="players-title">Players for Team 2</h5>
+          <div class="player-card" *ngFor="let player of team2Players">
+            <label class="player-checkbox">
+              <input type="checkbox" [value]="player.id" (change)="togglePlayer(player.id, 2)">
+              {{ player.firstName }} {{ player.lastName }} (#{{ player.number }})
+            </label>
+            <label class="player-checkbox">
+              <input type="checkbox" (change)="toggleStarter(player.id, 2)"> Starter
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="submit-container">
+      <button type="submit" class="btn btn-primary" [disabled]="matchForm.invalid">
+        Create Match
+      </button>
+    </div>
+  </form>
+</div>

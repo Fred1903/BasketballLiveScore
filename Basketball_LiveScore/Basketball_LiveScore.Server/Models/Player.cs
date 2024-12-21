@@ -26,10 +26,12 @@ namespace Basketball_LiveScore.Server.Models
         [Range(1.5, 2.5)]
         public Double Height { get; set; }
 
-        [Required]
-        public string ?Team { get; set; }
+        /*[Required]
+        public string ?Team { get; set; }*/
 
-        /*public Team ?Team { get; set; }
-        public List<Match> Matches { get; set; } = new List<Match>();*/
+        [Required]
+        public int TeamId { get; set; } // Clé étrangère
+
+        public Team? Team { get; set; }
     }
 }

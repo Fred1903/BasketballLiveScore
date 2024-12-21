@@ -44,5 +44,39 @@ namespace Basketball_LiveScore.Server.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task<TeamDTO> GetTeam(int teamId)
+        {
+            var team=  await basketballDBContext.Teams
+                .Include(t => t.Players) // Inclut les joueurs associés
+                .FirstOrDefaultAsync(t => t.Id == teamId);
+            if (team == null)
+            {
+                throw new KeyNotFoundException($"Team with ID {teamId} not found.");
+            }
+
+            return MapToTeamDTO(team); //on ne renvoie un DTO et pas l'objet directement !
+        }
+
+        private TeamDTO MapToTeamDTO(Team team)
+        {
+            return new TeamDTO
+            {
+                Id = team.Id,
+                Name = team.Name,
+                Coach = team.Coach,
+                Players = team.Players.Select(p => new PlayerDTO
+                {
+                    Id = p.Id,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Number = p.Number,
+                    Position = p.Position.ToString(), // Enum -> String
+                    Height = p.Height
+                }).ToList()
+            };
+        }
+
+
     }
 }

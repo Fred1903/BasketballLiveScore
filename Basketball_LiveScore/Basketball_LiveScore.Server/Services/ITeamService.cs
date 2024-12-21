@@ -7,5 +7,6 @@ namespace Basketball_LiveScore.Server.Services
     {
         Task<Team> CreateTeam(CreateTeamDTO createTeamDTO);
         Task<List<TeamDTO>> GetTeams();
+        Task<TeamDTO> GetTeam(int teamId);
     }
 }

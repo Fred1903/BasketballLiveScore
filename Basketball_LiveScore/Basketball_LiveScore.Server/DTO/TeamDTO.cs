@@ -7,5 +7,6 @@ namespace Basketball_LiveScore.Server.DTO
         public int Id { get; set; }
         public required string Name { get; set; }
         public string? Coach { get; set; }
+        public List<PlayerDTO> Players { get; set; } = new List<PlayerDTO>();
     }
 }

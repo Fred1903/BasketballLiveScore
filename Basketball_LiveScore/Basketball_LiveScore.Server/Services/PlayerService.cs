@@ -22,7 +22,7 @@ namespace Basketball_LiveScore.Server.Services
                 Number = createPlayerDto.Number,
                 Position = createPlayerDto.Position,
                 Height = createPlayerDto.Height,
-                Team = createPlayerDto.Team,
+                TeamId = basketballDBContext.Teams.FirstOrDefault(t => t.Name.Equals(createPlayerDto.Team)).Id,
             };
 
             basketballDBContext.Players.Add(player);

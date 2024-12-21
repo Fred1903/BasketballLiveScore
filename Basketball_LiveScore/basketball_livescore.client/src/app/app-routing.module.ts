@@ -7,12 +7,19 @@ const routes: Routes = [
   //Auth :
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  //Lazy loading, permet de charger que quand on va sur leur pages
+  //Contrairement aux imports dans app module qui seront tjrs importés
   //Players : 
   { path: 'players', loadChildren: () => import('./pages/players/players.module').then(m => m.PlayersModule) },
   //Teams :
   { path: 'teams', loadChildren: () => import('./pages/teams/teams.module').then(m => m.TeamsModule) },
+
+  //Matchs
+  { path: 'matches', loadChildren: () => import('./pages/matches/matches.module').then(m => m.MatchesModule) },
+
   { path: '', redirectTo: '/login', pathMatch: 'full' }, //par défaut on est redirigé vers cette page
   { path: '**', redirectTo: '/login' }, //si chemin invalide, on est redirigé ici
+  
  
 
 ];

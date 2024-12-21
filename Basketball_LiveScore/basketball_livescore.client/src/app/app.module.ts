@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './pages/shared/navbar/navbar.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
-
+import { AuthInterceptor } from './pages/auth/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
     ReactiveFormsModule, //si on déclare pas ca il va faire que des erreurs
     FormsModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

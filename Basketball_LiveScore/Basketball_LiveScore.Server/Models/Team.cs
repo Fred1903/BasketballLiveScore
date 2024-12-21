@@ -14,7 +14,7 @@ namespace Basketball_LiveScore.Server.Models
         [Required]
         public string? Coach { get; set; }
 
-        [Required]
-        public List<Player> Players { get; set; } = new List<Player>();
+        [Required] //C'est mieux d'utiliser ICollection que List avec EF
+        public ICollection<Player> Players { get; set; } = new List<Player>();
     }
 }

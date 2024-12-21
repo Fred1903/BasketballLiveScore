@@ -76,11 +76,7 @@ namespace Basketball_LiveScore.Server.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Team")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int?>("TeamId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -168,9 +164,13 @@ namespace Basketball_LiveScore.Server.Migrations
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Player", b =>
                 {
-                    b.HasOne("Basketball_LiveScore.Server.Models.Team", null)
+                    b.HasOne("Basketball_LiveScore.Server.Models.Team", "Team")
                         .WithMany("Players")
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Team", b =>

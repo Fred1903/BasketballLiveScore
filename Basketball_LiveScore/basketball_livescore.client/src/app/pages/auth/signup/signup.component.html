@@ -1,1 +1,52 @@
-<p>signup works!</p>
+<div class="container mt-5">
+  <h2 class="text-center">Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <!-- First Name -->
+    <app-form-input *ngIf="firstNameControl"
+                    label="First Name"
+                    placeholder="Enter your first name"
+                    [control]="firstNameControl"
+                    [errorMessage]="'First name is required.'">
+    </app-form-input>
+
+    <!-- Last Name -->
+    <app-form-input *ngIf="lastNameControl"
+                    label="Last Name"
+                    placeholder="Enter your last name"
+                    [control]="lastNameControl"
+                    [errorMessage]="'Last name is required.'">
+    </app-form-input>
+
+    <app-form-input *ngIf="usernameControl"
+                    label="Username"
+                    placeholder="Enter your username"
+                    [control]="usernameControl"
+                    [errorMessage]="'Username is required.'">
+    </app-form-input>
+
+    <app-form-input *ngIf="emailControl"
+                    label="Email"
+                    type="email"
+                    placeholder="Enter your email"
+                    [control]="emailControl"
+                    [errorMessage]="'A valid email is required.'">
+    </app-form-input>
+
+    <!-- Password -->
+    <app-form-input *ngIf="passwordControl"
+                    label="Password"
+                    type="password"
+                    placeholder="Enter your password"
+                    [control]="passwordControl"
+                    [errorMessage]="'Password is required.'">
+    </app-form-input>
+
+    <!-- Submit Button -->
+    <div class="form-group text-center mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+    </div>
+  </form>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>

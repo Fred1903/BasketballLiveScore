@@ -2,7 +2,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UserLogin } from '../models/interfaces';
+import { UserLogin, UserRegister } from '../models/interfaces';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class AuthService {
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
 
   private apiUrl = 'https://localhost:7271/api/Auth';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
 
   login(userLogin: UserLogin): Observable<any> {
@@ -33,10 +34,35 @@ export class AuthService {
     );
   }
 
+  register(userRegister: UserRegister): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userRegister).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(() => new Error(error.error?.message || 'An unknown error occurred.'));
+      })
+    );
+  }
+
+  getRole(): string | null {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Décoder le payload du JWT
+        //la clé est celle qu'on a dans le back-end 'Claims.Role'
+        return payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || null; 
+      } catch (e) {
+        console.error('Invalid token:', e);
+        return null;
+      }
+    }
+    return null;
+  }
+
+
 
   logout(): void {
-    // Reset the authentication state
+    localStorage.removeItem('authToken'); //avant de logout, on supprime le token !!!
     this.isAuthenticatedSubject.next(false);
+    this.router.navigate(['/login']);//redirection vers page de login
   }
 
   isAuthenticated(): boolean {

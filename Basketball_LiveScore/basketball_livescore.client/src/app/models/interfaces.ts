@@ -21,3 +21,11 @@ export interface Position {
   value: string;
   display: string;
 }
+
+export interface UserRegister {
+  email: string,
+  password: string,
+  username: string,
+  firstName: string,
+  lastName: string
+}

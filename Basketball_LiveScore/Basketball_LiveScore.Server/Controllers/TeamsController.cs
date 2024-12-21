@@ -3,7 +3,9 @@
     using global::Basketball_LiveScore.Server.DTO;
     using global::Basketball_LiveScore.Server.Models;
     using global::Basketball_LiveScore.Server.Services;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     namespace Basketball_LiveScore.Server.Controllers
     {
@@ -18,6 +20,7 @@
                 this.teamService = teamService;
             }
 
+            [Authorize(Policy = "AdminOnly")]
             [HttpPost]
             [Route("create")]
             public async Task<IActionResult> CreateTeam([FromBody] CreateTeamDTO createTeamDTO)
@@ -43,6 +46,7 @@
                 }
             }
 
+            [Authorize(Policy = "AuthenticatedUsers")]
             [HttpGet]
             [Route("all")]
             public async Task<IActionResult> GetTeams()
@@ -59,14 +63,21 @@
                 }
             }
 
-
-            /*[HttpGet("{id}")]
-            public async Task<IActionResult> GetTeamById(int id)
+            [Authorize(Policy = "AuthenticatedUsers")]
+            [HttpGet("{teamId}")]
+            public async Task<IActionResult> GetTeam(int teamId)
             {
-                // Placeholder for future implementation to retrieve a team by ID
-                return Ok(new { Message = "Endpoint not yet implemented" });
-            }*/
+                try
+                {
+                    var teamDto = await teamService.GetTeam(teamId);
+                    return Ok(teamDto);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    return NotFound(new { message = ex.Message });
+                }
+            }
+
         }
     }
-
 }

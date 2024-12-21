@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Player, Position } from '../models/interfaces';
 
 @Injectable({
@@ -17,5 +17,6 @@ export class PlayerService {
   getPositions(): Observable<Position[]> {
     return this.http.get<Position[]>(`${this.apiUrl}/positions`);
   }
+
 }
 
