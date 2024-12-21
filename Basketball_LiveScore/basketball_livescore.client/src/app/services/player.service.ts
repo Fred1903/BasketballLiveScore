@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Player, Position } from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,13 @@ import { Observable } from 'rxjs';
 export class PlayerService {
   private apiUrl = 'https://localhost:7271/api/Players';
   constructor(private http: HttpClient) { }
-
-  createPlayer(player: any): Observable<any> {
+  
+  createPlayer(player: Player): Observable<any> {
     return this.http.post(this.apiUrl + "/create", player);
   }
 
-  getPositions(): Observable<{ value: string; display: string }[]> {
-    return this.http.get<{ value: string; display: string }[]>(`${this.apiUrl}/positions`);
+  getPositions(): Observable<Position[]> {
+    return this.http.get<Position[]>(`${this.apiUrl}/positions`);
   }
 }
 

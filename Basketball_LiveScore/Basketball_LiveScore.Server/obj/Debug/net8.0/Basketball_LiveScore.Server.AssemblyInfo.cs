@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Basketball_LiveScore.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b9b338478be916ad2062521ba32e1234827baf4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+75824809796c6465e73652cf180bc407793d6e52")]
 [assembly: System.Reflection.AssemblyProductAttribute("Basketball_LiveScore.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Basketball_LiveScore.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <h2 class="text-center">Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <!-- Username -->
+    <app-form-input *ngIf="usernameControl"
+                    label="Username"
+                    placeholder="Enter your username"
+                    [control]="usernameControl"
+                    [errorMessage]="'Username is required.'">
+    </app-form-input>
+
+    <!-- Password -->
+    <app-form-input *ngIf="passwordControl"
+                    label="Password"
+                    type="password"
+                    placeholder="Enter your password"
+                    [control]="passwordControl"
+                    [errorMessage]="'Password is required.'">
+    </app-form-input>
+
+    <!-- Submit Button -->
+    <div class="form-group text-center mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+    </div>
+  </form>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>

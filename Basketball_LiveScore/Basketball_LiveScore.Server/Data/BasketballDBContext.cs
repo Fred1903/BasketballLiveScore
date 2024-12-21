@@ -18,12 +18,15 @@ namespace Basketball_LiveScore.Server.Data
         public DbSet<Team> Teams { get; set; } = default!;
         public DbSet<Match> Matches { get; set; } = default!;
 
+        public DbSet<User> Users { get; set; } = default!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //On précise les tables car sinon va créer des tables Matches, Teams et Players
             modelBuilder.Entity<Team>().ToTable("Team");
             modelBuilder.Entity<Match>().ToTable("Match");
             modelBuilder.Entity<Player>().ToTable("Player");
+            modelBuilder.Entity<User>().ToTable("User");
         }
     }
 }
