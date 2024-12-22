@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wJsCOMvx3cCr0+6OWi44LFhBmRENl7qr50G10nF3vWo=",
+  "Hash": "TLoM/K4Pq4WgDbY6QDChJJvqnPBF1wuRk1fftvIpgOE=",
   "Source": "Basketball_LiveScore.Server",
   "BasePath": "_content/Basketball_LiveScore.Server",
   "Mode": "Default",
@@ -11,10 +11,10 @@
       "Version": 2,
       "Source": "basketball_livescore.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishProperties": "",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildProperties": "",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
     }
   ],

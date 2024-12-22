@@ -1,4 +1,5 @@
 ﻿using Basketball_LiveScore.Server.Data;
+using Basketball_LiveScore.Server.DTO;
 using Basketball_LiveScore.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +46,23 @@ namespace Basketball_LiveScore.Server.Services
         public User GetByUsername(string username)
         { //On renvoie le user ou null
             return basketballDBContext.Users.FirstOrDefault(u => u.Username.Equals(username));
+        }
+
+        public async Task<List<UserDTO>> GetUsersByRole(string role)
+        {
+            var users = await basketballDBContext.Users.Where(u => u.Role.Equals(role))
+                       .ToListAsync();
+
+            //Ensuite on renvoie les users sous Forme de DTO
+            return users.Select(user => new UserDTO
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role
+            }).ToList();
         }
     }
 }

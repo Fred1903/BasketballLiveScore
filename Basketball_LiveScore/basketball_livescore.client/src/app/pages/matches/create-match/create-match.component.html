@@ -53,6 +53,46 @@
       </div>
     </div>
 
+    <!-- Number of Quarters -->
+    <div class="form-group">
+      <label for="numberOfQuarters">Number of Quarters</label>
+      <select formControlName="numberOfQuarters" class="form-control" id="numberOfQuarters">
+        <option *ngFor="let option of numberOfQuartersOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Quarter Duration -->
+    <div class="form-group">
+      <label for="quarterDuration">Quarter Duration (minutes)</label>
+      <select formControlName="quarterDuration" class="form-control" id="quarterDuration">
+        <option *ngFor="let option of quarterDurationOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Timeout Duration -->
+    <div class="form-group">
+      <label for="timeoutDuration">Timeout Duration (seconds)</label>
+      <select formControlName="timeoutDuration" class="form-control" id="timeoutDuration">
+        <option *ngFor="let option of timeoutDurationOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Encoder Selection -->
+    <div class="form-group">
+      <app-form-dropdown *ngIf="encoderControl"
+                         label="Match Encoder"
+                         [options]="encodersOptions"
+                         [control]="encoderControl"
+                         [errorMessage]="'An encoder is required.'">
+      </app-form-dropdown>
+    </div>
+
     <!-- Submit Button -->
     <div class="submit-container">
       <button type="submit" class="btn btn-primary" [disabled]="matchForm.invalid">

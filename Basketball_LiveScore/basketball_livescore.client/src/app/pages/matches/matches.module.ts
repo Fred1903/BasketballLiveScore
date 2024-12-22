@@ -4,11 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatchesRoutingModule } from './matches-routing.module';
 import { CreateMatchComponent } from './create-match/create-match.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { UpdateMatchComponent } from './update-match/update-match.component';
 
 @NgModule({
   declarations: [
-    CreateMatchComponent
+    CreateMatchComponent,
+    UpdateMatchComponent,
   ],
   imports: [
     CommonModule,

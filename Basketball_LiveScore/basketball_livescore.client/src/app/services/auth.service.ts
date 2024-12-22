@@ -57,6 +57,25 @@ export class AuthService {
     return null;
   }
 
+  getUserInfo(): any {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Décoder le payload du JWT
+        return {
+          id: payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
+          email: payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+          firstName: payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"],
+          lastName: payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"],
+          username: payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+        };
+      } catch (e) {
+        console.error('Invalid token:', e);
+        return null;
+      }
+    }
+    return null; // Si aucun token n'est trouvé
+  }
 
 
   logout(): void {

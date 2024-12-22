@@ -17,4 +17,26 @@ namespace Basketball_LiveScore.Server.Models
         PowerForward,
         Center        
     }
+
+    public enum QuarterDuration
+    {
+        EightMinutes = 8,
+        TenMinutes = 10,
+        TwelveMinutes = 12
+    }
+
+    public enum TimeOutDuration
+    {
+        ThirtySeconds = 30,
+        SixtySeconds = 60,
+        SeventyFiveSeconds = 75
+    }
+
+    public enum NumberOfQuarters
+    {
+        Two = 2,
+        Three = 3,
+        Four = 4,
+        Five = 5
+    }
 }

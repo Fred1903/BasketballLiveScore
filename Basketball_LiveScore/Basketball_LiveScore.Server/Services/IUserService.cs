@@ -1,4 +1,5 @@
-﻿using Basketball_LiveScore.Server.Models;
+﻿using Basketball_LiveScore.Server.DTO;
+using Basketball_LiveScore.Server.Models;
 
 namespace Basketball_LiveScore.Server.Services
 {
@@ -8,5 +9,7 @@ namespace Basketball_LiveScore.Server.Services
         public User GetByUsername(string username);
         public User GetByEmail(string email);
         public Task<bool> AddUser(User user);
+
+        public Task<List<UserDTO>> GetUsersByRole(string role);
     }
 }

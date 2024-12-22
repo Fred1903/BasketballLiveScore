@@ -1,0 +1,152 @@
+<div class="game-container">
+  <!-- Game Info -->
+  <div class="game-info">
+    <div class="quarter">Quarter {{quarter}}</div>
+    <div class="timer">
+      <span class="time">{{formatTime(time)}}</span>
+      <button class="btn btn-primary" (click)="toggleTimer()">
+        <i class="fas" [class.fa-play]="!isRunning" [class.fa-pause]="isRunning"></i>
+        {{isRunning ? 'Pause' : 'Start'}}
+      </button>
+      <button class="btn btn-outline" (click)="nextQuarter()" [disabled]="isRunning">
+        Next Quarter
+      </button>
+    </div>
+  </div>
+
+  <!-- Teams Container -->
+  <div class="teams-container">
+    <!-- Team 1 -->
+    <div class="team-card">
+      <div class="team-header">
+        <div>
+          <div class="team-name">{{team1.name}}</div>
+          <div class="team-timeouts">Timeouts: {{team1.timeouts}}</div>
+        </div>
+        <div class="team-score">{{team1.score}}</div>
+      </div>
+
+      <!-- On Court Players -->
+      <div class="section-title">On Court</div>
+      <div *ngFor="let player of getOnCourtPlayers(team1)" class="player-card">
+        <div class="player-header">
+          <div>
+            <span class="player-name">#{{player.number}} {{player.name}}</span>
+            <span class="player-points">({{player.points}} pts)</span>
+          </div>
+          <button class="btn btn-outline" (click)="initiateSubstitution(team1, player)">
+            <i class="fas fa-sync-alt"></i> Sub Out
+          </button>
+        </div>
+        <div class="player-actions" [class.hidden]="substitutionActive">
+          <select class="points-select" (change)="handleScoreChange(team1, player, $any($event.target).value)">
+            <option value="">Add Points</option>
+            <option value="1">1 pt</option>
+            <option value="2">2 pts</option>
+            <option value="3">3 pts</option>
+          </select>
+          <button class="btn btn-warning" (click)="handleFoul(player)">
+            <i class="fas fa-exclamation-triangle"></i>
+            Foul ({{player.fouls}})
+          </button>
+        </div>
+      </div>
+
+      <!-- Bench Players - Normal View -->
+      <div *ngIf="!substitutionActive || activeTeam !== team1" class="section-title">Bench</div>
+      <div *ngIf="!substitutionActive || activeTeam !== team1" class="bench-list">
+        <div *ngFor="let player of getBenchPlayers(team1)" class="bench-player">
+          <span>#{{player.number}} {{player.name}} ({{player.points}} pts)</span>
+        </div>
+      </div>
+
+      <!-- Bench Players - Substitution View -->
+      <div *ngIf="substitutionActive && activeTeam === team1">
+        <div class="section-title">Select Player to Sub In</div>
+        <div class="bench-list substitution-active">
+          <button *ngFor="let player of getBenchPlayers(team1)"
+                  class="bench-player-button"
+                  (click)="completeSubstitution(player)">
+            #{{player.number}} {{player.name}} ({{player.points}} pts)
+          </button>
+        </div>
+        <button class="btn btn-outline cancel-sub" (click)="cancelSubstitution()">
+          Cancel Substitution
+        </button>
+      </div>
+
+      <button class="timeout-button"
+              (click)="startTimeout(team1)"
+              [disabled]="team1.timeouts === 0 || isTimeout">
+        Call Timeout
+      </button>
+    </div>
+
+    <!-- Team 2 (Similar structure) -->
+    <div class="team-card">
+      <!-- Same structure as Team 1, just replace team1 with team2 -->
+      <div class="team-header">
+        <div>
+          <div class="team-name">{{team2.name}}</div>
+          <div class="team-timeouts">Timeouts: {{team2.timeouts}}</div>
+        </div>
+        <div class="team-score">{{team2.score}}</div>
+      </div>
+
+      <!-- On Court Players -->
+      <div class="section-title">On Court</div>
+      <div *ngFor="let player of getOnCourtPlayers(team2)" class="player-card">
+        <div class="player-header">
+          <div>
+            <span class="player-name">#{{player.number}} {{player.name}}</span>
+            <span class="player-points">({{player.points}} pts)</span>
+          </div>
+          <button class="btn btn-outline" (click)="initiateSubstitution(team2, player)">
+            <i class="fas fa-sync-alt"></i> Sub Out
+          </button>
+        </div>
+        <div class="player-actions" [class.hidden]="substitutionActive">
+          <select class="points-select" (change)="handleScoreChange(team2, player, $any($event.target).value)">
+            <option value="">Add Points</option>
+            <option value="1">1 pt</option>
+            <option value="2">2 pts</option>
+            <option value="3">3 pts</option>
+          </select>
+          <button class="btn btn-warning" (click)="handleFoul(player)">
+            <i class="fas fa-exclamation-triangle"></i>
+            Foul ({{player.fouls}})
+          </button>
+        </div>
+      </div>
+
+      <!-- Bench Players - Normal View -->
+      <div *ngIf="!substitutionActive || activeTeam !== team2" class="section-title">Bench</div>
+      <div *ngIf="!substitutionActive || activeTeam !== team2" class="bench-list">
+        <div *ngFor="let player of getBenchPlayers(team2)" class="bench-player">
+          <span>#{{player.number}} {{player.name}} ({{player.points}} pts)</span>
+        </div>
+      </div>
+
+      <!-- Bench Players - Substitution View -->
+      <div *ngIf="substitutionActive && activeTeam === team2">
+        <div class="section-title">Select Player to Sub In</div>
+        <div class="bench-list substitution-active">
+          <button *ngFor="let player of getBenchPlayers(team2)"
+                  class="bench-player-button"
+                  (click)="completeSubstitution(player)">
+            #{{player.number}} {{player.name}} ({{player.points}} pts)
+          </button>
+        </div>
+        <button class="btn btn-outline cancel-sub" (click)="cancelSubstitution()">
+          Cancel Substitution
+        </button>
+      </div>
+
+      <button class="timeout-button"
+              (click)="startTimeout(team2)"
+              [disabled]="team2.timeouts === 0 || isTimeout">
+        Call Timeout
+      </button>
+    </div>
+  </div>
+</div>
