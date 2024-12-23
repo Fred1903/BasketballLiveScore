@@ -125,6 +125,23 @@ export interface BasketEvent extends MatchEvent {
 }
 
 export interface FoulEvent extends MatchEvent {
-  foulType: string; // Type de faute : "P0", "P1", etc.
+  foulType: string; 
+}
+
+export interface SubstitutionEvent extends MatchEvent {
+  playerInId: number; 
+  playerOutId: number; 
+}
+
+export interface TimeoutEvent extends MatchEvent {
+  team: string; //'équipe qui a demandée le timeout
+}
+
+export interface QuarterChangeEvent extends MatchEvent {
+  // Aucun champ supplémentaire
+}
+
+export interface ChronoEvent extends MatchEvent {
+  isRunning: boolean; 
 }
 

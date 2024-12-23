@@ -171,13 +171,35 @@ select.points-select {
     cursor: not-allowed;
   }
 
-/*.foul-count {
-  background: #dc3545;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-}*/
+.timeout-time {
+  color: #dc3545; /* Rouge pour distinguer le timeout */
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #e9ecef;
+}
+
+.player-actions select:disabled {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
 
 
 select.foul-select {

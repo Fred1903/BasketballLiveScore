@@ -31,21 +31,12 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
-        /*[HttpPost("/events/add")]
-        public IActionResult AddMatchEvent([FromBody] MatchEventDTO matchEventDto)
-        {
-            var matchEvent = matchService.AddMatchEvent(matchEventDto);
-            return Ok(matchEvent);
-        }*/
-
         [HttpGet("/events/{matchId}")]
         public IActionResult GetMatchEvents(int matchId)
         {
             var events = matchService.GetMatchEvents(matchId);
             return Ok(events);
         }
-
-
 
         [Authorize(Policy = "AdminOnly")]
         [HttpGet("settings/number-of-quarters")]
@@ -94,13 +85,12 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         //Ci-dessous : endpoints des events
-
         [HttpPost("{matchId}/add-foul")]
-        public IActionResult AddFoulEvent(int matchId, [FromBody] FoulEventDTO foulEventDto)
+        public IActionResult AddFoulEvent(int matchId, [FromBody] FoulEventDTO foulEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddFoulEvent(matchId, foulEventDto);
+                var matchEvent = matchService.AddFoulEvent(matchId, foulEventDTO);
                 return Ok(matchEvent);
             }
             catch (Exception ex)
@@ -134,11 +124,11 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-substitution")]
-        public IActionResult AddSubstitutionEvent(int matchId, [FromBody] SubstitutionEventDTO substitutionEventDto)
+        public IActionResult AddSubstitutionEvent(int matchId, [FromBody] SubstitutionEventDTO substitutionEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddSubstitutionEvent(matchId, substitutionEventDto);
+                var matchEvent = matchService.AddSubstitutionEvent(matchId, substitutionEventDTO);
                 return Ok(matchEvent);
             }
             catch (Exception ex)
@@ -148,11 +138,11 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-timeout")]
-        public IActionResult AddTimeoutEvent(int matchId, [FromBody] TimeoutEventDTO timeoutEventDto)
+        public IActionResult AddTimeoutEvent(int matchId, [FromBody] TimeoutEventDTO timeoutEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddTimeoutEvent(matchId, timeoutEventDto);
+                var matchEvent = matchService.AddTimeoutEvent(matchId, timeoutEventDTO);
                 return Ok(matchEvent);
             }
             catch (Exception ex)
@@ -162,11 +152,25 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-chrono")]
-        public IActionResult AddChronoEvent(int matchId, [FromBody] ChronoEventDTO chronoEventDto)
+        public IActionResult AddChronoEvent(int matchId, [FromBody] ChronoEventDTO chronoEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddChronoEvent(matchId, chronoEventDto);
+                var matchEvent = matchService.AddChronoEvent(matchId, chronoEventDTO);
+                return Ok(matchEvent);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+
+        [HttpPost("{matchId}/add-quarter-change")]
+        public IActionResult AddQuarterChangeEvent(int matchId, [FromBody] QuarterChangeEventDTO quarterChangeEventDTO)
+        {
+            try
+            {
+                var matchEvent = matchService.AddQuarterChangeEvent(matchId, quarterChangeEventDTO);
                 return Ok(matchEvent);
             }
             catch (Exception ex)
@@ -198,7 +202,5 @@ namespace Basketball_LiveScore.Server.Controllers
 
             return Ok(points);
         }
-
-
     }
 }

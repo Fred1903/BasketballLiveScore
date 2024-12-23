@@ -92,7 +92,7 @@ namespace Basketball_LiveScore.Server.Services
                 { "TimeoutDuration", (int)TimeOutDuration.SixtySeconds }
             };
         }
-
+        
         public List<int> GetNumberOfQuartersOptions()
         {
             return Enum.GetValues(typeof(NumberOfQuarters)).Cast<int>().ToList();
@@ -205,7 +205,6 @@ namespace Basketball_LiveScore.Server.Services
 
                 // Diffuser via SignalR
                 hubContext.Clients.Group(matchId.ToString()).SendAsync("FoulEventOccurred", foulEvent);
-
                 return foulEvent;
             }
             catch (Exception ex)

@@ -4,12 +4,19 @@
   <div class="game-info">
     <div class="quarter">Quarter {{ quarter }}</div>
     <div class="timer">
-      <span class="time">{{ formatTime(time) }}</span>
-      <button class="btn btn-primary" (click)="toggleTimer()">
+      <span class="time" *ngIf="!isTimeout">{{ formatTime(time) }}</span>
+      <span class="time timeout-time" *ngIf="isTimeout">Timeout: {{ formatTime(timeoutTime) }}</span>
+      <button class="btn btn-primary"
+              (click)="toggleTimer()"
+              [disabled]="isTimeout">
         <i class="fas" [class.fa-play]="!isRunning" [class.fa-pause]="isRunning"></i>
         {{ isRunning ? 'Pause' : 'Start' }}
       </button>
-      <button class="btn btn-outline" (click)="nextQuarter()" [disabled]="isRunning">
+      <!-- Hide Next Quarter button in last quarter -->
+      <button *ngIf="quarter < 4"
+              class="btn btn-outline"
+              (click)="nextQuarter()"
+              [disabled]="isRunning || time !== 0">
         Next Quarter
       </button>
     </div>
@@ -39,13 +46,19 @@
             <i class="fas fa-sync-alt"></i> Sub Out
           </button>
         </div>
-        <div class="player-actions">
-          <select class="points-select" [(ngModel)]="selectedPoint" (change)="handleScoreChange(team1, player, $event)">
+        <div class="player-actions" [class.hidden]="substitutionActive">
+          <select class="points-select"
+                  [(ngModel)]="selectedPoint"
+                  (change)="handleScoreChange(team1, player, $event)"
+                  [disabled]="!isRunning || time === 0">
             <option value="">Add Points</option>
             <option *ngFor="let point of basketPoints" [value]="point.id">{{ point.id }}</option>
           </select>
           <div class="foul-container">
-            <select class="foul-select" [(ngModel)]="selectedFoul" (change)="handleFoul(player, $event)">
+            <select class="foul-select"
+                    [(ngModel)]="selectedFoul"
+                    (change)="handleFoul(player, $event)"
+                    [disabled]="!isRunning || time === 0">
               <option value="">Add Foul</option>
               <option *ngFor="let foul of foulTypes" [value]="foul.id">{{ foul.name }}</option>
             </select>
@@ -65,14 +78,22 @@
       </div>
 
       <!-- Substitution View -->
-      <div *ngIf="substitutionActive && activeTeam === team1" class="section-title">Select Player to Sub In</div>
-      <div *ngIf="substitutionActive && activeTeam === team1" class="bench-list substitution-active">
-        <button *ngFor="let player of getBenchPlayers(team1)" class="bench-player-button" (click)="completeSubstitution(player)">
-          #{{ player.number }} {{ player.name }} ({{ player.points }} pts)
-        </button>
+      <div *ngIf="substitutionActive && activeTeam === team1">
+        <div class="section-title">Select Player to Sub In</div>
+        <div id="team1-bench" class="bench-list substitution-active">
+          <button *ngFor="let player of getBenchPlayers(team1)"
+                  class="bench-player-button"
+                  (click)="completeSubstitution(player)">
+            #{{ player.number }} {{ player.name }} ({{ player.points }} pts)
+          </button>
+        </div>
+        <button class="btn btn-outline cancel-sub" (click)="cancelSubstitution()">Cancel Substitution</button>
       </div>
-      <button *ngIf="substitutionActive && activeTeam === team1" class="btn btn-outline cancel-sub" (click)="cancelSubstitution()">Cancel Substitution</button>
-      <button class="timeout-button" (click)="startTimeout(team1)" [disabled]="team1.timeouts === 0 || isTimeout">Call Timeout</button>
+      <button class="timeout-button"
+              (click)="startTimeout(team1)"
+              [disabled]="team1.timeouts === 0 || isTimeout || !isRunning || time === 0">
+        Call Timeout ({{team1.timeouts}} remaining)
+      </button>
     </div>
 
     <!-- Team 2 -->
@@ -97,13 +118,19 @@
             <i class="fas fa-sync-alt"></i> Sub Out
           </button>
         </div>
-        <div class="player-actions">
-          <select class="points-select" [(ngModel)]="selectedPoint" (change)="handleScoreChange(team2, player, $event)">
+        <div class="player-actions" [class.hidden]="substitutionActive">
+          <select class="points-select"
+                  [(ngModel)]="selectedPoint"
+                  (change)="handleScoreChange(team2, player, $event)"
+                  [disabled]="!isRunning || time === 0">
             <option value="">Add Points</option>
             <option *ngFor="let point of basketPoints" [value]="point.id">{{ point.id }}</option>
           </select>
           <div class="foul-container">
-            <select class="foul-select" [(ngModel)]="selectedFoul" (change)="handleFoul(player, $event)">
+            <select class="foul-select"
+                    [(ngModel)]="selectedFoul"
+                    (change)="handleFoul(player, $event)"
+                    [disabled]="!isRunning || time === 0">
               <option value="">Add Foul</option>
               <option *ngFor="let foul of foulTypes" [value]="foul.id">{{ foul.name }}</option>
             </select>
@@ -122,15 +149,7 @@
         </div>
       </div>
 
-      <!-- Substitution View
-      <div *ngIf="substitutionActive && activeTeam === team2" class="section-title">Select Player to Sub In</div>
-      <div *ngIf="substitutionActive && activeTeam === team2" class="bench-list substitution-active">
-        <button *ngFor="let player of getBenchPlayers(team2)" class="bench-player-button" (click)="completeSubstitution(player)">
-          #{{ player.number }} {{ player.name }} ({{ player.points }} pts)
-        </button>
-      </div>
-      <button *ngIf="substitutionActive && activeTeam === team2" class="btn btn-outline cancel-sub" (click)="cancelSubstitution()">Cancel Substitution</button>
-      <button class="timeout-button" (click)="startTimeout(team2)" [disabled]="team2.timeouts === 0 || isTimeout">Call Timeout</button>-->
+      <!-- Substitution View -->
       <div *ngIf="substitutionActive && activeTeam === team2">
         <div class="section-title">Select Player to Sub In</div>
         <div id="team2-bench" class="bench-list substitution-active">
@@ -142,6 +161,11 @@
         </div>
         <button class="btn btn-outline cancel-sub" (click)="cancelSubstitution()">Cancel Substitution</button>
       </div>
+      <button class="timeout-button"
+              (click)="startTimeout(team2)"
+              [disabled]="team2.timeouts === 0 || isTimeout || !isRunning || time === 0">
+        Call Timeout ({{team2.timeouts}} remaining)
+      </button>
     </div>
   </div>
 </div>

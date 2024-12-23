@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   PlayerMatch, Team, MatchState, SubstitutionEvent, ScoreEvent, FoulEvent,
   TimeoutEvent, MatchDetails,
-  BasketEvent
+  BasketEvent,
+  QuarterChangeEvent,
+  ChronoEvent
 } from '../../../models/interfaces';
 import { MatchSettingsService } from '../../../services/match-settings.service'
 import { MatchService } from '../../../services/match.service'
@@ -33,7 +35,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
 
 
   team1: Team = {
-    name: 'Lakers',
+    name: '',
     score: 0,
     timeouts: 4,
     players: [
@@ -75,20 +77,35 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     this.loadBasketPoints();
     this.loadMatchDetails(this.idMatch); //en paramètre on met l'id du match qu'on veut recup
     this.matchService.joinMatchGroup(this.idMatch); //D'abord on rejoint le groupe signalR qui fait les notifs depuis le hub
-    /*this.matchService.subscribeToBasketEvents((eventData) => {//si event de basket par signalR, màj du front
-      console.log("un event a été trigger avec signalR")
-     //this.updateScores(eventData.matchId, eventData.scoreHome, eventData.scoreAway);
-    });*/
 
+    //Souscriptions : si event par signalR, màj du front
     this.matchService.subscribeToBasketEvents((eventData) => {
-      console.log('Basket event received:', eventData);
       if (eventData.points !== undefined && eventData.playerId !== undefined) {
         this.updateScores(eventData.matchId, eventData.points, eventData.playerId);
       } else {
         console.error('Invalid event data:', eventData);
       }
-
     });
+    this.matchService.subscribeToFoulEvents((eventData) => {
+      this.handleFoulEvent(eventData);
+    });
+
+    this.matchService.subscribeToSubstitutionEvents((eventData) => {
+      this.handleSubstitutionEvent(eventData);
+    });
+
+    this.matchService.subscribeToTimeoutEvents((eventData) => {
+      this.handleTimeoutEvent(eventData);
+    });
+
+    this.matchService.subscribeToQuarterChangeEvents((eventData) => {
+      this.handleQuarterChangeEvent(eventData);
+    });
+
+    this.matchService.subscribeToChronoEvents((eventData) => {
+      this.handleChronoEvent(eventData);
+    });
+
   }
 
   ngOnDestroy() {
@@ -102,12 +119,11 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     this.matchSettingsService.getMatchDetails(matchId).subscribe({
       next: (data) => {
         this.matchDetails = data;
-
         // Met à jour les équipes et les joueurs
         this.team1 = {
           name: data.homeTeam.name,
           score: data.scoreHome,
-          timeouts: data.timeouts,
+          timeouts: data.timeouts || 4,
           players: data.players
             .filter((p) => p.isHomeTeam)
             .map((player) => ({
@@ -120,12 +136,10 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
             })),
           coach: data.homeTeam.coach,
         };
-
-        console.log("team 1 : " + this.team1.name);
         this.team2 = {
           name: data.awayTeam.name,
           score: data.scoreAway,
-          timeouts: data.timeouts,
+          timeouts: data.timeouts || 4,
           players: data.players
             .filter((p) => !p.isHomeTeam)
             .map((player) => ({
@@ -206,18 +220,81 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   }
 
   toggleTimer() {
+    if (this.isTimeout) {
+      return;
+    }
+
+    this.isLocalUpdate = true;
     this.isRunning = !this.isRunning;
+
+    const minutes = Math.floor(this.time / 60);
+    const seconds = this.time % 60;
+    const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    const chronoEvent: ChronoEvent = {
+      matchId: this.idMatch,
+      quarter: this.quarter,
+      time: formattedTime,
+      isRunning: this.isRunning,
+    };
+
+    this.matchService.addChronoEvent(chronoEvent).subscribe({
+      next: () => {
+        this.isLocalUpdate = false;
+      },
+      error: (err) => {
+        console.error('Error updating chrono:', err);
+        this.isLocalUpdate = false;
+      }
+    });
   }
 
   nextQuarter() {
+    if (!this.isRunning || this.time === 0) {
+      return;
+    }
     if (this.quarter < 4) {
-      this.quarter++;
-      this.time = 600;
+      this.isLocalUpdate = true;
+
+      // Get current formatted time
+      const minutes = Math.floor(this.time / 60);
+      const seconds = this.time % 60;
+      const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      // Create quarter change event
+      const quarterChangeEvent: QuarterChangeEvent = {
+        matchId: this.idMatch,
+        quarter: this.quarter + 1,  // Send the next quarter number
+        time: formattedTime
+      };
+
+      this.matchService.addQuarterChangeEvent(quarterChangeEvent).subscribe({
+        next: () => {
+          // Update local state after successful server update
+          this.quarter++;
+          this.time = 600;
+          this.isRunning = false;
+          this.isLocalUpdate = false;
+        },
+        error: (err) => {
+          console.error('Error updating quarter:', err);
+          this.isLocalUpdate = false;
+        }
+      });
+    }
+  }
+  handleQuarterChangeEvent(event: QuarterChangeEvent): void {
+    if (this.idMatch === event.matchId && !this.isLocalUpdate) {
+      this.quarter = event.quarter;
+      this.time = 600;  // Reset time for new quarter
       this.isRunning = false;
     }
   }
 
   handleScoreChange(team: Team, player: PlayerMatch, event: any) {
+    if (!this.isRunning || this.time === 0) {
+      return;
+    }
     const points = +event.target.value;
     if (points) {
       team.score += points;
@@ -235,15 +312,12 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
         quarter: this.quarter,
         time: formattedTime,
       };
-      console.log('Sending basket event:', basketEvent);
       this.isLocalUpdate = true; //c est un update en local donc on ne veut pas que signalR nous re update
       this.matchService.addBasketEvent(basketEvent).subscribe({
         next: () => {
-          console.log('Basket event successfully added.');
           this.isLocalUpdate = false;
         },
         error: (err) => {
-          console.error('Error adding basket event:', err);
           this.isLocalUpdate = false;
         },
       });
@@ -252,27 +326,123 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
       event.target.value = '';
     }
   }
+  updateScores(matchId: number, points: number, playerId: number): void {
+    console.log("Dans update score...") //on ne veut pas update 2 fois le score (1 fois via front et 1 fois signalR)
+    if (this.idMatch === matchId && !this.isLocalUpdate) {
+      // Met à jour le score de l'équipe
+      const player = this.team1.players.find(p => p.id === playerId) ||
+        this.team2.players.find(p => p.id === playerId);
+      if (player) {
+        player.points += points;
 
-
-
-  handleFoul(player: PlayerMatch, event: any) {
-    const foulTypeId = +event.target.value;
-    if (foulTypeId>=0) { //On veut aussi inclure l'id 0 
-      player.fouls++;
-      this.selectedFoul = '';  
-      event.target.value = '';
+        // Met à jour le score de l'équipe
+        if (this.team1.players.includes(player)) {
+          this.team1.score += points;
+        } else {
+          this.team2.score += points;
+        }
+      }
     }
   }
 
+  handleFoul(player: PlayerMatch, event: any) {
+    if (!this.isRunning || this.time === 0) {
+      return;
+    }
+    const foulTypeId = +event.target.value;
+    if (foulTypeId >= 0) {
+      // Local update
+      this.isLocalUpdate = true;
+      player.fouls++;
+
+      // Create foul event
+      const minutes = Math.floor(this.time / 60);
+      const seconds = this.time % 60;
+      const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      const foulEvent: FoulEvent = {
+        matchId: this.idMatch,
+        playerId: player.id,
+        teamId: this.team1.players.includes(player) ? 1 : 2, // Or however you track team IDs
+        quarter: this.quarter,
+        time: formattedTime,
+        timestamp: new Date(),
+        foulType: this.foulTypes.find(f => f.id === foulTypeId)?.name || 'Unknown'
+      };
+
+      // Send to server via SignalR
+      this.matchService.addFoulEvent(foulEvent).subscribe({
+        next: () => {
+          this.isLocalUpdate = false;
+          this.selectedFoul = '';
+          event.target.value = '';
+        },
+        error: (err) => {
+          console.error('Error adding foul:', err);
+          this.isLocalUpdate = false;
+        }
+      });
+    }
+  }
+  handleFoulEvent(event: FoulEvent): void {
+    if (this.idMatch === event.matchId && !this.isLocalUpdate) {
+      const player = this.getPlayerById(event.playerId);
+      if (player) {
+        player.fouls++;
+      }
+    }
+  }
+
+
   startTimeout(team: Team) {
+    if (!this.isRunning || this.time === 0) {
+      return;
+    }
     if (team.timeouts > 0) {
+      this.isLocalUpdate = true;
+
+      // Update local state
       this.isRunning = false;
       this.isTimeout = true;
       this.timeoutTime = 30;
       team.timeouts--;
+
+      // Create timeout event
+      const minutes = Math.floor(this.time / 60);
+      const seconds = this.time % 60;
+      const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      const timeoutEvent: TimeoutEvent = {
+        matchId: this.idMatch,
+        team: team === this.team1 ? 'Home' : 'Away',
+        teamId: team === this.team1 ? 1 : 2,
+        quarter: this.quarter,
+        time: formattedTime,
+        timestamp: new Date()
+      };
+
+      this.matchService.addTimeoutEvent(timeoutEvent).subscribe({
+        next: () => {
+          this.isLocalUpdate = false;
+        },
+        error: (err) => {
+          console.error('Error adding timeout:', err);
+          this.isLocalUpdate = false;
+        }
+      });
     }
   }
-
+  handleTimeoutEvent(event: TimeoutEvent): void {
+    if (this.idMatch === event.matchId && !this.isLocalUpdate) {
+      const team = event.team === 'Home' ? this.team1 : this.team2;
+      if (team && team.timeouts > 0) {
+        team.timeouts--;
+        this.isRunning = false;
+        this.isTimeout = true;
+        this.timeoutTime = 30;
+      }
+    }
+  }
   endTimeout() {
     this.isTimeout = false;
     this.timeoutTime = 0;
@@ -293,7 +463,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   }
 
 
-  completeSubstitution(playerIn: PlayerMatch): void {
+  /*completeSubstitution(playerIn: PlayerMatch): void {
     if (this.activeTeam && this.playerToSubOut) {
       this.activeTeam.players = this.activeTeam.players.map(p => ({
         ...p,
@@ -306,6 +476,46 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     setTimeout(() => {//apres un changement on reva vers le haut de la page
       this.scrollToTop();
     }, 100); 
+  }*/
+
+  completeSubstitution(playerIn: PlayerMatch): void {
+    if (this.activeTeam && this.playerToSubOut) {
+      this.isLocalUpdate = true;
+
+      // Create substitution event
+      const minutes = Math.floor(this.time / 60);
+      const seconds = this.time % 60;
+      const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      const substitutionEvent: SubstitutionEvent = {
+        matchId: this.idMatch,
+        playerInId: playerIn.id,
+        playerOutId: this.playerToSubOut.id,
+        teamId: this.activeTeam === this.team1 ? 1 : 2,
+        quarter: this.quarter,
+        time: formattedTime,
+        timestamp: new Date()
+      };
+
+      this.matchService.addSubstitutionEvent(substitutionEvent).subscribe({
+        next: () => {
+          // Update local state after successful server update
+          this.activeTeam!.players = this.activeTeam!.players.map(p => ({
+            ...p,
+            onCourt: p.id === this.playerToSubOut?.id ? false :
+              p.id === playerIn.id ? true :
+                p.onCourt
+          }));
+          this.isLocalUpdate = false;
+          this.cancelSubstitution();
+          this.scrollToTop();
+        },
+        error: (err) => {
+          console.error('Error adding substitution:', err);
+          this.isLocalUpdate = false;
+        }
+      });
+    }
   }
 
   cancelSubstitution(): void {
@@ -317,16 +527,62 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
 
   handleSubstitution(team: Team, playerIn: PlayerMatch) {
     if (this.selectedPlayerForSub) {
+      this.isLocalUpdate = true;
+
+      // Update local state
       team.players = team.players.map(p => ({
         ...p,
         onCourt: p.id === this.selectedPlayerForSub?.id ? false :
           p.id === playerIn.id ? true :
             p.onCourt
       }));
-      this.selectedPlayerForSub = null;
+
+      // Create substitution event
+      const minutes = Math.floor(this.time / 60);
+      const seconds = this.time % 60;
+      const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      const substitutionEvent: SubstitutionEvent = {
+        matchId: this.idMatch,
+        playerInId: playerIn.id,
+        playerOutId: this.selectedPlayerForSub.id,
+        teamId: team === this.team1 ? 1 : 2,
+        quarter: this.quarter,
+        time: formattedTime,
+        timestamp: new Date()
+      };
+
+      this.matchService.addSubstitutionEvent(substitutionEvent).subscribe({
+        next: () => {
+          this.isLocalUpdate = false;
+          this.selectedPlayerForSub = null;
+        },
+        error: (err) => {
+          console.error('Error adding substitution:', err);
+          this.isLocalUpdate = false;
+        }
+      });
     }
   }
 
+  handleSubstitutionEvent(event: SubstitutionEvent): void {
+    if (this.idMatch === event.matchId && !this.isLocalUpdate) {
+      const team = this.getTeamByPlayerId(event.playerOutId);
+      if (team) {
+        team.players = team.players.map(p => ({
+          ...p,
+          onCourt: p.id === event.playerOutId ? false :
+            p.id === event.playerInId ? true :
+              p.onCourt
+        }));
+      }
+    }
+  }
+  getTeamByPlayerId(playerId: number): Team | null {
+    if (this.team1.players.some(p => p.id === playerId)) return this.team1;
+    if (this.team2.players.some(p => p.id === playerId)) return this.team2;
+    return null;
+  }
   getOnCourtPlayers(team: Team): PlayerMatch[] {
     return team.players.filter(p => p.onCourt);
   }
@@ -335,39 +591,54 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     return team.players.filter(p => !p.onCourt);
   }
 
+  
 
-  /*updateScores(matchId: number, scoreHome: number, scoreAway: number): void {
-    if (this.idMatch === matchId) {
-      this.team1.score = scoreHome; // Mettez à jour le score de l'équipe 1
-      this.team2.score = scoreAway; // Mettez à jour le score de l'équipe 2
+  //Tous les event qui recoivent avec signalR sauf pour les points c fait dans la meme methode
+
+
+  /*handleSubstitutionEvent(event: SubstitutionEvent): void {
+    const playerOut = this.getPlayerById(event.playerOutId);
+    const playerIn = this.getPlayerById(event.playerInId);
+    if (playerOut && playerIn) {
+      playerOut.onCourt = false;
+      playerIn.onCourt = true;
+      console.log(`Player ${playerOut.name} substituted with ${playerIn.name}`);
     }
   }*/
 
-  updateScores(matchId: number, points: number, playerId: number): void {
-    console.log("Dans update score...") //on ne veut pas update 2 fois le score (1 fois via front et 1 fois signalR)
-    if (this.idMatch === matchId && !this.isLocalUpdate) {
-      // Met à jour le score de l'équipe
-      const player = this.team1.players.find(p => p.id === playerId) ||
-        this.team2.players.find(p => p.id === playerId);
-      if (player) {
-        player.points += points;
 
-        // Met à jour le score de l'équipe
-        if (this.team1.players.includes(player)) {
-          this.team1.score += points;
-        } else {
-          this.team2.score += points;
-        }
-      }
+  /*handleQuarterChangeEvent(event: QuarterChangeEvent): void {
+    this.quarter = event.quarter;
+    console.log(`Quarter changed to ${this.quarter}`);
+  }*/
+
+  /*handleChronoEvent(event: ChronoEvent): void {
+    this.isRunning = event.isRunning;
+    this.time = this.parseTime(event.time); // Fonction pour convertir le temps en secondes
+    console.log(`Chrono is now ${this.isRunning ? 'running' : 'stopped'}`);
+  }*/
+
+  handleChronoEvent(event: ChronoEvent): void {
+    if (this.idMatch === event.matchId && !this.isLocalUpdate) {
+      this.isRunning = event.isRunning;
+      this.time = this.parseTime(event.time);
     }
   }
 
+  // Utilitaires pour trouver un joueur
+  getPlayerById(playerId: number | undefined): PlayerMatch | null {
+    if (!playerId) return null;
+    return (
+      this.team1.players.find((p) => p.id === playerId) ||
+      this.team2.players.find((p) => p.id === playerId) ||
+      null
+    );
+  }
 
-  /*listenToSignalR(): void {
-    this.matchService.hubConnection.on("BasketEventOccurred", (eventData) => {
-      console.log("Basket event received:", eventData);
-      this.updateScores(eventData.matchId, eventData.scoreHome, eventData.scoreAway);
-    });
-  }*/
+  // Utilitaire pour parser le temps
+  parseTime(timeString: string): number {
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+    return hours * 3600 + minutes * 60 + seconds;
+  }
 
 }
