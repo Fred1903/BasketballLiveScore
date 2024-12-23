@@ -145,3 +145,16 @@ export interface ChronoEvent extends MatchEvent {
   isRunning: boolean; 
 }
 
+export interface ViewerMatchState {
+  matchStatus: 'not_started' | 'in_progress' | 'timeout' | 'quarter_break' | 'finished';
+  quarter: number;
+  time: number;
+  isTimeout: boolean;
+  timeoutTime: number;
+}
+
+export interface RecentEvent {
+  time: string;
+  description: string;
+  type: 'score' | 'foul' | 'timeout' | 'substitution';
+}

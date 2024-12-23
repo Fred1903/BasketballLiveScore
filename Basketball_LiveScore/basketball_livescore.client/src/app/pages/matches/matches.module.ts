@@ -5,11 +5,13 @@ import { MatchesRoutingModule } from './matches-routing.module';
 import { CreateMatchComponent } from './create-match/create-match.component';
 import { SharedModule } from '../shared/shared.module';
 import { UpdateMatchComponent } from './update-match/update-match.component';
+import { MatchViewerComponent } from './match-viewer/match-viewer.component';
 
 @NgModule({
   declarations: [
     CreateMatchComponent,
     UpdateMatchComponent,
+    MatchViewerComponent,
   ],
   imports: [
     CommonModule,
