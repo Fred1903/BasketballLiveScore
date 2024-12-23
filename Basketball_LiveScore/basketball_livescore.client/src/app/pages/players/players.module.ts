@@ -14,7 +14,7 @@ import { CreatePlayerComponent } from './create-player/create-player.component';
     CommonModule,
     PlayersRoutingModule,
     ReactiveFormsModule,
-    SharedModule,
+    SharedModule, 
   ]
 })
 export class PlayersModule { }

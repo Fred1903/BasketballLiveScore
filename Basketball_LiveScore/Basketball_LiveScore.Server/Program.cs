@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Basketball_LiveScore.Server.Hubs;
 //using Basketball_LiveScore.Server.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,9 +87,12 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 app.UseCors("AllowFrontend");
 
+app.MapHub<MatchHub>("/matchHub");
 
 app.UseDefaultFiles();
 app.UseStaticFiles();

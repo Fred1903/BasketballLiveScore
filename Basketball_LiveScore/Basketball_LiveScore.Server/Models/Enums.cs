@@ -39,4 +39,20 @@ namespace Basketball_LiveScore.Server.Models
         Four = 4,
         Five = 5
     }
+
+    public enum FoulTypes
+    {
+        P0,
+        P1,
+        P2,
+        P3, 
+    }
+
+    public enum BasketPoints
+    {
+        One = 1,  //lancer franc
+        Two = 2,  //panier normal
+        Three = 3 // en-dehors de la surface
+    }
+
 }

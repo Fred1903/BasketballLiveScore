@@ -81,3 +81,50 @@ export interface MatchState {
   team1: Team;
   team2: Team;
 }
+
+export interface MatchDetails {
+  matchId: number;
+  matchDate: string;
+  homeTeam: {
+    teamId: number;
+    name: string;
+    coach: string;
+    score: number;
+    startingFive: any[]; 
+  };
+  awayTeam: {
+    teamId: number;
+    name: string;
+    coach: string;
+    score: number;
+    startingFive: any[];
+  };
+  quarterDuration: number;
+  numberOfQuarters: number;
+  timeouts: number;
+  scoreHome: number;
+  scoreAway: number;
+  players: {
+    playerId: number;
+    playerName: string;
+    playerNumber: number;
+    isStarter: boolean;
+    isHomeTeam: boolean;
+  }[];
+}
+
+export interface MatchEvent {
+  matchId: number;
+  playerId?: number; // Optionnel pour certains types d'événements
+  quarter: number;
+  time: string; // Temps en secondes ou un format spécifique
+}
+
+export interface BasketEvent extends MatchEvent {
+  points: number; // Points marqués (1, 2 ou 3)
+}
+
+export interface FoulEvent extends MatchEvent {
+  foulType: string; // Type de faute : "P0", "P1", etc.
+}
+

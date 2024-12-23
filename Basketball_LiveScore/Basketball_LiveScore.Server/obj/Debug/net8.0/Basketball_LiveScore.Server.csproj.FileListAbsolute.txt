@@ -489,3 +489,7 @@ C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\
 C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\Basketball_LiveScore.Server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\Basketball_LiveScore.Server\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\Basketball_LiveScore.Server\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\Basketball_LiveScore.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\Basketball_LiveScore.Server\bin\Debug\net8.0\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\Basketball_LiveScore.Server\bin\Debug\net8.0\Microsoft.Extensions.Features.dll
+C:\Users\ff\Documents\HELB\BAC3\Q5\WEb\BasketballLiveScore\Basketball_LiveScore\Basketball_LiveScore.Server\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

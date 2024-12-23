@@ -2,6 +2,7 @@
 using Basketball_LiveScore.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Basketball_LiveScore.Server.DTO;
+using Basketball_LiveScore.Server.Models;
 
 namespace Basketball_LiveScore.Server.Controllers
 {
@@ -84,12 +85,6 @@ namespace Basketball_LiveScore.Server.Controllers
             try
             {
                 var matchDetails = matchService.GetMatchDetails(matchId);
-
-                if (matchDetails == null)
-                {
-                    return NotFound($"Match with ID {matchId} not found.");
-                }
-
                 return Ok(matchDetails);
             }
             catch (Exception ex)
@@ -115,11 +110,21 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-basket")]
-        public IActionResult AddBasketEvent(int matchId, [FromBody] BasketEventDTO basketEventDto)
+        public IActionResult AddBasketEvent(int matchId, [FromBody] BasketEventDTO basketEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddBasketEvent(matchId, basketEventDto);
+                if (basketEventDTO == null)
+                {
+                    throw new Exception("BasketEventDTO is null.");
+                }
+
+                if (basketEventDTO.Time == TimeSpan.Zero)
+                {
+                    throw new Exception("Time cannot be zero.");
+                }
+
+                var matchEvent = matchService.AddBasketEvent(matchId, basketEventDTO);
                 return Ok(matchEvent);
             }
             catch (Exception ex)
@@ -169,6 +174,31 @@ namespace Basketball_LiveScore.Server.Controllers
                 return BadRequest(new { Error = ex.Message });
             }
         }
+
+
+        [HttpGet("foul-types")]
+        public IActionResult GetFoulTypes()
+        {
+            int i = 4;
+            var foulTypes = Enum.GetValues(typeof(FoulTypes))
+                .Cast<FoulTypes>()
+                .Select(f => new { Id = (int)f, Name = f.ToString() })
+                .ToList();
+
+            return Ok(foulTypes);
+        }
+
+        [HttpGet("basket-points")]
+        public IActionResult GetBasketPoints()
+        {
+            var points = Enum.GetValues(typeof(BasketPoints))
+                .Cast<BasketPoints>()
+                .Select(p => new { Id = (int)p })  //on envoie que 1,2,3    
+                .ToList();
+
+            return Ok(points);
+        }
+
 
     }
 }

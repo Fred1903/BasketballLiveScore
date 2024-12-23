@@ -171,13 +171,36 @@ select.points-select {
     cursor: not-allowed;
   }
 
-.foul-count {
+/*.foul-count {
   background: #dc3545;
   color: white;
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 12px;
+}*/
+
+
+select.foul-select {
+  padding: 6px;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  background: #ffc107;
+  min-width: 140px; /* Slightly wider to accommodate longer foul type names */
+  cursor: pointer;
 }
+
+.foul-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.foul-count {
+  color: #ffc107;
+  font-size: 0.9em;
+  text-align: center;
+}
+
 
 .hidden {
   display: none;
