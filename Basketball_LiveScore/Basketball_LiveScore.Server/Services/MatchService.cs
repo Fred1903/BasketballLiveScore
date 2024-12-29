@@ -5,6 +5,7 @@ using Basketball_LiveScore.Server.Hubs;
 using Basketball_LiveScore.Server.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Concurrent;
 
 namespace Basketball_LiveScore.Server.Services
 {
@@ -12,6 +13,8 @@ namespace Basketball_LiveScore.Server.Services
     {
         private readonly BasketballDBContext basketballDBContext;
         private readonly IHubContext<MatchHub> hubContext;
+        private static readonly ConcurrentDictionary<int, CancellationTokenSource> matchTimers =
+            new ConcurrentDictionary<int, CancellationTokenSource>();
 
         public MatchService(BasketballDBContext basketballDBContext, IHubContext<MatchHub> hubContext)
         {
@@ -20,6 +23,16 @@ namespace Basketball_LiveScore.Server.Services
         }
         public Match CreateMatch(CreateMatchDTO matchDTO)
         {
+            if (!Enum.IsDefined(typeof(TimeOutAmount), matchDTO.TimeoutAmount))
+            {
+                throw new ArgumentException("Invalid TimeoutAmount value.");
+            }
+
+            if (!Enum.IsDefined(typeof(TimeOutDuration), matchDTO.TimeoutDuration))
+            {
+                throw new ArgumentException("Invalid TimeoutDuration value.");
+            }
+
             //On check d'abord si 5 joueurs...
             if (matchDTO.PlayersTeam1 == null || matchDTO.PlayersTeam1.Count < 5 ||
                 matchDTO.PlayersTeam2 == null || matchDTO.PlayersTeam2.Count < 5)
@@ -30,6 +43,10 @@ namespace Basketball_LiveScore.Server.Services
             if (matchDTO.StartersTeam1.Count != 5 || matchDTO.StartersTeam2.Count != 5)
             {
                 throw new System.ArgumentException("Each team must have exactly 5 starters.");
+            }
+            if(matchDTO.PlayersTeam1.Count>13 || matchDTO.PlayersTeam2.Count > 13)
+            {
+                throw new System.ArgumentException("You can maximum select 13 players for the game");
             }
             var playersTeam1 = basketballDBContext.Players
                .Where(p => matchDTO.PlayersTeam1.Contains(p.Id))
@@ -49,13 +66,24 @@ namespace Basketball_LiveScore.Server.Services
                 Quarters = Enumerable.Range(1, matchDTO.NumberOfQuarters).Select(q => new Quarter
                 {
                     Number = (NumberOfQuarters)q,
-                    Duration = (QuarterDuration)matchDTO.QuarterDuration
+                    Duration = (QuarterDuration)matchDTO.QuarterDuration,
+                    RemainingTime = TimeSpan.FromMinutes((int)(QuarterDuration)matchDTO.QuarterDuration)
                 }).ToList(),
-                Timeouts = new List<Models.Timeout>(),//Timeouts peuvent encore être ajoutés plus tard
+                Timeouts = Enumerable.Range(1,matchDTO.TimeoutAmount).Select(t => new Models.Timeout
+                {
+                    Amount = (TimeOutAmount)t,
+                    Duration=(TimeOutDuration)matchDTO.TimeoutDuration,
+                    Team = t % 2 == 0 ? "Team1" : "Team2", //On met pr les 2 equipes le mm nombre de timeout
+                }).ToList(),
                 HomeTeamStartingFiveIds = matchDTO.StartersTeam1,
                 AwayTeamStartingFiveIds = matchDTO.StartersTeam2,
+                HomeTeamOnFieldIds = new List<int>(matchDTO.StartersTeam1),//au debut du match forcement les mm
+                AwayTeamOnFieldIds = new List<int>(matchDTO.StartersTeam2),
+                CurrentQuarter = 1, //On commence tjrs par le premier quarter
                 EncoderSettingsId = matchDTO.EncoderSettingsId,
-                EncoderRealTimeId = matchDTO.EncoderRealTimeId
+                EncoderRealTimeId = matchDTO.EncoderRealTimeId,
+                MatchDate = matchDTO.MatchDate,
+                Status = MatchStatus.NotStarted
             };
 
             // Ajout du match à la db
@@ -89,7 +117,8 @@ namespace Basketball_LiveScore.Server.Services
             {
                 { "NumberOfQuarters", (int)NumberOfQuarters.Four },
                 { "QuarterDuration", (int)QuarterDuration.TenMinutes },
-                { "TimeoutDuration", (int)TimeOutDuration.SixtySeconds }
+                { "TimeoutDuration", (int)TimeOutDuration.SixtySeconds },
+                { "TimeoutAmount", (int)TimeOutAmount.Seven }
             };
         }
         
@@ -106,6 +135,11 @@ namespace Basketball_LiveScore.Server.Services
         public List<int> GetTimeOutDurationOptions()
         {
             return Enum.GetValues(typeof(TimeOutDuration)).Cast<int>().ToList();
+        }
+
+        public List<int> GetTimeOutAmountOptions()
+        {
+            return Enum.GetValues(typeof (TimeOutAmount)).Cast<int>().ToList();
         }
 
         public List<MatchEvent> GetMatchEvents(int matchId)
@@ -141,10 +175,23 @@ namespace Basketball_LiveScore.Server.Services
                 // Si le match n'existe pas
                 if (match == null) throw new Exception($"Match with ID {matchId} not found.");
 
+                var currentQuarter = match.CurrentQuarter;
+
+                // Déterminer le temps restant du quart en secondes
+                var currentTime = match.Quarters
+                    .Where(q => (int)q.Number == currentQuarter)
+                    .Select(q => (int)q.RemainingTime.TotalSeconds)
+                    .FirstOrDefault();
+                var lastChronoEvent = basketballDBContext.MatchEvents
+                    .OfType<ChronoEvent>()
+                    .Where(e => e.MatchId == matchId)
+                    .OrderByDescending(e => e.Id) //Trier par ID pour obtenir le dernier événement
+                    .FirstOrDefault();
+
                 return new MatchDTO
                 {
                     MatchId = match.Id,
-                    MatchDate = match.matchDate,
+                    MatchDate = match.MatchDate,
                     HomeTeam = new TeamMatchDTO
                     {
                         TeamId = match.HomeTeam.Id,
@@ -160,16 +207,30 @@ namespace Basketball_LiveScore.Server.Services
                     QuarterDuration = (int)match.Quarters.FirstOrDefault()?.Duration,
                     NumberOfQuarters = match.Quarters.Count,
                     Timeouts = match.Timeouts.Count,
+                    TimeoutDuration = (int)match.Timeouts.FirstOrDefault()?.Duration,
+                    HomeTeamRemainingTimeouts = match.HomeTeamRemainingTimeouts,
+                    AwayTeamRemainingTimeouts=match.AwayTeamRemainingTimeouts,
                     ScoreHome = match.ScoreHome,
                     ScoreAway = match.ScoreAway,
                     Players = match.MatchPlayers.Select(mp => new MatchPlayerDTO
                     {//Ces valeurs sont dans MatchPlayerDTO
                         PlayerId = mp.PlayerId,
-                        PlayerName = mp.Player.FirstName+" "+mp.Player.LastName,
+                        PlayerName = mp.Player.FirstName + " " + mp.Player.LastName,
                         PlayerNumber = mp.Player.Number,
                         IsStarter = mp.IsStarter,
-                        IsHomeTeam = mp.IsHomeTeam
-                    }).ToList()
+                        IsHomeTeam = mp.IsHomeTeam,
+                        Fouls = basketballDBContext.MatchEvents.OfType<FoulEvent>()
+                            .Count(fe => fe.PlayerId == mp.PlayerId && fe.MatchId == match.Id),
+                        Points = basketballDBContext.MatchEvents.OfType<BasketEvent>()
+                            .Where(be => be.PlayerId == mp.PlayerId && be.MatchId == match.Id)
+                            .Sum(be => be.Points),
+                        OnField = match.HomeTeamOnFieldIds.Contains(mp.PlayerId) ||
+                            match.AwayTeamOnFieldIds.Contains(mp.PlayerId)
+                    }).ToList(),
+                    CurrentQuarter = currentQuarter,
+                    CurrentTime = (int)currentTime,//si isRunning est null, par défaut on va mettre true
+                    IsRunning = lastChronoEvent?.IsRunning ?? true,
+                    MatchStatus = match.Status
                 };
             }
             catch (Exception ex)
@@ -178,220 +239,355 @@ namespace Basketball_LiveScore.Server.Services
             }
         }
 
-        //Ci dessous les events de match : 
-        public MatchEvent AddFoulEvent(int matchId, FoulEventDTO foulEventDTO)
+        private async Task<MatchEvent> AddMatchEvent<TEvent>(int matchId,
+            Func<Match, TEvent> createEvent, // Fonction pour créer l'événement
+            string signalRMethod, // Nom de la méthode SignalR
+            Action<Match> postProcess = null // Action optionnelle pour effectuer des mises à jour spécifiques
+        ) where TEvent : MatchEvent
         {
-            try
+            var match = basketballDBContext.Matches
+                .Include(m => m.Quarters)
+                .FirstOrDefault(m => m.Id == matchId);
+            if (match == null)
+                throw new Exception($"Match with ID {matchId} not found.");
+
+            var currentQuarter = match.CurrentQuarter;
+            if (currentQuarter == null)
+                throw new Exception($"No active quarter found for match {matchId}.");
+            if (currentQuarter == 0)currentQuarter = 1;
+
+            var matchEvent = createEvent(match);
+
+            //On ne verif pas si time>0 car sinon va pas prendre en compte la sauvegarde de qd c a 0sec
+            var quarterEntity = match.Quarters.FirstOrDefault(q => (int)q.Number == currentQuarter);
+            if (quarterEntity != null)
             {
-                var match = basketballDBContext.Matches.Find(matchId);
-                if (match == null)
-                    throw new Exception($"Match with ID {matchId} not found.");
-
-                var player = basketballDBContext.Players.Find(foulEventDTO.PlayerId);
-                if (player == null)
-                    throw new Exception($"Player with ID {foulEventDTO.PlayerId} not found.");
-
-                var foulEvent = new FoulEvent
-                {
-                    MatchId = matchId,
-                    PlayerId = foulEventDTO.PlayerId,
-                    FoulType = foulEventDTO.FoulType,
-                    Quarter = foulEventDTO.Quarter,
-                    Time = foulEventDTO.Time
-                };
-
-                basketballDBContext.MatchEvents.Add(foulEvent);
-                basketballDBContext.SaveChanges();
-
-                // Diffuser via SignalR
-                hubContext.Clients.Group(matchId.ToString()).SendAsync("FoulEventOccurred", foulEvent);
-                return foulEvent;
+                quarterEntity.RemainingTime = matchEvent.Time;
             }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error adding foul event: {ex.Message}");
-            }
+
+            //logique spécifique si besoin
+            postProcess?.Invoke(match);
+
+            basketballDBContext.MatchEvents.Add(matchEvent);
+            await basketballDBContext.SaveChangesAsync();
+
+            // Diffuser via SignalR
+            await hubContext.Clients.Group(matchId.ToString()).SendAsync(signalRMethod, matchEvent);
+
+            return matchEvent;
         }
-
         public async Task<MatchEvent> AddBasketEvent(int matchId, BasketEventDTO basketEventDTO)
         {
-            try
-            {
-                var match = basketballDBContext.Matches.Find(matchId);
-                if (match == null)
-                    throw new Exception($"Match with ID {matchId} not found.");
-
-                var player = basketballDBContext.Players.Find(basketEventDTO.PlayerId);
-                if (player == null)
-                    throw new Exception($"Player with ID {basketEventDTO.PlayerId} not found.");
-
-                var basketEvent = new BasketEvent
+            return await AddMatchEvent(
+                matchId,
+                match => new BasketEvent
                 {
                     MatchId = matchId,
                     PlayerId = basketEventDTO.PlayerId,
                     Points = basketEventDTO.Points,
                     Quarter = basketEventDTO.Quarter,
                     Time = basketEventDTO.Time
-                };
-
-                // Mettre à jour le score de l'équipe
-                if (basketEventDTO.Points > 0)
+                },
+                "BasketEventOccurred",
+                match => //On va aussi ajouter les points dans le match 
                 {
-                    if (match.HomeTeamStartingFiveIds.Contains(basketEventDTO.PlayerId))
+                    //Verif equipe du joueur
+                    if (match.HomeTeamOnFieldIds.Contains(basketEventDTO.PlayerId))
+                    {
                         match.ScoreHome += basketEventDTO.Points;
-                    else
+                    }
+                    else if (match.AwayTeamOnFieldIds.Contains(basketEventDTO.PlayerId))
+                    {
                         match.ScoreAway += basketEventDTO.Points;
+                    }
                 }
-
-                basketballDBContext.MatchEvents.Add(basketEvent);
-                basketballDBContext.SaveChanges();
-
-                // Diffuser via SignalR
-                try
-                {
-                    Console.WriteLine($"Notifying BasketEvent for Match: {basketEvent.MatchId}, Player: {basketEvent.PlayerId}, Points: {basketEvent.Points}");
-                    await hubContext.Clients.Group(basketEvent.MatchId.ToString()).SendAsync("BasketEventOccurred", basketEvent);
-                    Console.WriteLine("BasketEvent notification sent successfully.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error notifying BasketEvent: {ex.Message}");
-                }
-                return basketEvent;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error adding basket event: {ex.Message}");
-            }
+            );
         }
 
-
-        public MatchEvent AddSubstitutionEvent(int matchId, SubstitutionEventDTO substitutionEventDTO)
+        public async Task<MatchEvent> AddFoulEvent(int matchId, FoulEventDTO foulEventDTO)
         {
-            try
-            {
-                var match = basketballDBContext.Matches.Find(matchId);
-                if (match == null)
-                    throw new Exception($"Match with ID {matchId} not found.");
+            return await AddMatchEvent(
+                matchId,
+                match => new FoulEvent
+                {
+                    MatchId = matchId,
+                    PlayerId = foulEventDTO.PlayerId,
+                    FoulType = foulEventDTO.FoulType,
+                    Quarter = foulEventDTO.Quarter,
+                    Time = foulEventDTO.Time
+                },
+                "FoulEventOccurred"
+            );
+        }
 
-                var playerIn = basketballDBContext.Players.Find(substitutionEventDTO.PlayerInId);
-                var playerOut = basketballDBContext.Players.Find(substitutionEventDTO.PlayerOutId);
-
-                if (playerIn == null || playerOut == null)
-                    throw new Exception("Player(s) not found for substitution.");
-
-                var substitutionEvent = new SubstitutionEvent
+        public async Task<MatchEvent> AddSubstitutionEvent(int matchId, SubstitutionEventDTO substitutionEventDTO)
+        {
+            return await AddMatchEvent(
+                matchId,
+                match => new SubstitutionEvent
                 {
                     MatchId = matchId,
                     PlayerInId = substitutionEventDTO.PlayerInId,
                     PlayerOutId = substitutionEventDTO.PlayerOutId,
                     Quarter = substitutionEventDTO.Quarter,
                     Time = substitutionEventDTO.Time
-                };
-
-                basketballDBContext.MatchEvents.Add(substitutionEvent);
-                basketballDBContext.SaveChanges();
-
-                // Diffuser via SignalR
-                hubContext.Clients.Group(matchId.ToString()).SendAsync("SubstitutionEventOccurred", substitutionEvent);
-
-                return substitutionEvent;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error adding substitution event: {ex.Message}");
-            }
+                },
+                "SubstitutionEventOccurred",
+                match =>
+                {
+                    //Màj des joueurs sur terrain dans classe 'Match'
+                    if (match.HomeTeamOnFieldIds.Contains(substitutionEventDTO.PlayerOutId))
+                    {
+                        match.HomeTeamOnFieldIds.Remove(substitutionEventDTO.PlayerOutId);
+                        match.HomeTeamOnFieldIds.Add(substitutionEventDTO.PlayerInId);
+                    }
+                    else if (match.AwayTeamOnFieldIds.Contains(substitutionEventDTO.PlayerOutId))
+                    {
+                        match.AwayTeamOnFieldIds.Remove(substitutionEventDTO.PlayerOutId);
+                        match.AwayTeamOnFieldIds.Add(substitutionEventDTO.PlayerInId);
+                    }
+                }
+            );
         }
 
-        public MatchEvent AddTimeoutEvent(int matchId, TimeoutEventDTO timeoutEventDTO)
+        public async Task<MatchEvent> AddTimeoutEvent(int matchId, TimeoutEventDTO timeoutEventDTO)
         {
-            try
-            {
-                var match = basketballDBContext.Matches.Find(matchId);
-                if (match == null)
-                    throw new Exception($"Match with ID {matchId} not found.");
-
-                var timeoutEvent = new TimeoutEvent
+            return await AddMatchEvent(
+                matchId,
+                match =>
                 {
-                    MatchId = matchId,
-                    Team = timeoutEventDTO.Team,
-                    Quarter = timeoutEventDTO.Quarter,
-                    Time = timeoutEventDTO.Time
-                };
+                    // Vérifier l'équipe et décrémenter le nombre de timeouts restants
+                    if (timeoutEventDTO.Team == "Home")
+                    {
+                        if (match.HomeTeamRemainingTimeouts > 0)
+                        {
+                            match.HomeTeamRemainingTimeouts--; 
+                        }
+                        else
+                        {
+                            throw new Exception("No timeouts remaining for the home team.");
+                        }
+                    }
+                    else if (timeoutEventDTO.Team == "Away")
+                    {
+                        if (match.AwayTeamRemainingTimeouts > 0)
+                        {
+                            match.AwayTeamRemainingTimeouts--;
+                        }
+                        else
+                        {
+                            throw new Exception("No timeouts remaining for the away team.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid team specified for timeout.");
+                    }
 
-                basketballDBContext.MatchEvents.Add(timeoutEvent);
-                basketballDBContext.SaveChanges();
-
-                // Diffuser via SignalR
-                hubContext.Clients.Group(matchId.ToString()).SendAsync("TimeoutEventOccurred", timeoutEvent);
-
-                return timeoutEvent;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error adding timeout event: {ex.Message}");
-            }
+                    // Retourner un nouvel événement de timeout
+                    return new TimeoutEvent
+                    {
+                        MatchId = matchId,
+                        Team = timeoutEventDTO.Team,
+                        Quarter = timeoutEventDTO.Quarter,
+                        Time = timeoutEventDTO.Time
+                    };
+                },
+                "TimeoutEventOccurred"
+            );
         }
 
-        public MatchEvent AddQuarterChangeEvent(int matchId, QuarterChangeEventDTO quarterChangeEventDTO)
+        public async Task<MatchEvent> AddQuarterChangeEvent(int matchId, QuarterChangeEventDTO quarterChangeEventDTO)
         {
-            try
-            {
-                var match = basketballDBContext.Matches.Find(matchId);
-                if (match == null)
-                    throw new Exception($"Match with ID {matchId} not found.");
-
-                var quarterChangeEvent = new QuarterChangeEvent
+            return await AddMatchEvent(
+                matchId,
+                match => //new QuarterChangeEvent
                 {
-                    MatchId = matchId,
-                    Quarter = quarterChangeEventDTO.Quarter
-                };
+                    if(quarterChangeEventDTO.Quarter + 1 > match.Quarters.Count())
+                         throw new InvalidOperationException("Cannot exceed the number of quarters in the match.");
 
-                basketballDBContext.MatchEvents.Add(quarterChangeEvent);
-                basketballDBContext.SaveChanges();
-
-                // Diffuser via SignalR
-                hubContext.Clients.Group(matchId.ToString()).SendAsync("QuarterChangeEventOccurred", quarterChangeEvent);
-
-                return quarterChangeEvent;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error adding quarter change event: {ex.Message}");
-            }
+                    match.CurrentQuarter = quarterChangeEventDTO.Quarter + 1;
+                    return new QuarterChangeEvent
+                    {
+                        MatchId = matchId,
+                        Quarter = match.CurrentQuarter
+                    };
+                },
+                "QuarterChangeEventOccurred",
+                match =>
+                {
+                    //Mise à jour du match en db
+                    basketballDBContext.Matches.Update(match);
+                }
+            );
         }
 
-        public MatchEvent AddChronoEvent(int matchId, ChronoEventDTO chronoEventDTO)
+        public async Task<MatchEvent> AddChronoEvent(int matchId, ChronoEventDTO chronoEventDTO)
         {
-            try
-            {
-                // Vérifier si le match existe
-                var match = basketballDBContext.Matches.Find(matchId);
-                if (match == null)
-                    throw new Exception($"Match with ID {matchId} not found.");
-
-                // Créer l'événement Chrono
-                var chronoEvent = new ChronoEvent
+            return await AddMatchEvent(
+                matchId,
+                match => new ChronoEvent
                 {
                     MatchId = matchId,
-                    IsRunning = chronoEventDTO.IsRunning,
                     Quarter = chronoEventDTO.Quarter,
-                    Time = chronoEventDTO.Time
-                };
+                    Time = chronoEventDTO.Time,
+                    IsRunning = chronoEventDTO.IsRunning
+                },
+                "ChronoEventOccurred"
+            );
+        }
 
-                basketballDBContext.MatchEvents.Add(chronoEvent);
-                basketballDBContext.SaveChanges();
 
-                // Diffuser via SignalR
-                hubContext.Clients.Group(matchId.ToString()).SendAsync("ChronoEventOccurred", chronoEvent);
-
-                return chronoEvent;
-            }
-            catch (Exception ex)
+        public void StartMatch(int matchId)
+        {
+            var match = basketballDBContext.Matches.Find(matchId);
+            if (match == null)
             {
-                throw new Exception($"Error adding chrono event: {ex.Message}");
+                throw new Exception("Match not found.");
+            }
+            if (match.Status != MatchStatus.NotStarted)
+            {
+                throw new Exception("Match has already started or is finished.");
+            }
+
+            match.Status = MatchStatus.Live;
+            basketballDBContext.SaveChanges();
+            //StartMatchTimer(matchId);//on start le timer du back 
+            hubContext.Clients.Group(matchId.ToString()).SendAsync("MatchStatusChanged", MatchStatus.Live.ToString());
+        }
+
+        public void FinishMatch(int matchId)
+        {
+            var match = basketballDBContext.Matches.Find(matchId);
+            if (match == null)
+            {
+                throw new Exception("Match not found.");
+            }
+            if (match.Status == MatchStatus.NotStarted)
+            {
+                throw new Exception("Match has not started");
+            }
+            match.Status = MatchStatus.Finished;
+            basketballDBContext.SaveChanges();
+            //StopMatchTimer(matchId);//on close le timer du back
+            hubContext.Clients.Group(matchId.ToString()).SendAsync("MatchStatusChanged", MatchStatus.Finished.ToString());
+        }
+            
+        public List<MatchWithStatusDTO> GetAllMatchesWithStatus()
+        {
+            var currentTime = DateTime.UtcNow;
+
+            var matches = basketballDBContext.Matches
+                .Include(m => m.HomeTeam)
+                .Include(m => m.AwayTeam)
+                .Select(m => new MatchWithStatusDTO
+                {
+                    MatchId = m.Id,
+                    MatchDate = m.MatchDate,
+                    HomeTeam = new TeamMatchDTO
+                    {
+                        TeamId = m.HomeTeam.Id,
+                        Name = m.HomeTeam.Name,
+                        Coach = m.HomeTeam.Coach
+                    },
+                    AwayTeam = new TeamMatchDTO
+                    {
+                        TeamId = m.AwayTeam.Id,
+                        Name = m.AwayTeam.Name,
+                        Coach = m.AwayTeam.Coach
+                    },
+                    ScoreHome = m.ScoreHome,
+                    ScoreAway = m.ScoreAway,
+                    Status = m.MatchDate > currentTime
+                        ? MatchStatus.NotStarted
+                        : m.Quarters.Any(q => q.RemainingTime > TimeSpan.Zero)
+                            ? MatchStatus.Live
+                            : MatchStatus.Finished,
+                    CurrentQuarter = m.CurrentQuarter,
+                    RemainingTime = m.Quarters
+                        .Where(q => q.RemainingTime > TimeSpan.Zero)
+                        .OrderBy(q => q.Number)
+                        .Select(q => (int)q.RemainingTime.TotalSeconds)
+                        .FirstOrDefault(),
+                    EncoderRealTimeId = m.EncoderRealTimeId
+                })
+                .ToList();
+
+            return matches;
+
+        }
+        //Ci-dessous code pour le timer côté back-end ---> RemainingTime dans la classe Quarter
+        /*public void StartMatchTimer(int matchId)
+        {
+            if (matchTimers.ContainsKey(matchId))
+            {
+                throw new Exception("A timer is already running for this match.");
+            }
+
+            var cts = new CancellationTokenSource();
+            matchTimers[matchId] = cts;
+
+            Task.Run(async () =>
+            {
+                while (!cts.Token.IsCancellationRequested)
+                {
+                    await UpdateRemainingTime(matchId);
+
+                    // Notify clients via SignalR
+                    var match = basketballDBContext.Matches
+                        .Include(m => m.Quarters)
+                        .FirstOrDefault(m => m.Id == matchId);
+
+                    if (match != null)
+                    {
+                        var currentQuarter = match.Quarters
+                            .Where(q => q.RemainingTime > TimeSpan.Zero)
+                            .OrderBy(q => q.Number)
+                            .FirstOrDefault();
+
+                        await hubContext.Clients.Group(matchId.ToString())
+                            .SendAsync("TimerUpdated", new
+                            {
+                                MatchId = matchId,
+                                CurrentQuarter = currentQuarter?.Number ?? 0,
+                                RemainingTime = currentQuarter?.RemainingTime ?? TimeSpan.Zero
+                            });
+                    }
+
+                    // Wait 1 second before the next update
+                    await Task.Delay(1000, cts.Token);
+                }
+            }, cts.Token);
+        }
+
+        public void StopMatchTimer(int matchId)
+        {
+            if (matchTimers.TryRemove(matchId, out var cts))
+            {
+                cts.Cancel();
+                cts.Dispose();
             }
         }
+
+        private async Task UpdateRemainingTime(int matchId)
+        {
+            var activeQuarter = basketballDBContext.Quarters
+                .Where(q => q.MatchId == matchId && q.RemainingTime > TimeSpan.Zero)
+                .OrderBy(q => q.Number)
+                .FirstOrDefault();
+
+            if (activeQuarter != null)
+            {
+                activeQuarter.RemainingTime -= TimeSpan.FromSeconds(1);
+                if (activeQuarter.RemainingTime <= TimeSpan.Zero)
+                {
+                    activeQuarter.RemainingTime = TimeSpan.Zero;
+                    // You can add logic here to handle the end of the quarter if needed
+                }
+                basketballDBContext.Quarters.Update(activeQuarter);
+                await basketballDBContext.SaveChangesAsync();
+            }
+        }*/
 
     }
 }

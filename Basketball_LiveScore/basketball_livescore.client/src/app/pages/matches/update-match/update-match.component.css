@@ -269,3 +269,52 @@ select.foul-select {
   font-weight: bold;
   margin-bottom: 12px;
 }
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 8px;
+  transition: background-color 0.2s ease;
+}
+
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+
+  .btn-danger:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+.match-finished-message {
+  background-color: #198754; /* Bootstrap success green */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-block;
+  margin-right: 10px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Update existing styles to handle finished state */
+.player-actions.hidden,
+.player-actions[disabled] {
+  opacity: 0.6;
+  pointer-events: none;
+}

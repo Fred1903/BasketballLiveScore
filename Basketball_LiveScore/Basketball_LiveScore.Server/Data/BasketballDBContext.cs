@@ -23,6 +23,9 @@ namespace Basketball_LiveScore.Server.Data
         public DbSet<MatchEvent> MatchEvents { get; set; }
 
         public DbSet<MatchPlayer> MatchPlayers { get; set; }
+        public DbSet<Quarter> Quarters { get; set; } = default!;
+        public DbSet<Models.Timeout> Timeouts { get; set; } = default!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +38,8 @@ namespace Basketball_LiveScore.Server.Data
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<MatchEvent>().ToTable("MatchEvent");
             modelBuilder.Entity<MatchPlayer>().ToTable("MatchPlayer");
+            modelBuilder.Entity<Quarter>().ToTable("Quarter");
+            modelBuilder.Entity<Models.Timeout>().ToTable("Timeout");
             modelBuilder.Entity<BasketEvent>().Property(e => e.PlayerId).HasColumnName("BasketEvent_PlayerId");
             modelBuilder.Entity<BasketEvent>().Property(e => e.Points).HasColumnName("BasketEvent_Points");
             modelBuilder.Entity<FoulEvent>().Property(e => e.PlayerId).HasColumnName("FoulEvent_PlayerId");
@@ -68,6 +73,26 @@ namespace Basketball_LiveScore.Server.Data
                 .HasOne(mp => mp.Player)
                 .WithMany()
                 .HasForeignKey(mp => mp.PlayerId);
+
+            modelBuilder.Entity<Quarter>()
+                .ToTable("Quarter")
+                .HasKey(q => q.Id);
+
+            modelBuilder.Entity<Quarter>()
+                .HasOne(q => q.Match)
+                .WithMany(m => m.Quarters)
+                .HasForeignKey(q => q.MatchId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Models.Timeout>()
+                .ToTable("Timeout")
+                .HasKey(t => t.Id);
+
+            modelBuilder.Entity<Models.Timeout>()
+                .HasOne(t => t.Match)
+                .WithMany(m => m.Timeouts)
+                .HasForeignKey(t => t.MatchId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

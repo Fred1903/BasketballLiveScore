@@ -42,6 +42,32 @@
       </div>
     </div>
 
+    <!-- Substitution Animation Overlay -->
+    <div class="substitution-overlay" *ngIf="activeSubstitution">
+      <div class="substitution-content">
+        <div class="substitution-header">
+          <h3>SUBSTITUTION</h3>
+          <div class="countdown">{{activeSubstitution.remaining}}</div>
+        </div>
+        <div class="players-exchange">
+          <div class="player out">
+            <div class="player-number">#{{activeSubstitution.playerOut?.number}}</div>
+            <div class="player-name">{{activeSubstitution.playerOut?.name}}</div>
+            <div class="direction">OUT</div>
+          </div>
+          <div class="exchange-arrow">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div class="player in">
+            <div class="player-number">#{{activeSubstitution.playerIn?.number}}</div>
+            <div class="player-name">{{activeSubstitution.playerIn?.name}}</div>
+            <div class="direction">IN</div>
+          </div>
+        </div>
+        <div class="team-name">{{activeSubstitution.team?.name}}</div>
+      </div>
+    </div>
+
     <!-- Teams Container -->
     <div class="teams-container">
       <!-- Team 1 -->

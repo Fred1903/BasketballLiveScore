@@ -6,19 +6,33 @@
     <div class="timer">
       <span class="time" *ngIf="!isTimeout">{{ formatTime(time) }}</span>
       <span class="time timeout-time" *ngIf="isTimeout">Timeout: {{ formatTime(timeoutTime) }}</span>
-      <button class="btn btn-primary"
-              (click)="toggleTimer()"
-              [disabled]="isTimeout">
-        <i class="fas" [class.fa-play]="!isRunning" [class.fa-pause]="isRunning"></i>
-        {{ isRunning ? 'Pause' : 'Start' }}
-      </button>
-      <!-- Hide Next Quarter button in last quarter -->
-      <button *ngIf="quarter < 4"
-              class="btn btn-outline"
-              (click)="nextQuarter()"
-              [disabled]="isRunning || time !== 0">
-        Next Quarter
-      </button>
+
+      <div *ngIf="matchStatus === 'Finished'" class="match-finished-message">
+        Match Finished
+      </div>
+
+      <!-- Only show controls if match isn't finished -->
+      <ng-container *ngIf="matchStatus !== 'Finished'">
+        <button class="btn btn-primary"
+                *ngIf="time !== 0"
+                (click)="toggleTimer()"
+                [disabled]="isTimeout">
+          <i class="fas" [class.fa-play]="!isRunning" [class.fa-pause]="isRunning"></i>
+          {{ isRunning ? 'Pause' : 'Start' }}
+        </button>
+
+        <button *ngIf="quarter < numberOfQuarters && time === 0"
+                class="btn btn-outline"
+                (click)="nextQuarter()">
+          Next Quarter
+        </button>
+
+        <button *ngIf="canFinishMatch"
+                class="btn btn-danger"
+                (click)="finishMatch()">
+          Finish Match
+        </button>
+      </ng-container>
     </div>
   </div>
 
@@ -42,7 +56,7 @@
             <span class="player-name">#{{ player.number }} {{ player.name }}</span>
             <span class="player-points">({{ player.points }} pts)</span>
           </div>
-          <button class="btn btn-outline" (click)="initiateSubstitution(team1, player)">
+          <button *ngIf="matchStatus !== 'Finished'" class="btn btn-outline" (click)="initiateSubstitution(team1, player)">
             <i class="fas fa-sync-alt"></i> Sub Out
           </button>
         </div>
@@ -58,7 +72,7 @@
             <select class="foul-select"
                     [(ngModel)]="selectedFoul"
                     (change)="handleFoul(player, $event)"
-                    [disabled]="!isRunning || time === 0">
+                    [disabled]="!isRunning || time === 0 || matchStatus === 'Finished'">
               <option value="">Add Foul</option>
               <option *ngFor="let foul of foulTypes" [value]="foul.id">{{ foul.name }}</option>
             </select>
@@ -91,7 +105,7 @@
       </div>
       <button class="timeout-button"
               (click)="startTimeout(team1)"
-              [disabled]="team1.timeouts === 0 || isTimeout || !isRunning || time === 0">
+              [disabled]="team1.timeouts === 0 || isTimeout || !isRunning || time === 0 || matchStatus === 'Finished'">
         Call Timeout ({{team1.timeouts}} remaining)
       </button>
     </div>
@@ -114,7 +128,7 @@
             <span class="player-name">#{{ player.number }} {{ player.name }}</span>
             <span class="player-points">({{ player.points }} pts)</span>
           </div>
-          <button class="btn btn-outline" (click)="initiateSubstitution(team2, player)">
+          <button *ngIf="matchStatus !== 'Finished'" class="btn btn-outline" (click)="initiateSubstitution(team2, player)">
             <i class="fas fa-sync-alt"></i> Sub Out
           </button>
         </div>
@@ -130,7 +144,7 @@
             <select class="foul-select"
                     [(ngModel)]="selectedFoul"
                     (change)="handleFoul(player, $event)"
-                    [disabled]="!isRunning || time === 0">
+                    [disabled]="!isRunning || time === 0 || matchStatus === 'Finished'">
               <option value="">Add Foul</option>
               <option *ngFor="let foul of foulTypes" [value]="foul.id">{{ foul.name }}</option>
             </select>
@@ -163,7 +177,7 @@
       </div>
       <button class="timeout-button"
               (click)="startTimeout(team2)"
-              [disabled]="team2.timeouts === 0 || isTimeout || !isRunning || time === 0">
+              [disabled]="team2.timeouts === 0 || isTimeout || !isRunning || time === 0 || matchStatus === 'Finished'">
         Call Timeout ({{team2.timeouts}} remaining)
       </button>
     </div>

@@ -7,5 +7,8 @@
         public int PlayerNumber { get; set; }
         public bool IsStarter { get; set; }
         public bool IsHomeTeam { get; set; }
+        public int Fouls { get; set; } 
+        public int Points { get; set; }
+        public bool OnField { get; set; }
     }
 }

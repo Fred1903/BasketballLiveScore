@@ -20,6 +20,7 @@ namespace Basketball_LiveScore.Server.Models
 
     public enum QuarterDuration
     {
+        OneMinute=1,
         EightMinutes = 8,
         TenMinutes = 10,
         TwelveMinutes = 12
@@ -30,6 +31,16 @@ namespace Basketball_LiveScore.Server.Models
         ThirtySeconds = 30,
         SixtySeconds = 60,
         SeventyFiveSeconds = 75
+    }
+
+    public enum TimeOutAmount
+    {
+        Three = 3,
+        Four = 4,
+        Five = 5,
+        Six=6,
+        Seven=7,
+        Eight=8
     }
 
     public enum NumberOfQuarters
@@ -53,6 +64,14 @@ namespace Basketball_LiveScore.Server.Models
         One = 1,  //lancer franc
         Two = 2,  //panier normal
         Three = 3 // en-dehors de la surface
+    }
+
+    public enum MatchStatus
+    {
+        NotStarted,
+        Live,
+        Finished,
+        Cancelled
     }
 
 }

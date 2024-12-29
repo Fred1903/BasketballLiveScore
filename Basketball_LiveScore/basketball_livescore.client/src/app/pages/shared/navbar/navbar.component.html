@@ -8,15 +8,11 @@
 
   <!-- Qd user est connecté : -->
   <ng-container *ngIf="isAuthenticated; else guestLinks">
-    <button mat-button routerLink="/players" routerLinkActive="active-link">Players</button>
-    <button mat-button routerLink="/teams" routerLinkActive="active-link">Teams</button>
-    <button mat-button routerLink="/matches" routerLinkActive="active-link">Matches</button>
+    <button mat-button routerLink="/matches/all" routerLinkActive="active-link">Matches</button>
     <ng-container *ngIf="isAdmin">
       <button mat-button routerLink="/players/create" routerLinkActive="active-link">Create Player</button>
       <button mat-button routerLink="/teams/create" routerLinkActive="active-link">Create Team</button>
       <button mat-button routerLink="/matches/create" routerLinkActive="active-link">Create Match</button>
-      <button mat-button routerLink="/matches/update" routerLinkActive="active-link">Update Match</button>
-      <button mat-button routerLink="/matches/view" routerLinkActive="active-link">View Match</button>
     </ng-container>
     <button mat-button (click)="logout()">Logout</button>
   </ng-container>

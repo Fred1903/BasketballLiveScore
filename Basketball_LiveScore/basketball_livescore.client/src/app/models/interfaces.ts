@@ -102,6 +102,9 @@ export interface MatchDetails {
   quarterDuration: number;
   numberOfQuarters: number;
   timeouts: number;
+  timeoutDuration: number;
+  homeTeamRemainingTimeouts: number;
+  awayTeamRemainingTimeouts: number;
   scoreHome: number;
   scoreAway: number;
   players: {
@@ -110,7 +113,14 @@ export interface MatchDetails {
     playerNumber: number;
     isStarter: boolean;
     isHomeTeam: boolean;
+    fouls: number;
+    points: number;
+    onField: boolean; 
   }[];
+  currentQuarter: number;
+  currentTime: number;
+  isRunning: boolean;
+  matchStatus: string;
 }
 
 export interface MatchEvent {
@@ -157,4 +167,26 @@ export interface RecentEvent {
   time: string;
   description: string;
   type: 'score' | 'foul' | 'timeout' | 'substitution';
+}
+
+
+export interface MatchLiveScore {
+  matchId: number;
+  matchDate: string;
+  homeTeam: {
+    teamId: number;
+    name: string;
+    coach: string;
+  };
+  awayTeam: {
+    teamId: number;
+    name: string;
+    coach: string;
+  };
+  scoreHome: number;
+  scoreAway: number;
+  status: string;
+  encoderRealTimeId: string;
+  remainingTime: number;
+  currentQuarter: number;
 }

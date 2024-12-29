@@ -34,22 +34,45 @@ namespace Basketball_LiveScore.Server.Migrations
                     b.Property<int>("AwayTeamId")
                         .HasColumnType("integer");
 
+                    b.Property<List<int>>("AwayTeamOnFieldIds")
+                        .IsRequired()
+                        .HasColumnType("integer[]");
+
+                    b.Property<int>("AwayTeamRemainingTimeouts")
+                        .HasColumnType("integer");
+
                     b.Property<List<int>>("AwayTeamStartingFiveIds")
                         .IsRequired()
                         .HasColumnType("integer[]");
 
-                    b.Property<int>("EncoderRealTimeId")
+                    b.Property<int>("CurrentQuarter")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EncoderSettingsId")
-                        .HasColumnType("integer");
+                    b.Property<string>("EncoderRealTimeId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EncoderSettingsId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("HomeTeamId")
+                        .HasColumnType("integer");
+
+                    b.Property<List<int>>("HomeTeamOnFieldIds")
+                        .IsRequired()
+                        .HasColumnType("integer[]");
+
+                    b.Property<int>("HomeTeamRemainingTimeouts")
                         .HasColumnType("integer");
 
                     b.Property<List<int>>("HomeTeamStartingFiveIds")
                         .IsRequired()
                         .HasColumnType("integer[]");
+
+                    b.Property<DateTime>("MatchDate")
+                        .HasMaxLength(10)
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ScoreAway")
                         .HasColumnType("integer");
@@ -57,9 +80,8 @@ namespace Basketball_LiveScore.Server.Migrations
                     b.Property<int>("ScoreHome")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("matchDate")
-                        .HasMaxLength(10)
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -193,7 +215,7 @@ namespace Basketball_LiveScore.Server.Migrations
 
                     b.HasIndex("MatchId");
 
-                    b.ToTable("Quarter");
+                    b.ToTable("Quarter", (string)null);
                 });
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.Team", b =>
@@ -226,6 +248,9 @@ namespace Basketball_LiveScore.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Duration")
                         .HasColumnType("integer");
 
@@ -246,7 +271,7 @@ namespace Basketball_LiveScore.Server.Migrations
 
                     b.HasIndex("MatchId");
 
-                    b.ToTable("Timeout");
+                    b.ToTable("Timeout", (string)null);
                 });
 
             modelBuilder.Entity("Basketball_LiveScore.Server.Models.User", b =>

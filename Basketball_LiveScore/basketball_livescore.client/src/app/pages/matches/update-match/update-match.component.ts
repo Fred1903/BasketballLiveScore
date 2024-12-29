@@ -8,6 +8,7 @@ import {
 } from '../../../models/interfaces';
 import { MatchSettingsService } from '../../../services/match-settings.service'
 import { MatchService } from '../../../services/match.service'
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-match',
@@ -15,8 +16,9 @@ import { MatchService } from '../../../services/match.service'
   styleUrls: ['./update-match.component.css']
 })
 export class UpdateMatchComponent implements OnInit, OnDestroy {
-  quarter: number = 1;
-  time: number = 600;
+  quarter: number = 0;
+  time: number = 0;
+  quarterTime: number = 0;
   isRunning: boolean = false;
   timeoutTime: number = 0;
   isTimeout: boolean = false;
@@ -30,55 +32,59 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   selectedPoint: string | number = '';
   selectedFoul: string | number = '';
   matchDetails: MatchDetails | null = null;
-  idMatch = 2;
+  idMatch = 0;
   private isLocalUpdate: boolean = false;
+  isMatchStarted: boolean = false;
+  remainingTimeoutsTeam1: number = 0;
+  remainingTimeoutsTeam2: number = 0;
+  numberOfQuarters: number = 0;
+  isLastQuarter: boolean = false;
+  canFinishMatch: boolean = false;
+  timeoutDuration: number = 0;
+  matchStatus: string = '';
 
 
   team1: Team = {
     name: '',
     score: 0,
-    timeouts: 4,
-    players: [
-      { id: 1, number: 5, name: "John Smith", fouls: 0, points: 0, onCourt: true },
-      { id: 2, number: 7, name: "Mike Johnson", fouls: 0, points: 0, onCourt: true },
-      { id: 3, number: 10, name: "Steve Williams", fouls: 0, points: 0, onCourt: true },
-      { id: 4, number: 15, name: "James Davis", fouls: 0, points: 0, onCourt: true },
-      { id: 5, number: 23, name: "Tom Wilson", fouls: 0, points: 0, onCourt: true },
-      { id: 6, number: 8, name: "Dan Brown", fouls: 0, points: 0, onCourt: false },
-      { id: 7, number: 12, name: "Chris Lee", fouls: 0, points: 0, onCourt: false },
-      { id: 8, number: 21, name: "Paul Martin", fouls: 0, points: 0, onCourt: false }
-    ],
-    coach: 'Red Auerbach',
+    timeouts: 0,
+    players: [],
+    coach: ''
   };
 
   team2: Team = {
-    name: 'Celtics',
+    name: '',
     score: 0,
-    timeouts: 4,
-    players: [
-      { id: 9, number: 4, name: "Kevin Thompson", fouls: 0, points: 0, onCourt: true },
-      { id: 10, number: 6, name: "Mark Anderson", fouls: 0, points: 0, onCourt: true },
-      { id: 11, number: 11, name: "Ryan Taylor", fouls: 0, points: 0, onCourt: true },
-      { id: 12, number: 14, name: "David Moore", fouls: 0, points: 0, onCourt: true },
-      { id: 13, number: 20, name: "Brian White", fouls: 0, points: 0, onCourt: true },
-      { id: 14, number: 9, name: "Eric Clark", fouls: 0, points: 0, onCourt: false },
-      { id: 15, number: 16, name: "Adam Hall", fouls: 0, points: 0, onCourt: false },
-      { id: 16, number: 25, name: "Jason Green", fouls: 0, points: 0, onCourt: false }
-    ],
-    coach: 'Red PAsRed',
+    timeouts: 0,
+    players: [],
+    coach: ''
   };
 
-  constructor(private matchSettingsService: MatchSettingsService, private matchService: MatchService) { }
+
+  constructor(private matchSettingsService: MatchSettingsService, private matchService: MatchService,
+    private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.startTimer();
+    this.route.params.subscribe(params => {
+      const id = parseInt(params['id']);
+      if (!isNaN(id)) {
+        this.idMatch = id;
+        this.startTimer();
+        this.loadFoulTypes();
+        this.loadBasketPoints();
+        this.loadMatchDetails(this.idMatch);
+        this.matchService.joinMatchGroup(this.idMatch);
 
-    this.loadFoulTypes();
-    this.loadBasketPoints();
-    this.loadMatchDetails(this.idMatch); //en paramètre on met l'id du match qu'on veut recup
-    this.matchService.joinMatchGroup(this.idMatch); //D'abord on rejoint le groupe signalR qui fait les notifs depuis le hub
+        // Subscribe to SignalR events
+        this.subscribeToMatchEvents();
+      } else {
+        // Handle invalid ID - redirect to matches list
+        this.router.navigate(['/matches/all']);
+      }
+    });
+  }
 
-    //Souscriptions : si event par signalR, màj du front
+  private subscribeToMatchEvents(): void {
     this.matchService.subscribeToBasketEvents((eventData) => {
       if (eventData.points !== undefined && eventData.playerId !== undefined) {
         this.updateScores(eventData.matchId, eventData.points, eventData.playerId);
@@ -86,6 +92,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
         console.error('Invalid event data:', eventData);
       }
     });
+
     this.matchService.subscribeToFoulEvents((eventData) => {
       this.handleFoulEvent(eventData);
     });
@@ -106,7 +113,20 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
       this.handleChronoEvent(eventData);
     });
 
+    this.matchService.subscribeToMatchStatusEvents((statusUpdate) => {
+      if (statusUpdate.matchId === this.idMatch) {
+        this.matchStatus = statusUpdate.matchStatus;
+
+        if (this.matchStatus === 'Live') {
+          this.isRunning = true;
+        } else if (this.matchStatus === 'Finished') {
+          this.isRunning = false;
+          this.canFinishMatch = true;
+        }
+      }
+    });
   }
+
 
   ngOnDestroy() {
     if (this.timerInterval) {
@@ -114,45 +134,59 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     }
   }
 
-
   loadMatchDetails(matchId: number): void {
     this.matchSettingsService.getMatchDetails(matchId).subscribe({
       next: (data) => {
         this.matchDetails = data;
-        // Met à jour les équipes et les joueurs
+        this.quarterTime = data.quarterDuration * 60;
+        this.matchStatus = data.matchStatus;
+        this.quarter = data.currentQuarter;
+        this.time = data.currentTime;
+        this.isRunning = data.isRunning;
+        //this.remainingTimeoutsTeam1 = data.HomeTeamRemainingTimeouts;
+        //this.remainingTimeoutsTeam2 = data.AwayTeamRemainingTimeouts;
+        this.timeoutTime = data.timeoutDuration;
+        this.timeoutDuration = data.timeoutDuration;
+        this.numberOfQuarters = data.numberOfQuarters;
+        //Check si c fini
+        if (this.matchStatus === 'Finished') {
+          this.canFinishMatch = true;
+          this.isRunning = false; //Forcer à rester à l'étatde pause
+        }
+
+        // Init avec les valeurs de la db, si pas commencé 0, sinon ce qu on avait 
         this.team1 = {
           name: data.homeTeam.name,
           score: data.scoreHome,
-          timeouts: data.timeouts || 4,
+          timeouts: data.homeTeamRemainingTimeouts,
           players: data.players
             .filter((p) => p.isHomeTeam)
             .map((player) => ({
               id: player.playerId,
               number: player.playerNumber,
               name: player.playerName,
-              fouls: 0, // Les fautes peuvent être ajoutées ici
-              points: 0, // Initialisé à 0, ou mets les points réels si disponibles
-              onCourt: player.isStarter,
+              fouls: player.fouls, 
+              points: player.points,
+              onCourt: player.onField,
             })),
           coach: data.homeTeam.coach,
         };
         this.team2 = {
           name: data.awayTeam.name,
           score: data.scoreAway,
-          timeouts: data.timeouts || 4,
+          timeouts: data.awayTeamRemainingTimeouts,
           players: data.players
             .filter((p) => !p.isHomeTeam)
             .map((player) => ({
               id: player.playerId,
               number: player.playerNumber,
               name: player.playerName,
-              fouls: 0,
-              points: 0,
-              onCourt: player.isStarter,
+              fouls: player.fouls, 
+              points: player.points,
+              onCourt: player.onField,
             })),
           coach: data.awayTeam.coach,
         };
-        
       },
       error: (err) => {
         console.error('Error loading match details:', err);
@@ -198,12 +232,39 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     }, 100); 
   }
 
-
+  finishMatch() {
+    if (this.canFinishMatch) {
+      this.matchService.finishMatch(this.idMatch).subscribe({
+        next: () => {
+          this.matchStatus = 'Finished';
+          this.isRunning = false;
+          this.canFinishMatch = false;
+        },
+        error: (err) => {
+          console.error('Error finishing match:', err);
+        }
+      });
+    }
+  }
 
   private startTimer() {
     this.timerInterval = setInterval(() => {
       if (this.isRunning && this.time > 0) {
+        if (!this.isMatchStarted) {
+          this.matchService.startMatch(this.idMatch);
+          this.isMatchStarted = true;
+        }
         this.time--;
+        if (this.time === 0) {
+          //this.isRunning = false;
+          //si chrono est à 0 sec on met en pause, ce qui va en plus declencher save en db
+          this.toggleTimer();
+          
+          // Check si c le dernier quarter
+          if (this.quarter === this.numberOfQuarters) {
+            this.canFinishMatch = true;
+          }
+        }
       } else if (this.isTimeout && this.timeoutTime > 0) {
         this.timeoutTime--;
         if (this.timeoutTime === 0) {
@@ -212,6 +273,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
       }
     }, 1000);
   }
+
 
   formatTime(seconds: number): string {
     const mins = Math.floor(seconds / 60);
@@ -241,6 +303,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     this.matchService.addChronoEvent(chronoEvent).subscribe({
       next: () => {
         this.isLocalUpdate = false;
+        console.log("pauseeeeeeeeeeeee suceeeeeeeeeeeeessssssssssssss")
       },
       error: (err) => {
         console.error('Error updating chrono:', err);
@@ -250,43 +313,41 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   }
 
   nextQuarter() {
-    if (!this.isRunning || this.time === 0) {
+    if (this.quarter >= this.numberOfQuarters) {
       return;
     }
-    if (this.quarter < 4) {
-      this.isLocalUpdate = true;
+    this.isLocalUpdate = true;
 
-      // Get current formatted time
-      const minutes = Math.floor(this.time / 60);
-      const seconds = this.time % 60;
-      const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    // Get current formatted time
+    const minutes = Math.floor(this.time / 60);
+    const seconds = this.time % 60;
+    const formattedTime = `00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      // Create quarter change event
-      const quarterChangeEvent: QuarterChangeEvent = {
-        matchId: this.idMatch,
-        quarter: this.quarter + 1,  // Send the next quarter number
-        time: formattedTime
-      };
+    // Create quarter change event
+    const quarterChangeEvent: QuarterChangeEvent = {
+      matchId: this.idMatch,
+      quarter: this.quarter + 1,  // Send the next quarter number
+      time: formattedTime
+    };
 
-      this.matchService.addQuarterChangeEvent(quarterChangeEvent).subscribe({
-        next: () => {
-          // Update local state after successful server update
-          this.quarter++;
-          this.time = 600;
-          this.isRunning = false;
-          this.isLocalUpdate = false;
-        },
-        error: (err) => {
-          console.error('Error updating quarter:', err);
-          this.isLocalUpdate = false;
-        }
-      });
-    }
+    this.matchService.addQuarterChangeEvent(quarterChangeEvent).subscribe({
+      next: () => {
+        // Update local state after successful server update
+        this.quarter++;
+        this.time = this.quarterTime;
+        this.isRunning = false;
+        this.isLocalUpdate = false;
+      },
+      error: (err) => {
+        console.error('Error updating quarter:', err);
+        this.isLocalUpdate = false;
+      }
+    });
   }
   handleQuarterChangeEvent(event: QuarterChangeEvent): void {
     if (this.idMatch === event.matchId && !this.isLocalUpdate) {
       this.quarter = event.quarter;
-      this.time = 600;  // Reset time for new quarter
+      this.time = this.quarterTime;  // Reset time for new quarter
       this.isRunning = false;
     }
   }
@@ -404,7 +465,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
       // Update local state
       this.isRunning = false;
       this.isTimeout = true;
-      this.timeoutTime = 30;
+      this.timeoutTime = this.timeoutTime;
       team.timeouts--;
 
       // Create timeout event
@@ -439,7 +500,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
         team.timeouts--;
         this.isRunning = false;
         this.isTimeout = true;
-        this.timeoutTime = 30;
+        this.timeoutTime = this.timeoutDuration;
       }
     }
   }
@@ -450,6 +511,9 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   }
 
   initiateSubstitution(team: Team, player: PlayerMatch) {
+    if (this.matchStatus === 'Finished') {
+      return;
+    }
     this.substitutionActive = true;
     this.activeTeam = team;
     this.playerToSubOut = player;
@@ -461,22 +525,6 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   scrollToTop(): void {//si on cancel le changement, on reva au haut de la page
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-
-  /*completeSubstitution(playerIn: PlayerMatch): void {
-    if (this.activeTeam && this.playerToSubOut) {
-      this.activeTeam.players = this.activeTeam.players.map(p => ({
-        ...p,
-        onCourt: p.id === this.playerToSubOut?.id ? false :
-          p.id === playerIn.id ? true :
-            p.onCourt
-      }));
-    }
-    this.cancelSubstitution();
-    setTimeout(() => {//apres un changement on reva vers le haut de la page
-      this.scrollToTop();
-    }, 100); 
-  }*/
 
   completeSubstitution(playerIn: PlayerMatch): void {
     if (this.activeTeam && this.playerToSubOut) {
@@ -591,33 +639,6 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     return team.players.filter(p => !p.onCourt);
   }
 
-  
-
-  //Tous les event qui recoivent avec signalR sauf pour les points c fait dans la meme methode
-
-
-  /*handleSubstitutionEvent(event: SubstitutionEvent): void {
-    const playerOut = this.getPlayerById(event.playerOutId);
-    const playerIn = this.getPlayerById(event.playerInId);
-    if (playerOut && playerIn) {
-      playerOut.onCourt = false;
-      playerIn.onCourt = true;
-      console.log(`Player ${playerOut.name} substituted with ${playerIn.name}`);
-    }
-  }*/
-
-
-  /*handleQuarterChangeEvent(event: QuarterChangeEvent): void {
-    this.quarter = event.quarter;
-    console.log(`Quarter changed to ${this.quarter}`);
-  }*/
-
-  /*handleChronoEvent(event: ChronoEvent): void {
-    this.isRunning = event.isRunning;
-    this.time = this.parseTime(event.time); // Fonction pour convertir le temps en secondes
-    console.log(`Chrono is now ${this.isRunning ? 'running' : 'stopped'}`);
-  }*/
-
   handleChronoEvent(event: ChronoEvent): void {
     if (this.idMatch === event.matchId && !this.isLocalUpdate) {
       this.isRunning = event.isRunning;
@@ -641,4 +662,14 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     return hours * 3600 + minutes * 60 + seconds;
   }
 
+  handleMatchStatusEvent(statusUpdate: any): void {
+    if (statusUpdate.matchId === this.idMatch) {
+      this.matchStatus = statusUpdate.matchStatus;
+
+      if (this.matchStatus === 'Finished') {
+        this.isRunning = false;
+        this.canFinishMatch = false;
+      }
+    }
+  }
 }

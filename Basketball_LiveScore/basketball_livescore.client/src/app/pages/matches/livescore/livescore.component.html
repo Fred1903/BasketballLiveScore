@@ -1,0 +1,61 @@
+<div class="livescore-container">
+  <header class="livescore-header">
+    <h1>Live Basketball</h1>
+    <div class="date">{{ today | date:'fullDate' }}</div>
+  </header>
+
+  <div class="matches-container" *ngIf="!loading; else loadingTemplate">
+    <div *ngFor="let match of getSortedMatches()" 
+         class="match-card" 
+         (click)="navigateToMatch(match.matchId)"
+         [ngClass]="{'live': match.status === 'InProgress'}">
+      
+      <div class="match-status">
+        <span class="status-indicator" [ngClass]="match.status.toLowerCase()">
+          {{ getStatusDisplay(match.status) }}
+        </span>
+        <span class="match-date">{{ formatDate(match.matchDate) }}</span>
+      </div>
+
+      <div class="teams-container">
+        <div class="team">
+          <div class="team-info">
+            <span class="team-name">{{ match.homeTeam.name }}</span>
+          </div>
+          <span class="score">{{ match.scoreHome }}</span>
+        </div>
+        <div class="team">
+          <div class="team-info">
+            <span class="team-name">{{ match.awayTeam.name }}</span>
+          </div>
+          <span class="score">{{ match.scoreAway }}</span>
+        </div>
+        <div class="match-quarter" *ngIf="match.status === 'Live'">
+          <span>Quarter {{ match.currentQuarter }}</span>
+        </div>
+        <div class="match-controls" *ngIf="isAdmin">
+          <button mat-button
+                  class="view-btn"
+                  (click)="viewMatch(match.matchId, $event)">
+            View Match
+          </button>
+
+          <button mat-button
+                  class="update-btn"
+                  *ngIf="canUpdateMatch(match)"
+                  (click)="updateMatch(match.matchId, $event)">
+            Update Match
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading matches...</p>
+  </div>
+</ng-template>

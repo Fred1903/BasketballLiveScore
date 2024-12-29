@@ -3,6 +3,9 @@ using Basketball_LiveScore.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Basketball_LiveScore.Server.DTO;
 using Basketball_LiveScore.Server.Models;
+using Basketball_LiveScore.Server.Data;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Basketball_LiveScore.Server.Controllers
 {
@@ -27,7 +30,38 @@ namespace Basketball_LiveScore.Server.Controllers
             }
             catch (System.ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex) {
+                return StatusCode(500, "An error occurred while creating the match.");
+            }
+        }
+
+        [HttpPost("start/{matchId}")]
+        public IActionResult StartMatch(int matchId)
+        {
+            try
+            {
+                matchService.StartMatch(matchId);
+                return Ok(new { message = "Match started successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+        [HttpPut("finish/{matchId}")]
+        public async Task<IActionResult> FinishMatch(int matchId)
+        {
+            try
+            {
+                matchService.FinishMatch(matchId);
+                return Ok(new { message = "Match finished successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
 
@@ -36,7 +70,7 @@ namespace Basketball_LiveScore.Server.Controllers
         {
             var events = matchService.GetMatchEvents(matchId);
             return Ok(events);
-        }
+        }   
 
         [Authorize(Policy = "AdminOnly")]
         [HttpGet("settings/number-of-quarters")]
@@ -63,6 +97,15 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [Authorize(Policy = "AdminOnly")]
+        [HttpGet("settings/timeout-amount")]
+        public ActionResult<List<int>> GetTimeOutAmountOptions()
+        {
+            var options = matchService.GetTimeOutAmountOptions();
+            return Ok(options);
+        }
+
+
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet("settings/defaults")]
         public IActionResult GetDefaultSettings()
         {
@@ -86,12 +129,12 @@ namespace Basketball_LiveScore.Server.Controllers
 
         //Ci-dessous : endpoints des events
         [HttpPost("{matchId}/add-foul")]
-        public IActionResult AddFoulEvent(int matchId, [FromBody] FoulEventDTO foulEventDTO)
+        public async Task<IActionResult> AddFoulEvent(int matchId, [FromBody] FoulEventDTO foulEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddFoulEvent(matchId, foulEventDTO);
-                return Ok(matchEvent);
+                await matchService.AddFoulEvent(matchId, foulEventDTO);
+                return Ok(new { Message = "Foul event added successfully." });
             }
             catch (Exception ex)
             {
@@ -100,7 +143,7 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-basket")]
-        public IActionResult AddBasketEvent(int matchId, [FromBody] BasketEventDTO basketEventDTO)
+        public async Task<IActionResult> AddBasketEvent(int matchId, [FromBody] BasketEventDTO basketEventDTO)
         {
             try
             {
@@ -114,8 +157,8 @@ namespace Basketball_LiveScore.Server.Controllers
                     throw new Exception("Time cannot be zero.");
                 }
 
-                var matchEvent = matchService.AddBasketEvent(matchId, basketEventDTO);
-                return Ok(matchEvent);
+                await matchService.AddBasketEvent(matchId, basketEventDTO);
+                return Ok(new { Message = "Basket event added successfully." });
             }
             catch (Exception ex)
             {
@@ -124,12 +167,12 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-substitution")]
-        public IActionResult AddSubstitutionEvent(int matchId, [FromBody] SubstitutionEventDTO substitutionEventDTO)
+        public async Task<IActionResult> AddSubstitutionEvent(int matchId, [FromBody] SubstitutionEventDTO substitutionEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddSubstitutionEvent(matchId, substitutionEventDTO);
-                return Ok(matchEvent);
+                await matchService.AddSubstitutionEvent(matchId, substitutionEventDTO);
+                return Ok(new { Message = "Substitution event added successfully." });
             }
             catch (Exception ex)
             {
@@ -138,12 +181,12 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-timeout")]
-        public IActionResult AddTimeoutEvent(int matchId, [FromBody] TimeoutEventDTO timeoutEventDTO)
+        public async Task<IActionResult> AddTimeoutEvent(int matchId, [FromBody] TimeoutEventDTO timeoutEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddTimeoutEvent(matchId, timeoutEventDTO);
-                return Ok(matchEvent);
+                await matchService.AddTimeoutEvent(matchId, timeoutEventDTO);
+                return Ok(new { Message = "Timeout event added successfully." });
             }
             catch (Exception ex)
             {
@@ -152,12 +195,12 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-chrono")]
-        public IActionResult AddChronoEvent(int matchId, [FromBody] ChronoEventDTO chronoEventDTO)
+        public async Task<IActionResult> AddChronoEvent(int matchId, [FromBody] ChronoEventDTO chronoEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddChronoEvent(matchId, chronoEventDTO);
-                return Ok(matchEvent);
+                await matchService.AddChronoEvent(matchId, chronoEventDTO);
+                return Ok(new { Message = "Chrono event added successfully." });
             }
             catch (Exception ex)
             {
@@ -166,12 +209,12 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpPost("{matchId}/add-quarter-change")]
-        public IActionResult AddQuarterChangeEvent(int matchId, [FromBody] QuarterChangeEventDTO quarterChangeEventDTO)
+        public async Task<IActionResult> AddQuarterChangeEvent(int matchId, [FromBody] QuarterChangeEventDTO quarterChangeEventDTO)
         {
             try
             {
-                var matchEvent = matchService.AddQuarterChangeEvent(matchId, quarterChangeEventDTO);
-                return Ok(matchEvent);
+                await matchService.AddQuarterChangeEvent(matchId, quarterChangeEventDTO);
+                return Ok(new { Message = "Quarter event added successfully." });
             }
             catch (Exception ex)
             {
@@ -202,5 +245,20 @@ namespace Basketball_LiveScore.Server.Controllers
 
             return Ok(points);
         }
+
+        [HttpGet("all")]
+        public IActionResult GetAllMatchesWithStatus()
+        {
+            try
+            {
+                var matches = matchService.GetAllMatchesWithStatus();
+                return Ok(matches);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
     }
 }

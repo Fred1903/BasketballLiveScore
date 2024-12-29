@@ -27,11 +27,17 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   isTimeout: boolean = false;
   timeoutTime: number = 0;
   matchDetails: MatchDetails | null = null;
-  idMatch: number = 2;
+  idMatch: number =0;
   recentEvents: RecentEvent[] = [];
   private intervalId: any;
   private timerInterval: any;
   isRunning: boolean = false;
+  activeSubstitution: {
+    playerIn: PlayerMatch | null;
+    playerOut: PlayerMatch | null;
+    team: Team | null;
+    remaining: number;
+  } | null = null;
 
   team1: Team = {
     name: '',
@@ -74,15 +80,16 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   }
 
   private loadMatchDetails(matchId: number): void {
-    this.matchSettingsService.getMatchDetails(matchId).subscribe({
-      next: (data) => {
-        this.matchDetails = data;
-        this.initializeTeams(data);
-        // Set initial match status based on data
-        this.determineMatchStatus(data);
-      },
-      error: (err) => console.error('Error loading match details:', err)
-    });
+    if (matchId) { //Que si le match existe on le load
+      this.matchSettingsService.getMatchDetails(matchId).subscribe({
+        next: (data) => {
+          this.matchDetails = data;
+          this.initializeTeams(data);
+          this.determineMatchStatus(data);
+        },
+        error: (err) => console.error('Error loading match details:', err)
+      });
+    }
   }
 
   private determineMatchStatus(data: MatchDetails): void {
@@ -186,7 +193,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
 
   // Event Handlers
   private handleBasketEvent(event: BasketEvent): void {
-    if (this.idMatch === event.matchId) {
+    if (this.idMatch && this.idMatch === event.matchId) {
       const player = this.findPlayerById(event.playerId);
       if (player) {
         player.points += event.points;
@@ -200,7 +207,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   }
 
   private handleFoulEvent(event: FoulEvent): void {
-    if (this.idMatch === event.matchId) {
+    if (this.idMatch && this.idMatch === event.matchId) {
       const player = this.findPlayerById(event.playerId);
       if (player) {
         player.fouls++;
@@ -210,7 +217,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   }
 
   private handleTimeoutEvent(event: TimeoutEvent): void {
-    if (this.idMatch === event.matchId) {
+    if (this.idMatch && this.idMatch === event.matchId) {
       const team = event.team === 'Home' ? this.team1 : this.team2;
       if (team && team.timeouts > 0) {
         team.timeouts--;
@@ -223,23 +230,56 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   }
 
   private handleSubstitutionEvent(event: SubstitutionEvent): void {
-    if (this.idMatch === event.matchId) {
+    if (this.idMatch && this.idMatch === event.matchId) {
       const team = this.getTeamByPlayerId(event.playerOutId);
       if (team) {
         const playerOut = this.findPlayerById(event.playerOutId);
         const playerIn = this.findPlayerById(event.playerInId);
         if (playerOut && playerIn) {
-          playerOut.onCourt = false;
+
+          this.activeSubstitution = {
+            playerIn,
+            playerOut,
+            team,
+            remaining: 5
+          };
+          const countdownInterval = setInterval(() => {
+            if (this.activeSubstitution) {
+              this.activeSubstitution.remaining--;
+              if (this.activeSubstitution.remaining <= 0) {
+                clearInterval(countdownInterval);
+
+                // Update player states
+                playerOut.onCourt = false;
+                playerIn.onCourt = true;
+
+                // Add to recent events
+                this.addRecentEvent('substitution',
+                  `Substitution: ${playerIn.name} IN, ${playerOut.name} OUT`);
+
+                this.activeSubstitution = null;
+              }
+            }
+          }, 1000);
+          setTimeout(() => {
+            if (this.activeSubstitution) {
+              playerOut.onCourt = false;
+              playerIn.onCourt = true;
+              this.activeSubstitution = null;
+            }
+          }, 5500);
+
+          /*playerOut.onCourt = false;
           playerIn.onCourt = true;
           this.addRecentEvent('substitution',
-            `Substitution: ${playerIn.name} IN, ${playerOut.name} OUT`);
+            `Substitution: ${playerIn.name} IN, ${playerOut.name} OUT`);*/
         }
       }
     }
   }
 
   private handleQuarterChangeEvent(event: QuarterChangeEvent): void {
-    if (this.idMatch === event.matchId) {
+    if (this.idMatch && this.idMatch === event.matchId) {
       this.quarter = event.quarter;
       this.time = 600; // Reset to 10 minutes
       this.matchStatus = 'in_progress';
@@ -248,7 +288,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   }
 
   private handleChronoEvent(event: ChronoEvent): void {
-    if (this.idMatch === event.matchId) {
+    if (this.idMatch && this.idMatch === event.matchId) {
       this.time = this.parseTime(event.time);
       this.isRunning = event.isRunning;
 

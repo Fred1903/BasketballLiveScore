@@ -61,6 +61,25 @@ namespace Basketball_LiveScore.Server.Hubs
                 Quarter = quarter
             });
         }
+        //Ci-dessous update dans le quarter, au dessus changement de quarter
+        public async Task NotifyQuarterUpdate(int matchId, int currentQuarter)
+        {
+            await Clients.Group(matchId.ToString()).SendAsync("QuarterUpdate", new
+            {
+                MatchId = matchId,
+                CurrentQuarter = currentQuarter
+            });
+        }
+
+
+        public async Task NotifyMatchStatusChange(int matchId, string matchStatus)
+        {
+            await Clients.Group(matchId.ToString()).SendAsync("MatchStatusChanged", new
+            {
+                MatchId = matchId,
+                MatchStatus = matchStatus
+            });
+        }
 
         public async Task JoinMatchGroup(string matchId)
         {

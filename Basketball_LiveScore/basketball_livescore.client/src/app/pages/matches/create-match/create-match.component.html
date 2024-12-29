@@ -1,96 +1,146 @@
 <div class="form-container">
-  <h2 class="text-center">Create Match</h2>
+  <h2 class="title">Create Match</h2>
   <form [formGroup]="matchForm" (ngSubmit)="onSubmit()">
+    <!-- Date and Time Selection -->
+    <div class="datetime-container">
+      <div class="form-group">
+        <label for="matchDate">Match Date</label>
+        <input type="date"
+               id="matchDate"
+               formControlName="matchDate"
+               class="form-control"
+               [min]="minDate">
+      </div>
+      <div class="form-group">
+        <label for="matchTime">Match Time</label>
+        <input type="time"
+               id="matchTime"
+               formControlName="matchTime"
+               class="form-control"
+               [min]="minTime">
+      </div>
+    </div>
+
     <div class="teams-container">
       <!-- Team 1 -->
       <div class="team">
-        <h4 class="team-title">Team 1</h4>
-        <app-form-dropdown *ngIf="team1Control"
-                           label="Team 1"
-                           [options]="teamsOptions"
-                           [control]="team1Control"
-                           [errorMessage]="'Team 1 is required.'"
-                           (change)="onTeamChange(1)">
-        </app-form-dropdown>
+        <div class="team-header">
+          <h4 class="team-title">Team 1</h4>
+          <app-form-dropdown *ngIf="team1Control"
+                             label="Select Team"
+                             [options]="teamsOptions"
+                             [control]="team1Control"
+                             [errorMessage]="'Team 1 is required.'"
+                             (change)="onTeamChange(1)">
+          </app-form-dropdown>
+        </div>
 
         <div *ngIf="team1Players.length > 0" class="players-container">
-          <h5 class="players-title">Players for Team 1</h5>
-          <div class="player-card" *ngFor="let player of team1Players">
-            <label class="player-checkbox">
-              <input type="checkbox" [value]="player.id" (change)="togglePlayer(player.id, 1)">
-              {{ player.firstName }} {{ player.lastName }} (#{{ player.number }})
-            </label>
-            <label class="player-checkbox">
-              <input type="checkbox" (change)="toggleStarter(player.id, 1)"> Starter
-            </label>
+          <h5 class="players-title">Team 1 Players</h5>
+          <div class="player-list">
+            <div class="player-card" *ngFor="let player of team1Players">
+              <div class="player-info">
+                <label class="player-checkbox">
+                  <input type="checkbox" [value]="player.id" (change)="togglePlayer(player.id, 1)">
+                  <span class="player-name">{{ player.firstName }} {{ player.lastName }}</span>
+                  <span class="player-number">#{{ player.number }}</span>
+                </label>
+                <label class="starter-checkbox">
+                  <input type="checkbox" (change)="toggleStarter(player.id, 1)">
+                  <span>Starter</span>
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Team 2 -->
       <div class="team">
-        <h4 class="team-title">Team 2</h4>
-        <app-form-dropdown *ngIf="team2Control"
-                           label="Team 2"
-                           [options]="teamsOptions"
-                           [control]="team2Control"
-                           [errorMessage]="'Team 2 is required.'"
-                           (change)="onTeamChange(2)">
-        </app-form-dropdown>
+        <div class="team-header">
+          <h4 class="team-title">Team 2</h4>
+          <app-form-dropdown *ngIf="team2Control"
+                             label="Select Team"
+                             [options]="teamsOptions"
+                             [control]="team2Control"
+                             [errorMessage]="'Team 2 is required.'"
+                             (change)="onTeamChange(2)">
+          </app-form-dropdown>
+        </div>
 
         <div *ngIf="team2Players.length > 0" class="players-container">
-          <h5 class="players-title">Players for Team 2</h5>
-          <div class="player-card" *ngFor="let player of team2Players">
-            <label class="player-checkbox">
-              <input type="checkbox" [value]="player.id" (change)="togglePlayer(player.id, 2)">
-              {{ player.firstName }} {{ player.lastName }} (#{{ player.number }})
-            </label>
-            <label class="player-checkbox">
-              <input type="checkbox" (change)="toggleStarter(player.id, 2)"> Starter
-            </label>
+          <h5 class="players-title">Team 2 Players</h5>
+          <div class="player-list">
+            <div class="player-card" *ngFor="let player of team2Players">
+              <div class="player-info">
+                <label class="player-checkbox">
+                  <input type="checkbox" [value]="player.id" (change)="togglePlayer(player.id, 2)">
+                  <span class="player-name">{{ player.firstName }} {{ player.lastName }}</span>
+                  <span class="player-number">#{{ player.number }}</span>
+                </label>
+                <label class="starter-checkbox">
+                  <input type="checkbox" (change)="toggleStarter(player.id, 2)">
+                  <span>Starter</span>
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Number of Quarters -->
-    <div class="form-group">
-      <label for="numberOfQuarters">Number of Quarters</label>
-      <select formControlName="numberOfQuarters" class="form-control" id="numberOfQuarters">
-        <option *ngFor="let option of numberOfQuartersOptions" [value]="option">
-          {{ option }}
-        </option>
-      </select>
-    </div>
+    <div class="match-settings">
+      <h4 class="settings-title">Match Settings</h4>
+      <div class="settings-grid">
+        <!-- Number of Quarters -->
+        <div class="form-group">
+          <label for="numberOfQuarters">Number of Quarters</label>
+          <select formControlName="numberOfQuarters" class="form-control" id="numberOfQuarters">
+            <option *ngFor="let option of numberOfQuartersOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
 
-    <!-- Quarter Duration -->
-    <div class="form-group">
-      <label for="quarterDuration">Quarter Duration (minutes)</label>
-      <select formControlName="quarterDuration" class="form-control" id="quarterDuration">
-        <option *ngFor="let option of quarterDurationOptions" [value]="option">
-          {{ option }}
-        </option>
-      </select>
-    </div>
+        <!-- Quarter Duration -->
+        <div class="form-group">
+          <label for="quarterDuration">Quarter Duration (minutes)</label>
+          <select formControlName="quarterDuration" class="form-control" id="quarterDuration">
+            <option *ngFor="let option of quarterDurationOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
 
-    <!-- Timeout Duration -->
-    <div class="form-group">
-      <label for="timeoutDuration">Timeout Duration (seconds)</label>
-      <select formControlName="timeoutDuration" class="form-control" id="timeoutDuration">
-        <option *ngFor="let option of timeoutDurationOptions" [value]="option">
-          {{ option }}
-        </option>
-      </select>
-    </div>
+        <!-- Timeout Duration -->
+        <div class="form-group">
+          <label for="timeoutDuration">Timeout Duration (seconds)</label>
+          <select formControlName="timeoutDuration" class="form-control" id="timeoutDuration">
+            <option *ngFor="let option of timeoutDurationOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
 
-    <!-- Encoder Selection -->
-    <div class="form-group">
-      <app-form-dropdown *ngIf="encoderControl"
-                         label="Match Encoder"
-                         [options]="encodersOptions"
-                         [control]="encoderControl"
-                         [errorMessage]="'An encoder is required.'">
-      </app-form-dropdown>
+        <div class="form-group">
+          <label for="timeoutAmount">Number of Timeouts</label>
+          <select formControlName="timeoutAmount" class="form-control" id="timeoutAmount">
+            <option *ngFor="let option of timeoutAmountOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Encoder Selection -->
+        <div class="form-group">
+          <app-form-dropdown *ngIf="encoderControl"
+                             label="Match Encoder"
+                             [options]="encodersOptions"
+                             [control]="encoderControl"
+                             [errorMessage]="'An encoder is required.'">
+          </app-form-dropdown>
+        </div>
+      </div>
     </div>
 
     <!-- Submit Button -->
@@ -100,4 +150,7 @@
       </button>
     </div>
   </form>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
 </div>
