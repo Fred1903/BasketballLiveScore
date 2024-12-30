@@ -6,12 +6,105 @@
 }
 
 /* Pre-match styles */
+.match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.team-info {
+  text-align: center;
+}
+
+.coach {
+  color: #999;
+  margin-top: 0.5rem;
+}
+
+.match-details {
+  background: #2a2a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  display: inline-block;
+  margin: 0 1rem;
+  color: #ccc;
+}
+
+  .detail-item span {
+    font-weight: bold;
+    color: white;
+  }
+
 .pre-match {
   text-align: center;
   padding: 40px;
   background: #1a1a1a;
   border-radius: 12px;
   color: white;
+}
+.pre-match-teams .team-panel {
+  background: #2a2a2a;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+}
+
+.pre-match-teams .player-card {
+  background: #3a3a3a;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.pre-match-teams .number {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #4CAF50;
+}
+
+.pre-match-teams .name {
+  color: #ccc;
+}
+
+.pre-match-teams h4 {
+  color: #999;
+  margin: 15px 0 10px;
+}
+.pre-match-teams .team-panel {
+  background: #2a2a2a;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+}
+
+.pre-match-teams .player-card {
+  background: #3a3a3a;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.pre-match-teams .number {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #4CAF50;
+}
+
+.pre-match-teams .name {
+  color: #ccc;
+}
+
+.pre-match-teams h4 {
+  color: #999;
+  margin: 15px 0 10px;
 }
 
 .teams-preview {

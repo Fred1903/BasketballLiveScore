@@ -106,7 +106,6 @@ namespace Basketball_LiveScore.Server.Services
                 IsStarter = matchDTO.StartersTeam2.Contains(p.Id),
                 IsHomeTeam = false
             })).ToList();
-            
             basketballDBContext.MatchPlayers.AddRange(matchPlayers);
             basketballDBContext.SaveChanges();
 
@@ -633,7 +632,7 @@ namespace Basketball_LiveScore.Server.Services
             match.Status = MatchStatus.Live;
             basketballDBContext.SaveChanges();
             //StartMatchTimer(matchId);//on start le timer du back 
-            hubContext.Clients.Group(matchId.ToString()).SendAsync("MatchStatusChanged", MatchStatus.Live.ToString());
+            hubContext.Clients.Group(matchId.ToString()).SendAsync("MatchStatusChanged", new { matchId, matchStatus = MatchStatus.Live.ToString() });
         }
 
         public void FinishMatch(int matchId)

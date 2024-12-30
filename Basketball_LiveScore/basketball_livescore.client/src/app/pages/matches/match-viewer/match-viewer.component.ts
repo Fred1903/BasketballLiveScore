@@ -517,10 +517,21 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
             })),
           coach: data.awayTeam.coach,
         };
+        console.log("players team1 : " + this.team1.players);
       },
       error: (err) => console.error('Error loading match details:', err)
     });
   }
+
+  /*private loadRecentEvents(matchId: number): void {
+    this.matchService.getMatchEvents(matchId).subscribe(events => {
+      this.recentEvents = events.map(event => ({
+        time: this.formatTime(this.parseTime(event.time)),
+        description: this.getEventDescription(event),
+        type: event.type
+      }));
+    });
+  }*/
 
   private startTimer() {
     this.timerInterval = setInterval(() => {
@@ -538,43 +549,43 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   private subscribeToMatchEvents(): void {
 
     this.matchService.subscribeToBasketEvents((event) => {
-      this.ngZone.run(() => {
-        console.log("Received basket event ", event);
-        this.handleBasketEvent(event);
-      });
-      
-      //this.handleBasketEvent(event);
+      this.handleBasketEvent(event);
     });
 
     this.matchService.subscribeToFoulEvents((event) => {
-      console.log("Received foul event ", event);
       this.handleFoulEvent(event);
     });
 
     this.matchService.subscribeToTimeoutEvents((event) => {
-      console.log("Received timeout event ", event);
       this.handleTimeoutEvent(event);
     });
 
     this.matchService.subscribeToSubstitutionEvents((event) => {
-      console.log("Received sub event ", event);
       this.handleSubstitutionEvent(event);
     });
 
     this.matchService.subscribeToQuarterChangeEvents((event) => {
-      console.log("Received q event ", event);
       this.handleQuarterChangeEvent(event);
     });
 
     this.matchService.subscribeToChronoEvents((event) => {
-      console.log("Received chrono event ", event);
       this.handleChronoEvent(event);
     });
 
     this.matchService.subscribeToMatchStatusEvents((statusUpdate) => {
-      console.log("Received status event ", statusUpdate);
+      console.log("subscribeheinnnnnnnnnn")
+      console.log("ssstautsUpdate.matchId = " + statusUpdate.matchId + " et this.idMatch = " + this.idMatch);
       if (statusUpdate.matchId === this.idMatch) {
+        console.log("stautsUpdate.matchId = " + statusUpdate.matchId + " et this.idMatch = " + this.idMatch);
+        console.log("statut = " + this.matchStatus);
+        console.log("statuts.stauts = " + statusUpdate.matchStatus);
         this.matchStatus = statusUpdate.matchStatus;
+        console.log("statute = " + this.matchStatus);
+        console.log("statuts.stautes = " + statusUpdate.matchStatus);
+        if (this.matchStatus === 'Live') {
+          console.log("jeeeeeeeeeeeeee loaaaaad matchhhhhhhh")
+          this.loadMatchDetails(this.idMatch); //si le statut du match était à NotStarted et qu'il passe à live on reload la pages
+        }
       }
     });
   }

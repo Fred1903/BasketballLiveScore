@@ -1,26 +1,79 @@
-<!-- match-viewer.component.html --
-<div class="match-container" [ngClass]="matchStatus">
-  <!-- Pre-match view --
-  <div *ngIf="matchStatus === 'not_started'" class="pre-match">
-    <div class="teams-preview">
-      <div class="team-preview">
-        <div class="team-logo-placeholder"></div>
+<div class="match-container">
+  <!-- Pre-match view -->
+  <div *ngIf="matchStatus === 'NotStarted'" class="pre-match">
+    <div class="match-header">
+      <div class="team-info">
         <h2>{{team1.name}}</h2>
+        <p class="coach">Coach: {{team1.coach}}</p>
       </div>
       <div class="vs">VS</div>
-      <div class="team-preview">
-        <div class="team-logo-placeholder"></div>
+      <div class="team-info">
         <h2>{{team2.name}}</h2>
+        <p class="coach">Coach: {{team2.coach}}</p>
       </div>
     </div>
-    <div class="match-info">
-      <p class="status">{{getMatchStatusDisplay()}}</p>
+
+    <div class="match-details">
+      <div class="detail-item">
+        <span>Quarters:</span> {{numberOfQuarters}}
+      </div>
+      <div class="detail-item">
+        <span>Quarter Duration:</span> {{quarterTime / 60}} minutes
+      </div>
+      <div class="detail-item">
+        <span>Timeouts :</span> {{team1.timeouts}}
+      </div>
+      <div class="detail-item">
+        <span>Timeouts Duration:</span> {{timeoutDuration}} seconds
+      </div>
+    </div>
+
+    <div class="teams-container pre-match-teams">
+      <div class="team-panel">
+        <h3>{{team1.name}} Roster</h3>
+        <div class="players-section">
+          <h4>Starting Five</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getOnCourtPlayers(team1)" class="player-card">
+              <span class="number">#{{player.number}}</span>
+              <span class="name">{{player.name}}</span>
+            </div>
+          </div>
+          <h4>Bench</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getBenchPlayers(team1)" class="player-card">
+              <span class="number">#{{player.number}}</span>
+              <span class="name">{{player.name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-panel">
+        <h3>{{team2.name}} Roster</h3>
+        <div class="players-section">
+          <h4>Starting Five</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getOnCourtPlayers(team2)" class="player-card">
+              <span class="number">#{{player.number}}</span>
+              <span class="name">{{player.name}}</span>
+            </div>
+          </div>
+          <h4>Bench</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getBenchPlayers(team2)" class="player-card">
+              <span class="number">#{{player.number}}</span>
+              <span class="name">{{player.name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Live match view --
-  <div *ngIf="matchStatus !== 'not_started'" class="live-match">
-    <!-- Scoreboard --
+  <!-- Live match view -->
+  <div *ngIf="matchStatus !== 'NotStarted'" class="live-match">
+    <!-- Scoreboard -->
     <div class="scoreboard">
       <div class="team-score">
         <h3>{{team1.name}}</h3>
@@ -33,7 +86,7 @@
           <span *ngIf="!isTimeout">{{formatTime(time)}}</span>
           <span *ngIf="isTimeout" class="timeout-time">Timeout: {{formatTime(timeoutTime)}}</span>
         </div>
-        <div class="status-label">{{getMatchStatusDisplay()}}</div>
+        <div class="status-label">{{matchStatus}}</div>
       </div>
       <div class="team-score">
         <h3>{{team2.name}}</h3>
@@ -42,280 +95,106 @@
       </div>
     </div>
 
-    <!-- Substitution Animation Overlay --
-    <div class="substitution-overlay" *ngIf="activeSubstitution">
-      <div class="substitution-content">
-        <div class="substitution-header">
-          <h3>SUBSTITUTION</h3>
-          <div class="countdown">{{activeSubstitution.remaining}}</div>
-        </div>
-        <div class="players-exchange">
-          <div class="player out">
-            <div class="player-number">#{{activeSubstitution.playerOut?.number}}</div>
-            <div class="player-name">{{activeSubstitution.playerOut?.name}}</div>
-            <div class="direction">OUT</div>
-          </div>
-          <div class="exchange-arrow">
-            <i class="fas fa-exchange-alt"></i>
-          </div>
-          <div class="player in">
-            <div class="player-number">#{{activeSubstitution.playerIn?.number}}</div>
-            <div class="player-name">{{activeSubstitution.playerIn?.name}}</div>
-            <div class="direction">IN</div>
-          </div>
-        </div>
-        <div class="team-name">{{activeSubstitution.team?.name}}</div>
-      </div>
-    </div>
-
-    <!-- Teams Container --
+    <!-- Teams Container -->
     <div class="teams-container">
       <!-- Team 1 -->
-<div class="team-panel">
-  <h3>{{team1.name}}</h3>
+      <div class="team-panel">
+        <h3>{{team1.name}}</h3>
 
-  <!-- On Court Players --
-          <div class="players-section">
-            <h4>On Court</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getOnCourtPlayers(team1)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+        <!-- On Court Players -->
+        <div class="players-section">
+          <h4>On Court</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getOnCourtPlayers(team1)"
+                 class="player-card"
+                 [class.high-fouls]="player.fouls >= 4">
+              <div class="player-info">
+                <span class="number">#{{player.number}}</span>
+                <span class="name">{{player.name}}</span>
               </div>
-            </div>
-          </div>
-
-          <!-- Bench Players --
-          <div class="players-section">
-            <h4>Bench</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getBenchPlayers(team1)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+              <div class="player-stats">
+                <span class="points">{{player.points}} PTS</span>
+                <span class="fouls">{{player.fouls}} Fouls</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Team 2 --
-        <div class="team-panel">
-          <h3>{{team2.name}}</h3>
-
-          <!-- On Court Players --
-          <div class="players-section">
-            <h4>On Court</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getOnCourtPlayers(team2)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+        <!-- Bench Players -->
+        <div class="players-section">
+          <h4>Bench</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getBenchPlayers(team1)"
+                 class="player-card"
+                 [class.high-fouls]="player.fouls >= 4">
+              <div class="player-info">
+                <span class="number">#{{player.number}}</span>
+                <span class="name">{{player.name}}</span>
               </div>
-            </div>
-          </div>
-
-          <!-- Bench Players --
-          <div class="players-section">
-            <h4>Bench</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getBenchPlayers(team2)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+              <div class="player-stats">
+                <span class="points">{{player.points}} PTS</span>
+                <span class="fouls">{{player.fouls}} Fouls</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Recent Events --
-      <div class="recent-events">
-        <h3>Recent Events</h3>
-        <div class="events-list">
-          <div *ngFor="let event of recentEvents"
-               class="event-item"
-               [ngClass]="event.type">
-            <span class="event-time">{{event.time}}</span>
-            <span class="event-description">{{event.description}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
+      <!-- Team 2 -->
+      <div class="team-panel">
+        <h3>{{team2.name}}</h3>
 
-
-  <div class="match-container">
-    <!-- Pre-match view -->
-    <div *ngIf="matchStatus === 'NotStarted'" class="pre-match">
-      <div class="teams-preview">
-        <div class="team-preview">
-          <div class="team-logo-placeholder"></div>
-          <h2>{{team1.name}}</h2>
-        </div>
-        <div class="vs">VS</div>
-        <div class="team-preview">
-          <div class="team-logo-placeholder"></div>
-          <h2>{{team2.name}}</h2>
-        </div>
-      </div>
-      <div class="match-info">
-        <p class="status">{{matchStatus}}</p>
-      </div>
-    </div>
-
-    <!-- Live match view -->
-    <div *ngIf="matchStatus !== 'NotStarted'" class="live-match">
-      <!-- Scoreboard -->
-      <div class="scoreboard">
-        <div class="team-score">
-          <h3>{{team1.name}}</h3>
-          <div class="score">{{team1.score}}</div>
-          <div class="timeouts">Timeouts: {{team1.timeouts}}</div>
-        </div>
-        <div class="match-status">
-          <div class="quarter">Quarter {{quarter}}</div>
-          <div class="time" [ngClass]="{'timeout': isTimeout}">
-            <span *ngIf="!isTimeout">{{formatTime(time)}}</span>
-            <span *ngIf="isTimeout" class="timeout-time">Timeout: {{formatTime(timeoutTime)}}</span>
-          </div>
-          <div class="status-label">{{matchStatus}}</div>
-        </div>
-        <div class="team-score">
-          <h3>{{team2.name}}</h3>
-          <div class="score">{{team2.score}}</div>
-          <div class="timeouts">Timeouts: {{team2.timeouts}}</div>
-        </div>
-      </div>
-
-      <!-- Teams Container -->
-      <div class="teams-container">
-        <!-- Team 1 -->
-        <div class="team-panel">
-          <h3>{{team1.name}}</h3>
-
-          <!-- On Court Players -->
-          <div class="players-section">
-            <h4>On Court</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getOnCourtPlayers(team1)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+        <!-- On Court Players -->
+        <div class="players-section">
+          <h4>On Court</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getOnCourtPlayers(team2)"
+                 class="player-card"
+                 [class.high-fouls]="player.fouls >= 4">
+              <div class="player-info">
+                <span class="number">#{{player.number}}</span>
+                <span class="name">{{player.name}}</span>
               </div>
-            </div>
-          </div>
-
-          <!-- Bench Players -->
-          <div class="players-section">
-            <h4>Bench</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getBenchPlayers(team1)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+              <div class="player-stats">
+                <span class="points">{{player.points}} PTS</span>
+                <span class="fouls">{{player.fouls}} Fouls</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Team 2 -->
-        <div class="team-panel">
-          <h3>{{team2.name}}</h3>
-
-          <!-- On Court Players -->
-          <div class="players-section">
-            <h4>On Court</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getOnCourtPlayers(team2)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+        <!-- Bench Players -->
+        <div class="players-section">
+          <h4>Bench</h4>
+          <div class="players-list">
+            <div *ngFor="let player of getBenchPlayers(team2)"
+                 class="player-card"
+                 [class.high-fouls]="player.fouls >= 4">
+              <div class="player-info">
+                <span class="number">#{{player.number}}</span>
+                <span class="name">{{player.name}}</span>
               </div>
-            </div>
-          </div>
-
-          <!-- Bench Players -->
-          <div class="players-section">
-            <h4>Bench</h4>
-            <div class="players-list">
-              <div *ngFor="let player of getBenchPlayers(team2)"
-                   class="player-card"
-                   [class.high-fouls]="player.fouls >= 4">
-                <div class="player-info">
-                  <span class="number">#{{player.number}}</span>
-                  <span class="name">{{player.name}}</span>
-                </div>
-                <div class="player-stats">
-                  <span class="points">{{player.points}} PTS</span>
-                  <span class="fouls">{{player.fouls}} Fouls</span>
-                </div>
+              <div class="player-stats">
+                <span class="points">{{player.points}} PTS</span>
+                <span class="fouls">{{player.fouls}} Fouls</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Recent Events -->
-      <div class="recent-events">
-        <h3>Recent Events</h3>
-        <div class="events-list">
-          <div *ngFor="let event of recentEvents"
-               class="event-item"
-               [ngClass]="event.type">
-            <span class="event-time">{{event.time}}</span>
-            <span class="event-description">{{event.description}}</span>
-          </div>
+    <!-- Recent Events -->
+    <div class="recent-events">
+      <h3>Recent Events</h3>
+      <div class="events-list">
+        <div *ngFor="let event of recentEvents"
+             class="event-item"
+             [ngClass]="event.type">
+          <span class="event-time">{{event.time}}</span>
+          <span class="event-description">{{event.description}}</span>
         </div>
       </div>
     </div>
   </div>
+</div>

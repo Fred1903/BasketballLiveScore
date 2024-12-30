@@ -60,7 +60,7 @@
     }
 
     subscribeToMatchStatusEvents(callback: (statusUpdate: { matchId: number; matchStatus: string }) => void): void {
-      this.hubConnection.on('MatchStatusUpdated', callback);
+      this.hubConnection.on('MatchStatusChanged', callback);
     }
     subscribeToTimerUpdates(callback: (timerUpdate: { matchId: number; currentQuarter: number; remainingTime: number }) => void): void {
       this.hubConnection.on('TimerUpdated', callback);
