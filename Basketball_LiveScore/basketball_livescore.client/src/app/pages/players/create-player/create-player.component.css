@@ -1,0 +1,7 @@
+.alert.alert-danger {
+  background-color: red; /* Couleur de fond rouge */
+  color: white; /* Couleur du texte blanche pour un meilleur contraste */
+  padding: 10px; /* Pour un peu d'espace autour du texte */
+  border-radius: 5px; /* Coins légèrement arrondis */
+  font-weight: bold; /* Texte en gras */
+}

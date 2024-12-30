@@ -18,7 +18,7 @@ namespace Basketball_LiveScore.Server.Controllers
             this.playerService = playerService;
         }
 
-        [Authorize(Policy = "AdminOnly")]
+        //[Authorize(Policy = "AdminOnly")]
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreatePlayer([FromBody] CreatePlayerDTO playerDto)
@@ -32,6 +32,10 @@ namespace Basketball_LiveScore.Server.Controllers
             {
                 var createdPlayer = await playerService.CreatePlayerAsync(playerDto);
                 return StatusCode(201, createdPlayer);
+            }
+            catch (System.ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {

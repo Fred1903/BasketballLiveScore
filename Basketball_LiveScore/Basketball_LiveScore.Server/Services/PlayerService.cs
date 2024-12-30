@@ -15,6 +15,13 @@ namespace Basketball_LiveScore.Server.Services
 
         public async Task<Player> CreatePlayerAsync(CreatePlayerDTO createPlayerDto)
         {
+            var team = basketballDBContext.Teams.FirstOrDefault(t => t.Name == createPlayerDto.Team);
+
+            if(basketballDBContext.Players.Any(p=>p.Team.Name==createPlayerDto.Team &&
+                p.Number == createPlayerDto.Number))
+            {
+                throw new ArgumentException("There is already a player with the same number in the team, please choose another one");
+            }
             var player = new Player
             {
                 FirstName = createPlayerDto.FirstName,

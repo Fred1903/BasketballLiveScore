@@ -12,7 +12,7 @@ export class CreatePlayerComponent implements OnInit {
   playerForm!: FormGroup;
   positionsOptions: { value: string; display: string }[] = [];
   teamsOptions: { value: number; display: string }[] = [];
-
+  errorMessage: string | null = null;
 
   constructor(private fb: FormBuilder, private teamService: TeamService, private playerService: PlayerService) { }
 
@@ -96,14 +96,15 @@ export class CreatePlayerComponent implements OnInit {
           console.log('Player created successfully:', response);
           alert('Player created successfully!');
           this.playerForm.reset(); // Clear the form
+          this.errorMessage = null;
         },
         error: (error: any) => {
           console.error('Error creating player:', error);
-          alert('Failed to create player. Please try again.');
+          this.errorMessage = error.message;
         }
       });
     } else {
-      alert('Please fill out the form correctly.');
+      this.errorMessage = "Please fill out the form correctly."
     }
   }
 }

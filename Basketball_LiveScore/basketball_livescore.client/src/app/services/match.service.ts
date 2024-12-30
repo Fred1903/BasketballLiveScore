@@ -19,13 +19,19 @@
 
       this.hubConnection //Log signalR 
         .start()
-        .then(() => console.log('SignalR connection started'))
+        .then(() => { console.log('SignalR connection started');
+          this.hubConnection.onreconnecting(() => console.log('Reconnecting...'));
+          this.hubConnection.onreconnected(() => console.log('Reconnected'));
+          this.hubConnection.onclose(() => console.log('Connection closed'));
+        })
         .catch(err => console.error('Error starting SignalR connection:', err));
     }
     //Ci-dessous les souscriptions : 
     //pck hubConnection est en private donc pas acces depuis le component donc on met ca :
     subscribeToBasketEvents(callback: (eventData: BasketEvent) => void): void {
+      console.log('Subscribing to basket events');
       this.hubConnection.on("BasketEventOccurred", (eventData: BasketEvent) => {
+        console.log('Basket event received:', eventData);
         callback(eventData);
       });
     }

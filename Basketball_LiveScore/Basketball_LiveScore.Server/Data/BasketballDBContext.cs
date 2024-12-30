@@ -51,6 +51,14 @@ namespace Basketball_LiveScore.Server.Data
                 .HasForeignKey(p => p.TeamId) // Clé étrangère
                 .OnDelete(DeleteBehavior.Cascade); // Supprime les joueurs si l'équipe est supprimée
 
+            modelBuilder.Entity<Player>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd(); // Indique qu'Entity Framework doit laisser la base générer l'ID
+
+            modelBuilder.Entity<Team>()
+                .Property(t => t.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<MatchEvent>()
                 .ToTable("MatchEvent") //Tous les events dans une seule table !
                 .HasDiscriminator<string>("EventType")
