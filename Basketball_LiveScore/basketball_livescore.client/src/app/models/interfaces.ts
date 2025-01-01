@@ -167,9 +167,8 @@
     time: string;
     description: string;
     type: 'score' | 'foul' | 'timeout' | 'substitution' | 'quarter';
+    icon?: string;
   }
-
-
   export interface MatchLiveScore {
     matchId: number;
     matchDate: string;

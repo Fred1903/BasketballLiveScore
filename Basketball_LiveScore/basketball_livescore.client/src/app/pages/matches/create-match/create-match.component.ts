@@ -187,6 +187,36 @@ export class CreateMatchComponent implements OnInit {
     return this.matchForm.get('encoder') as FormControl | null;
   }
 
+  private resetFormAndState(): void {
+    this.matchForm.reset();
+
+    // Clear the selected players and starters
+    this.selectedTeam1Players.clear();
+    this.selectedTeam2Players.clear();
+    this.startersTeam1.clear();
+    this.startersTeam2.clear();
+
+    // Clear the players list
+    this.team1Players = [];
+    this.team2Players = [];
+
+    // Reset default values (if needed)
+    this.matchForm.patchValue({
+      numberOfQuarters: null,
+      quarterDuration: null,
+      timeoutDuration: null,
+      timeoutAmount: null,
+      team1: null,
+      team2: null,
+      encoder: null,
+      matchDate: null,
+      matchTime: null
+    });
+
+    this.errorMessage = null;
+  }
+
+
   onSubmit(): void {
     if (this.matchForm.valid) {
       const userInfo = this.authService.getUserInfo();
@@ -211,7 +241,7 @@ export class CreateMatchComponent implements OnInit {
       this.matchService.createMatch(payload).subscribe({
         next: (response) => {
           alert('Match created successfully!');
-          this.matchForm.reset();
+          this.resetFormAndState();
           this.errorMessage = null;
         },
         error: (error: any) => {

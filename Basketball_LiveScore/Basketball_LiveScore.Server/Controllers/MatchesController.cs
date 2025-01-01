@@ -65,12 +65,6 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
-        [HttpGet("/events/{matchId}")]
-        public IActionResult GetMatchEvents(int matchId)
-        {
-            var events = matchService.GetMatchEvents(matchId);
-            return Ok(events);
-        }   
 
         [Authorize(Policy = "AdminOnly")]
         [HttpGet("settings/number-of-quarters")]
@@ -259,6 +253,21 @@ namespace Basketball_LiveScore.Server.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
+        [HttpGet("events/{matchId}")]
+        public IActionResult GetAllEvents(int matchId)
+        {
+            try
+            {
+                var events = matchService.GetMatchEvents(matchId);
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
 
     }
 }

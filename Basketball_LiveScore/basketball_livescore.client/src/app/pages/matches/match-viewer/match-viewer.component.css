@@ -257,7 +257,7 @@
   font-weight: bold;
 }
 
-/* Recent Events */
+/* Recent Events 
 .recent-events {
   background: white;
   border-radius: 10px;
@@ -298,7 +298,35 @@
 
 .event-item.substitution {
   background: #e8f5e9;
+}*/
+
+.recent-events {
+  margin-top: 20px;
 }
+
+.event-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.event-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.event-time {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #555;
+}
+
+.event-description {
+  flex: 1;
+  color: #333;
+}
+
 
 /* Responsive design */
 @media (max-width: 768px) {

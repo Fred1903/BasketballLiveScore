@@ -150,4 +150,8 @@
     getAllMatches(): Observable<MatchLiveScore[]> {
       return this.http.get<MatchLiveScore[]>(`${this.apiUrl}/all`);
     }
+    getMatchEvents(matchId: number): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/events/${matchId}`);
+    }
+
   }

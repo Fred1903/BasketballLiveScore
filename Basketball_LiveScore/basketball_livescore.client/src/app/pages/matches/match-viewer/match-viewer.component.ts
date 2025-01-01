@@ -1,405 +1,3 @@
-/*import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MatchService } from '../../../services/match.service';
-import { MatchSettingsService } from '../../../services/match-settings.service'
-import {
-  PlayerMatch,
-  Team,
-  MatchDetails,
-  BasketEvent,
-  FoulEvent,
-  TimeoutEvent,
-  SubstitutionEvent,
-  QuarterChangeEvent,
-  ChronoEvent,
-  RecentEvent
-} from '../../../models/interfaces';
-
-@Component({
-  selector: 'app-match-viewer',
-  templateUrl: './match-viewer.component.html',
-  styleUrls: ['./match-viewer.component.css']
-})
-export class MatchViewerComponent implements OnInit, OnDestroy {
-  matchStatus: 'not_started' | 'in_progress' | 'timeout' | 'quarter_break' | 'finished' = 'not_started';
-  quarter: number = 1;
-  time: number = 0;
-  isTimeout: boolean = false;
-  timeoutTime: number = 0;
-  matchDetails: MatchDetails | null = null;
-  idMatch: number =0;
-  recentEvents: RecentEvent[] = [];
-  private intervalId: any;
-  private timerInterval: any;
-  isRunning: boolean = false;
-  activeSubstitution: {
-    playerIn: PlayerMatch | null;
-    playerOut: PlayerMatch | null;
-    team: Team | null;
-    remaining: number;
-  } | null = null;
-
-  team1: Team = {
-    name: '',
-    score: 0,
-    timeouts: 4,
-    players: [],
-    coach: ''
-  };
-
-  team2: Team = {
-    name: '',
-    score: 0,
-    timeouts: 4,
-    players: [],
-    coach: ''
-  };
-
-  constructor(
-    private matchService: MatchService,
-    private route: ActivatedRoute,
-    private matchSettingsService: MatchSettingsService
-  ) { }
-
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      const id = parseInt(params['id']);
-      if (!isNaN(id)) {  // Add check to ensure id is a valid number
-        this.idMatch = id;
-        this.loadMatchDetails(this.idMatch);
-        this.matchService.joinMatchGroup(this.idMatch);
-        this.subscribeToMatchEvents();
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
-
-  private loadMatchDetails(matchId: number): void {
-    if (matchId) { //Que si le match existe on le load
-      this.matchSettingsService.getMatchDetails(matchId).subscribe({
-        next: (data) => {
-          this.matchDetails = data;
-          this.initializeTeams(data);
-          this.determineMatchStatus(data);
-        },
-        error: (err) => console.error('Error loading match details:', err)
-      });
-    }
-  }
-
-  private determineMatchStatus(data: MatchDetails): void {
-    const currentTime = new Date();
-    const matchTime = new Date(data.matchDate);
-
-    if (currentTime < matchTime) {
-      this.matchStatus = 'not_started';
-    } else {
-      this.matchStatus = 'in_progress';
-    }
-  }
-
-  private initializeTeams(data: MatchDetails): void {
-    this.team1 = {
-      name: data.homeTeam.name,
-      score: data.scoreHome,
-      timeouts: data.timeouts,
-      players: data.players
-        .filter(p => p.isHomeTeam)
-        .map(player => ({
-          id: player.playerId,
-          number: player.playerNumber,
-          name: player.playerName,
-          fouls: 0,
-          points: 0,
-          onCourt: player.isStarter
-        })),
-      coach: data.homeTeam.coach
-    };
-
-    this.team2 = {
-      name: data.awayTeam.name,
-      score: data.scoreAway,
-      timeouts: data.timeouts,
-      players: data.players
-        .filter(p => !p.isHomeTeam)
-        .map(player => ({
-          id: player.playerId,
-          number: player.playerNumber,
-          name: player.playerName,
-          fouls: 0,
-          points: 0,
-          onCourt: player.isStarter
-        })),
-      coach: data.awayTeam.coach
-    };
-  }
-
-  private startMatchTimer(): void {
-    this.intervalId = setInterval(() => {
-      if (this.matchStatus === 'in_progress' && !this.isTimeout) {
-        if (this.time > 0) {
-          this.time--;
-        } else {
-          // Quarter ended
-          if (this.quarter < 4) {
-            this.matchStatus = 'quarter_break';
-          } else {
-            this.matchStatus = 'finished';
-            clearInterval(this.intervalId);
-          }
-        }
-      } else if (this.isTimeout && this.timeoutTime > 0) {
-        this.timeoutTime--;
-        if (this.timeoutTime === 0) {
-          this.isTimeout = false;
-          this.matchStatus = 'in_progress';
-        }
-      }
-    }, 1000);
-  }
-
-  private subscribeToMatchEvents(): void {
-    this.matchService.joinMatchGroup(this.idMatch);
-
-    this.matchService.subscribeToBasketEvents((event) => {
-      this.handleBasketEvent(event);
-    });
-
-    this.matchService.subscribeToFoulEvents((event) => {
-      this.handleFoulEvent(event);
-    });
-
-    this.matchService.subscribeToTimeoutEvents((event) => {
-      this.handleTimeoutEvent(event);
-    });
-
-    this.matchService.subscribeToSubstitutionEvents((event) => {
-      this.handleSubstitutionEvent(event);
-    });
-
-    this.matchService.subscribeToQuarterChangeEvents((event) => {
-      this.handleQuarterChangeEvent(event);
-    });
-
-    this.matchService.subscribeToChronoEvents((event) => {
-      this.handleChronoEvent(event);
-    });
-  }
-
-  // Event Handlers
-  private handleBasketEvent(event: BasketEvent): void {
-    if (this.idMatch && this.idMatch === event.matchId) {
-      const player = this.findPlayerById(event.playerId);
-      if (player) {
-        player.points += event.points;
-        const team = this.getTeamByPlayerId(event.playerId);
-        if (team) {
-          team.score += event.points;
-        }
-        this.addRecentEvent('score', `${player.name} scores ${event.points} points`);
-      }
-    }
-  }
-
-  private handleFoulEvent(event: FoulEvent): void {
-    if (this.idMatch && this.idMatch === event.matchId) {
-      const player = this.findPlayerById(event.playerId);
-      if (player) {
-        player.fouls++;
-        this.addRecentEvent('foul', `Foul on ${player.name} (${event.foulType})`);
-      }
-    }
-  }
-
-  private handleTimeoutEvent(event: TimeoutEvent): void {
-    if (this.idMatch && this.idMatch === event.matchId) {
-      const team = event.team === 'Home' ? this.team1 : this.team2;
-      if (team && team.timeouts > 0) {
-        team.timeouts--;
-        this.isTimeout = true;
-        this.timeoutTime = 30;
-        this.matchStatus = 'timeout';
-        this.addRecentEvent('timeout', `Timeout called by ${team.name}`);
-      }
-    }
-  }
-
-  private handleSubstitutionEvent(event: SubstitutionEvent): void {
-    if (this.idMatch && this.idMatch === event.matchId) {
-      const team = this.getTeamByPlayerId(event.playerOutId);
-      if (team) {
-        const playerOut = this.findPlayerById(event.playerOutId);
-        const playerIn = this.findPlayerById(event.playerInId);
-        if (playerOut && playerIn) {
-
-          this.activeSubstitution = {
-            playerIn,
-            playerOut,
-            team,
-            remaining: 5
-          };
-          const countdownInterval = setInterval(() => {
-            if (this.activeSubstitution) {
-              this.activeSubstitution.remaining--;
-              if (this.activeSubstitution.remaining <= 0) {
-                clearInterval(countdownInterval);
-
-                // Update player states
-                playerOut.onCourt = false;
-                playerIn.onCourt = true;
-
-                // Add to recent events
-                this.addRecentEvent('substitution',
-                  `Substitution: ${playerIn.name} IN, ${playerOut.name} OUT`);
-
-                this.activeSubstitution = null;
-              }
-            }
-          }, 1000);
-          setTimeout(() => {
-            if (this.activeSubstitution) {
-              playerOut.onCourt = false;
-              playerIn.onCourt = true;
-              this.activeSubstitution = null;
-            }
-          }, 5500);
-
-          /*playerOut.onCourt = false;
-          playerIn.onCourt = true;
-          this.addRecentEvent('substitution',
-            `Substitution: ${playerIn.name} IN, ${playerOut.name} OUT`); commment eeeeeeeeennnnnnnd/
-        }
-      }
-    }
-  }
-
-  private handleQuarterChangeEvent(event: QuarterChangeEvent): void {
-    if (this.idMatch && this.idMatch === event.matchId) {
-      this.quarter = event.quarter;
-      this.time = this.matchDetails?.quarterDuration * 60; 
-      this.matchStatus = 'in_progress';
-      this.addRecentEvent('substitution', `Quarter ${this.quarter} starts`);
-    }
-  }
-
-  private handleChronoEvent(event: ChronoEvent): void {
-    if (this.idMatch === event.matchId) {
-      this.time = this.parseTime(event.time);
-      this.isRunning = event.isRunning;
-
-      if (event.isRunning) {
-        this.startTimer(true);  // Pass a flag to trigger immediate update
-      } else {
-        this.stopTimer();
-      }
-    }
-  }
-
-
-  private startTimer(immediate: boolean = false): void {
-    if (!this.timerInterval && this.isRunning) {
-      if (immediate && this.time > 0 && !this.isTimeout) {
-        this.time--; // Mettez à jour immédiatement l'horloge
-      }
-
-      this.timerInterval = setInterval(() => {
-        if (this.time > 0 && !this.isTimeout) {
-          this.time--;
-        } else if (this.isTimeout && this.timeoutTime > 0) {
-          this.timeoutTime--;
-          if (this.timeoutTime === 0) {
-            this.isTimeout = false;
-            this.matchStatus = 'in_progress';
-          }
-        } else if (this.time <= 0) {
-          clearInterval(this.timerInterval);
-          this.timerInterval = null;
-        }
-      }, 1000);
-    }
-  }
-
-
-
-  private stopTimer(): void {
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-      this.timerInterval = null;
-    }
-  }
-
-  // Utility Methods
-  private findPlayerById(playerId: number | undefined): PlayerMatch | null {
-    if (playerId === undefined) return null;
-    return (
-      this.team1.players.find(p => p.id === playerId) ||
-      this.team2.players.find(p => p.id === playerId) ||
-      null
-    );
-  }
-
-  private getTeamByPlayerId(playerId: number | undefined): Team | null {
-    if (playerId === undefined) return null;
-    if (this.team1.players.some(p => p.id === playerId)) return this.team1;
-    if (this.team2.players.some(p => p.id === playerId)) return this.team2;
-    return null;
-  }
-
-  private parseTime(timeString: string): number {
-    const [hours, minutes, seconds] = timeString.split(':').map(Number);
-    return hours * 3600 + minutes * 60 + seconds;
-  }
-
-  private addRecentEvent(type: 'score' | 'foul' | 'timeout' | 'substitution', description: string): void {
-    const minutes = Math.floor(this.time / 60);
-    const seconds = this.time % 60;
-    const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-    this.recentEvents.unshift({
-      time: timeStr,
-      description,
-      type
-    });
-
-    // Keep only last 10 events
-    if (this.recentEvents.length > 10) {
-      this.recentEvents.pop();
-    }
-  }
-
-  // Public Methods for Template
-  getOnCourtPlayers(team: Team): PlayerMatch[] {
-    return team.players.filter(p => p.onCourt);
-  }
-
-  getBenchPlayers(team: Team): PlayerMatch[] {
-    return team.players.filter(p => !p.onCourt);
-  }
-
-  formatTime(seconds: number): string {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  }
-
-  getMatchStatusDisplay(): string {
-    switch (this.matchStatus) {
-      case 'not_started': return 'Match Starting Soon';
-      case 'in_progress': return 'Live';
-      case 'timeout': return 'Timeout';
-      case 'quarter_break': return 'Quarter Break';
-      case 'finished': return 'Match Finished';
-      default: return '';
-    }
-  }
-}*/
-
-
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatchService } from '../../../services/match.service';
@@ -428,6 +26,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   timeoutDuration: number = 0;
   matchStatus: string = 'NotStarted';//Au debut n a pas encore commencé avant qu on init
   numberOfQuarters: number = 0;
+    
 
   team1: Team = {
     name: '',
@@ -461,6 +60,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
         this.loadMatchDetails(this.idMatch);
         this.matchService.joinMatchGroup(this.idMatch);
         this.subscribeToMatchEvents();
+        this.loadRecentEvents();
       }
     });
   }
@@ -522,16 +122,6 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
       error: (err) => console.error('Error loading match details:', err)
     });
   }
-
-  /*private loadRecentEvents(matchId: number): void {
-    this.matchService.getMatchEvents(matchId).subscribe(events => {
-      this.recentEvents = events.map(event => ({
-        time: this.formatTime(this.parseTime(event.time)),
-        description: this.getEventDescription(event),
-        type: event.type
-      }));
-    });
-  }*/
 
   private startTimer() {
     this.timerInterval = setInterval(() => {
@@ -690,8 +280,9 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   }
 
   private addRecentEvent(type: 'score' | 'foul' | 'timeout' | 'substitution' | 'quarter', description: string): void {
+    const icon = this.getEventIcon(type);
     const timeStr = this.formatTime(this.time);
-    this.recentEvents.unshift({ time: timeStr, description, type });
+    this.recentEvents.unshift({ icon, time: timeStr, description, type });
     if (this.recentEvents.length > 10) {
       this.recentEvents.pop();
     }
@@ -711,4 +302,50 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
+  private getEventIcon(eventType: string): string {
+    switch (eventType) {
+      case 'Basket': return '🏀';
+      case 'Foul': return '⚠️';
+      case 'Substitution': return '🔄';
+      case 'Timeout': return '⏳';
+      case 'QuarterChange': return '⏰';
+      case 'Chrono': return '⏱️';
+      default: return '❓';
+    }
+  }
+  private loadRecentEvents(): void {
+    this.matchService.getMatchEvents(this.idMatch).subscribe({
+      next: (events) => {
+        this.recentEvents = events.map(event => ({
+          icon: this.getEventIcon(event.eventType),
+          time: event.time,
+          description: this.formatEventDescription(event),
+          type: event.eventType
+        }));
+        console.log('Recent events loaded:', this.recentEvents);
+      },
+      error: (err) => console.error('Error fetching recent events:', err)
+    });
+  }
+
+  private formatEventDescription(event: any): string {
+    switch (event.eventType) {
+      case 'Basket':
+        return `Player ${event.playerId} scored ${event.points} points.`;
+      case 'Foul':
+        return `Player ${event.playerId} committed a foul (${event.foulType}).`;
+      case 'Substitution':
+        return `Player ${event.playerInId} IN, Player ${event.playerOutId} OUT.`;
+      case 'Timeout':
+        return `Timeout called by ${event.team}.`;
+      case 'QuarterChange':
+        return `Quarter ${event.quarter} starts.`;
+      case 'Chrono':
+        return `Clock is ${event.isRunning ? 'running' : 'stopped'}.`;
+      default:
+        return 'Unknown event.';
+    }
+  }
+
+
 }

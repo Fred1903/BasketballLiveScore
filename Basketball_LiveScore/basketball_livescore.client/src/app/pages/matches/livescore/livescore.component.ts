@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatchLiveScore } from '../../../models/interfaces';
 import { MatchService } from '../../../services/match.service';
 import { Router } from '@angular/router';
@@ -10,18 +10,24 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./livescore.component.css']
 })
 export class LivescoreComponent implements OnInit {
+  @ViewChild('loadingTemplate') loadingTemplate!: TemplateRef<any>;
   matches: MatchLiveScore[] = [];
   loading = true;
-  today: Date = new Date();
+  selectedDate: Date = new Date();
   isAdmin: boolean = false;
+  dateOptions: Date[] = [];
+  liveMatches: MatchLiveScore[] = [];
+  upcomingMatches: MatchLiveScore[] = [];
+  finishedMatches: MatchLiveScore[] = [];
 
   constructor(
     private matchService: MatchService,
     private router: Router,
     private authService: AuthService
-  ) { }
+  ) { this.initializeDateOptions(); }
 
   ngOnInit() {
+    console.log('Initial selected date:', this.selectedDate);
     this.loadMatches();
     this.isAdmin = this.authService.getRole() == 'Admin';
 
@@ -29,21 +35,64 @@ export class LivescoreComponent implements OnInit {
       this.updateMatchStatus(statusUpdate);
     });
     this.matchService.subscribeToQuarterUpdates((update) => {
-      const match = this.matches.find(m => m.matchId === update.matchId);
-      if (match) {
-        match.currentQuarter = update.currentQuarter;
-        console.log(`Match ${update.matchId} updated to Quarter ${update.currentQuarter}`);
-      }
+      this.updateQuarter(update);
     });
+  }
+
+  initializeDateOptions() {
+    for (let i = -3; i <= 3; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() + i);
+      date.setHours(0, 0, 0, 0);
+      this.dateOptions.push(date);
+    }
+  }
+
+  updateQuarter(update: { matchId: number; currentQuarter: number }) {
+    const match = this.matches.find(m => m.matchId === update.matchId);
+    if (match) {
+      match.currentQuarter = update.currentQuarter;
+    }
   }
 
   updateMatchStatus(statusUpdate: { matchId: number; matchStatus: string }) {
     const match = this.matches.find(m => m.matchId === statusUpdate.matchId);
     if (match) {
       match.status = statusUpdate.matchStatus;
-      console.log(`Match ${statusUpdate.matchId} status updated to ${statusUpdate.matchStatus}`);
     }
   }
+
+  onDateChange(event: Event) {
+    const dateStr = (event.target as HTMLSelectElement).value;
+    this.selectedDate = new Date(dateStr);
+  }
+  onDateSelect(date: Date) {
+    console.log('Selected date:', date);
+    this.selectedDate = date;
+    this.filterMatches();
+  }
+
+  previousDay() {
+    const firstDate = this.dateOptions[0];
+    const newDate = new Date(firstDate);
+    newDate.setDate(newDate.getDate() - 1);
+    this.dateOptions.unshift(newDate);
+    this.dateOptions.pop();
+  }
+
+  nextDay() {
+    const lastDate = this.dateOptions[this.dateOptions.length - 1];
+    const newDate = new Date(lastDate);
+    newDate.setDate(newDate.getDate() + 1);
+    this.dateOptions.push(newDate);
+    this.dateOptions.shift();
+  }
+  isSameDay(date1: Date, date2: Date): boolean {
+    return date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate();
+  }
+
   updateTimer(timerUpdate: { matchId: number; currentQuarter: number; remainingTime: number }) {
     const match = this.matches.find(m => m.matchId === timerUpdate.matchId);
     if (match) {
@@ -55,7 +104,6 @@ export class LivescoreComponent implements OnInit {
   canUpdateMatch(match: MatchLiveScore): boolean {
     if (!this.isAdmin) return false;
     const currentUserId = this.authService.getUserInfo()?.id;
-    console.log("current user id : " + currentUserId + " and match encoder id ; " + match.encoderRealTimeId);
     return match.encoderRealTimeId === currentUserId;
   }
 
@@ -69,11 +117,27 @@ export class LivescoreComponent implements OnInit {
     this.router.navigate(['/matches/update', matchId]);
   }
 
+  getMatchesByStatus(status: string): MatchLiveScore[] {
+    const dateFiltered = this.matches.filter(match => {
+      const matchDate = new Date(match.matchDate);
+      matchDate.setHours(0, 0, 0, 0);
+      const compareDate = new Date(this.selectedDate);
+      compareDate.setHours(0, 0, 0, 0);
+      return this.isSameDay(matchDate, compareDate);
+    });
+
+    const statusFiltered = dateFiltered.filter(match => match.status === status);
+
+    return statusFiltered.sort((a, b) =>
+      new Date(a.matchDate).getTime() - new Date(b.matchDate).getTime()
+    );
+  }
 
   loadMatches() {
     this.matchService.getAllMatches().subscribe({
       next: (data) => {
         this.matches = data;
+        this.filterMatches();
         this.loading = false;
       },
       error: (err) => {
@@ -83,11 +147,18 @@ export class LivescoreComponent implements OnInit {
     });
   }
 
+  filterMatches() {
+
+    this.liveMatches = this.getMatchesByStatus('Live');
+    this.upcomingMatches = this.getMatchesByStatus('NotStarted');
+    this.finishedMatches = this.getMatchesByStatus('Finished');
+  }
+
   getSortedMatches(): MatchLiveScore[] {
     return [...this.matches].sort((a, b) => {
       // Define status priority
       const statusPriority: { [key: string]: number } = {
-        'InProgress': 0,
+        'Live': 0,
         'NotStarted': 1,
         'Finished': 2
       };
@@ -104,7 +175,7 @@ export class LivescoreComponent implements OnInit {
   getStatusDisplay(status: string): string {
     switch (status) {
       case 'NotStarted': return 'Starting Soon';
-      case 'InProgress': return 'Live';
+      case 'Live': return 'Live';
       case 'Finished': return 'Final';
       default: return status;
     }

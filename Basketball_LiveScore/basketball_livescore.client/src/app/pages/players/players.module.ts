@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { PlayersRoutingModule } from './players-routing.module';
 import { CreatePlayerComponent } from './create-player/create-player.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CreatePlayerComponent } from './create-player/create-player.component';
     CommonModule,
     PlayersRoutingModule,
     ReactiveFormsModule,
-    SharedModule, 
+    SharedModule,
+    MatButtonToggleModule
   ]
 })
 export class PlayersModule { }

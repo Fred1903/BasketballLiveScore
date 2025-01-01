@@ -118,6 +118,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
         this.matchStatus = statusUpdate.matchStatus;
 
         if (this.matchStatus === 'Live') {
+          console.log("liveeeeeeeeeeeeeeeeeeeeee")
           this.isRunning = true;
         } else if (this.matchStatus === 'Finished') {
           this.isRunning = false;
@@ -248,8 +249,12 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   }
 
   private startTimer() {
+    
     this.timerInterval = setInterval(() => {
-      if (this.isRunning && this.time > 0) {
+      console.log("isrunning : " + this.isRunning + " this.time = " + this.time);
+      console.log((this.isRunning && this.time > 0));
+      if (this.isRunning /*&& this.time > 0*/) {
+        console.log("jmmm")
         if (!this.isMatchStarted) {
           this.matchService.startMatch(this.idMatch);
           this.isMatchStarted = true;
@@ -285,9 +290,10 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     if (this.isTimeout) {
       return;
     }
-
+    console.log("hmmmm")
     this.isLocalUpdate = true;
     this.isRunning = !this.isRunning;
+    console.log("run? " + this.isRunning)
 
     const minutes = Math.floor(this.time / 60);
     const seconds = this.time % 60;
@@ -303,7 +309,6 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     this.matchService.addChronoEvent(chronoEvent).subscribe({
       next: () => {
         this.isLocalUpdate = false;
-        console.log("pauseeeeeeeeeeeee suceeeeeeeeeeeeessssssssssssss")
       },
       error: (err) => {
         console.error('Error updating chrono:', err);
@@ -542,7 +547,8 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
         teamId: this.activeTeam === this.team1 ? 1 : 2,
         quarter: this.quarter,
         time: formattedTime,
-        timestamp: new Date()
+        timestamp: new Date(),
+        
       };
 
       this.matchService.addSubstitutionEvent(substitutionEvent).subscribe({
