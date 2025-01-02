@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated = false;
+  isEncoder = false;
   isAdmin = false;
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,6 +22,8 @@ export class NavbarComponent implements OnInit {
         const role = this.authService.getRole();
         console.log("Role : " + role);
         this.isAdmin = role === 'Admin';
+        this.isEncoder = role === 'Encoder';
+        console.log("isAdmin ? " + this.isAdmin + " isEncoder : " + this.isEncoder)
       } else {
         this.isAdmin = false; // Réinitialise isAdmin si déconnecté
       }

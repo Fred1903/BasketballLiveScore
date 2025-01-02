@@ -94,17 +94,13 @@
       <span class="score">{{ match.scoreAway }}</span>
     </div>
 
-    <div class="match-quarter" *ngIf="match.status === 'Live'">
-      <span>Quarter {{ match.currentQuarter }}</span>
-    </div>
-
-    <div class="match-controls" *ngIf="isAdmin">
+    <div class="match-controls" *ngIf="isUserAdminOrEncoder(match.encoderRealTimeId)">
       <button class="view-btn"
               (click)="viewMatch(match.matchId, $event)">
         View Match
       </button>
       <button class="update-btn"
-              *ngIf="canUpdateMatch(match)"
+              *ngIf="isUserAdminOrEncoder(match.encoderRealTimeId)"
               (click)="updateMatch(match.matchId, $event)">
         Update Match
       </button>

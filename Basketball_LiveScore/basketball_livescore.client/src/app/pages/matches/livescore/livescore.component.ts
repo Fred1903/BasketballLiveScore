@@ -14,7 +14,6 @@ export class LivescoreComponent implements OnInit {
   matches: MatchLiveScore[] = [];
   loading = true;
   selectedDate: Date = new Date();
-  isAdmin: boolean = false;
   dateOptions: Date[] = [];
   liveMatches: MatchLiveScore[] = [];
   upcomingMatches: MatchLiveScore[] = [];
@@ -27,10 +26,7 @@ export class LivescoreComponent implements OnInit {
   ) { this.initializeDateOptions(); }
 
   ngOnInit() {
-    console.log('Initial selected date:', this.selectedDate);
     this.loadMatches();
-    this.isAdmin = this.authService.getRole() == 'Admin';
-
     this.matchService.subscribeToMatchStatusEvents((statusUpdate) => {
       this.updateMatchStatus(statusUpdate);
     });
@@ -59,6 +55,7 @@ export class LivescoreComponent implements OnInit {
     const match = this.matches.find(m => m.matchId === statusUpdate.matchId);
     if (match) {
       match.status = statusUpdate.matchStatus;
+      this.filterMatches(); 
     }
   }
 
@@ -101,12 +98,13 @@ export class LivescoreComponent implements OnInit {
     }
   }
 
-  canUpdateMatch(match: MatchLiveScore): boolean {
-    if (!this.isAdmin) return false;
-    const currentUserId = this.authService.getUserInfo()?.id;
-    return match.encoderRealTimeId === currentUserId;
+  isUserAdminOrEncoder(encoderId: string): boolean {
+    const role = this.authService.getRole();
+    if (encoderId == this.authService.getUserInfo()?.id) return true;
+    if (role == 'Admin') return true;
+    return false;
   }
-
+    
   viewMatch(matchId: number, event: Event) {
     event.stopPropagation(); // Prevent card click event
     this.router.navigate(['/matches', matchId]);

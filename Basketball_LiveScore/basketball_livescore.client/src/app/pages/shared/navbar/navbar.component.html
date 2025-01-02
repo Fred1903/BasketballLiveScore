@@ -1,27 +1,80 @@
-<mat-toolbar color="primary" class="navbar">
+<mat-toolbar class="navbar">
   <button mat-icon-button class="logo" routerLink="/">
-    <img src="assets/logo.png" alt="Logo" width="30" height="30">
+    <img src="assets/logo.png" alt="Basketball Live Score Logo" width="32" height="32">
   </button>
-  <span class="brand" (click)="navigateToMatches()">Basketball Live Score</span>
 
-  <div class="spacer"></div>
+  <span class="brand" (click)="navigateToMatches()">
+    Basketball Live Score
+  </span>
 
-  <!-- Qd user est connecté : -->
+  <!-- Authenticated User Navigation -->
   <ng-container *ngIf="isAuthenticated; else guestLinks">
-    <!--on doit preciser exact pr match sinon va aussi s activer qd on est sur une page matches/..-->
-    <button mat-button routerLink="/matches" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Matches</button>
-    <ng-container *ngIf="isAdmin">
-      <button mat-button routerLink="/players/create" routerLinkActive="active-link">Create Player</button>
-      <button mat-button routerLink="/teams/create" routerLinkActive="active-link">Create Team</button>
-      <button mat-button routerLink="/matches/create" routerLinkActive="active-link">Create Match</button>
-      <button mat-button routerLink="/encoders" routerLinkActive="active-link">Encoders</button>
+    <div class="spacer"></div>
+    <button mat-button
+            class="nav-item"
+            routerLink="/matches"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            style="--index: 0">
+      Matches
+    </button>
+
+    <!-- Admin/Encoder Controls -->
+    <ng-container *ngIf="isAdmin || isEncoder">
+      <button mat-button
+              class="nav-item create-button"
+              routerLink="/players/create"
+              routerLinkActive="active-link"
+              style="--index: 1">
+        Create Player
+      </button>
+
+      <button mat-button
+              class="nav-item create-button"
+              routerLink="/teams/create"
+              routerLinkActive="active-link"
+              style="--index: 2">
+        Create Team
+      </button>
+
+      <button mat-button
+              class="nav-item create-button"
+              routerLink="/matches/create"
+              routerLinkActive="active-link"
+              style="--index: 3">
+        Create Match
+      </button>
     </ng-container>
-    <button mat-button (click)="logout()">Logout</button>
+
+    <!-- Admin-only Controls -->
+    <ng-container *ngIf="isAdmin">
+      <button mat-button
+              class="nav-item"
+              routerLink="/encoders"
+              routerLinkActive="active-link"
+              style="--index: 4">
+        Encoders
+      </button>
+    </ng-container>
+
+    <button mat-button
+            class="nav-item logout-button"
+            (click)="logout()"
+            style="--index: 5">
+      Logout
+    </button>
   </ng-container>
 
-    <!-- Qd user est déconnecté -->
-    <ng-template #guestLinks>
-      <button mat-button routerLink="/login" routerLinkActive="active-link">Log In</button>
-      <button mat-button routerLink="/signup" routerLinkActive="active-link">Sign In</button>
-    </ng-template>
+  <!-- Guest Navigation -->
+  <ng-template #guestLinks>
+    <div class="spacer"></div>
+    <div class="guest-links">
+      <button mat-button
+              class="nav-item login-button"
+              routerLink="/login"
+              routerLinkActive="active-link">
+        Log In
+      </button>
+    </div>
+  </ng-template>
 </mat-toolbar>

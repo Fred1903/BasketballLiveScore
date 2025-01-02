@@ -1,52 +1,66 @@
-<div class="container mt-5">
-  <h2 class="text-center">Register</h2>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <!-- First Name -->
-    <app-form-input *ngIf="firstNameControl"
-                    label="First Name"
-                    placeholder="Enter your first name"
-                    [control]="firstNameControl"
-                    [errorMessage]="'First name is required.'">
-    </app-form-input>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">Create Account</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- First Name -->
+      <app-form-input *ngIf="firstNameControl"
+                      label="First Name"
+                      placeholder="Enter your first name"
+                      [control]="firstNameControl"
+                      [errorMessage]="'First name is required.'"
+                      style="--index: 0">
+      </app-form-input>
 
-    <!-- Last Name -->
-    <app-form-input *ngIf="lastNameControl"
-                    label="Last Name"
-                    placeholder="Enter your last name"
-                    [control]="lastNameControl"
-                    [errorMessage]="'Last name is required.'">
-    </app-form-input>
+      <!-- Last Name -->
+      <app-form-input *ngIf="lastNameControl"
+                      label="Last Name"
+                      placeholder="Enter your last name"
+                      [control]="lastNameControl"
+                      [errorMessage]="'Last name is required.'"
+                      style="--index: 1">
+      </app-form-input>
 
-    <app-form-input *ngIf="usernameControl"
-                    label="Username"
-                    placeholder="Enter your username"
-                    [control]="usernameControl"
-                    [errorMessage]="'Username is required.'">
-    </app-form-input>
+      <!-- Username -->
+      <app-form-input *ngIf="usernameControl"
+                      label="Username"
+                      placeholder="Choose a username"
+                      [control]="usernameControl"
+                      [errorMessage]="'Username is required.'"
+                      style="--index: 2">
+      </app-form-input>
 
-    <app-form-input *ngIf="emailControl"
-                    label="Email"
-                    type="email"
-                    placeholder="Enter your email"
-                    [control]="emailControl"
-                    [errorMessage]="'A valid email is required.'">
-    </app-form-input>
+      <!-- Email -->
+      <app-form-input *ngIf="emailControl"
+                      label="Email"
+                      type="email"
+                      placeholder="Enter your email"
+                      [control]="emailControl"
+                      [errorMessage]="'A valid email is required.'"
+                      style="--index: 3">
+      </app-form-input>
 
-    <!-- Password -->
-    <app-form-input *ngIf="passwordControl"
-                    label="Password"
-                    type="password"
-                    placeholder="Enter your password"
-                    [control]="passwordControl"
-                    [errorMessage]="'Password is required.'">
-    </app-form-input>
+      <!-- Password -->
+      <app-form-input *ngIf="passwordControl"
+                      label="Password"
+                      type="password"
+                      placeholder="Choose a password"
+                      [control]="passwordControl"
+                      [errorMessage]="'Password must be at least 6 characters.'"
+                      style="--index: 4">
+      </app-form-input>
 
-    <!-- Submit Button -->
-    <div class="form-group text-center mt-3">
-      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
-    </div>
-  </form>
-</div>
-<div *ngIf="errorMessage" class="alert alert-danger">
-  {{ errorMessage }}
+      <!-- Submit Button -->
+      <div class="form-group">
+        <button type="submit" class="btn-auth" [disabled]="registerForm.invalid">
+          Create Account
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <a routerLink="/login" class="auth-link">Already have an account? Sign in</a>
+    </form>
+  </div>
 </div>

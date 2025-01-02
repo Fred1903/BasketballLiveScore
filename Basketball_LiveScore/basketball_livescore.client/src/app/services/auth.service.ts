@@ -11,8 +11,12 @@ import { Router } from '@angular/router';
 export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
-  // Observable for authentication status
+  // Observable pour statut authentication et son role
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
+
+  private roleSubject = new BehaviorSubject<string | null>(this.getRole());
+  role$: Observable<string | null> = this.roleSubject.asObservable();
+
 
   private apiUrl = 'https://localhost:7271/api/Auth';
   constructor(private http: HttpClient, private router: Router) { }
@@ -43,6 +47,10 @@ export class AuthService {
   }
 
   getRole(): string | null {
+    if (!this.isAuthenticated()) {
+      console.log("eeeeeeeiiiiiiiiiiiiiiiiii")
+      return null; //si user pas login on return 
+    }
     const token = localStorage.getItem('authToken');
     if (token) {
       try {
@@ -55,6 +63,10 @@ export class AuthService {
       }
     }
     return null;
+  }
+
+  updateRole(): void {
+    this.roleSubject.next(this.getRole());
   }
 
   getUserInfo(): any {
@@ -81,6 +93,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('authToken'); //avant de logout, on supprime le token !!!
     this.isAuthenticatedSubject.next(false);
+    console.log("in auth service role ? : " + this.getRole())
+    this.updateRole();
     this.router.navigate(['/matches']);//redirection vers page de match!!
   }
 
