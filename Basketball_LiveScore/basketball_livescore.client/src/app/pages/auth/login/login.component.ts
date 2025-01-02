@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response: any) => {
-          this.router.navigate(['/matches/all']);
+          this.router.navigate(['/matches']);
           this.loginForm.reset(); //apres avoir rempli le form on le remet a zero
           this.errorMessage = null;
         },

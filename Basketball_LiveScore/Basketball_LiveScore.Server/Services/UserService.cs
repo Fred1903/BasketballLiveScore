@@ -2,6 +2,7 @@
 using Basketball_LiveScore.Server.DTO;
 using Basketball_LiveScore.Server.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Basketball_LiveScore.Server.Services
 {
@@ -63,6 +64,26 @@ namespace Basketball_LiveScore.Server.Services
                 Email = user.Email,
                 Role = user.Role
             }).ToList();
+        }
+        public async Task AddUserAsEncoder(Guid userId) 
+        {
+            var user = basketballDBContext.Users.FirstOrDefault(u => u.Id ==userId);
+            if (user==null) 
+                throw new ArgumentNullException("No user found with this id");
+            if (user.Role.Equals("Encoder"))
+                throw new ArgumentException("User is already an encoder");
+            user.Role = "Encoder";
+            await basketballDBContext.SaveChangesAsync();
+        }
+        public async Task RemoveUserFromEncoders(Guid userId)
+        {
+            var user = basketballDBContext.Users.FirstOrDefault(u => u.Id==userId);
+            if (user == null)
+                throw new ArgumentNullException("No user found with this id");
+            if (user.Role.Equals("User"))
+                throw new ArgumentException("User is not an encoder");
+            user.Role = "User";
+            await basketballDBContext.SaveChangesAsync();
         }
     }
 }

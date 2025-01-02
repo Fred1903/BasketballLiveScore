@@ -20,6 +20,7 @@ namespace Basketball_LiveScore.Server.Controllers
             this.matchService = matchService;
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("create")]
         public IActionResult CreateMatch([FromBody] CreateMatchDTO matchDTO)
         {
@@ -37,6 +38,7 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("start/{matchId}")]
         public IActionResult StartMatch(int matchId)
         {
@@ -51,6 +53,7 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPut("finish/{matchId}")]
         public async Task<IActionResult> FinishMatch(int matchId)
         {
@@ -66,7 +69,7 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
 
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("settings/number-of-quarters")]
         public ActionResult<List<int>> GetNumberOfQuartersOptions()
         {
@@ -74,7 +77,8 @@ namespace Basketball_LiveScore.Server.Controllers
             return Ok(options);
         }
 
-        [Authorize(Policy = "AdminOnly")]
+
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("settings/quarter-durations")]
         public ActionResult<List<int>> GetQuarterDurationOptions()
         {
@@ -82,7 +86,8 @@ namespace Basketball_LiveScore.Server.Controllers
             return Ok(options);
         }
 
-        [Authorize(Policy = "AdminOnly")]
+
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("settings/timeout-durations")]
         public ActionResult<List<int>> GetTimeOutDurationOptions()
         {
@@ -90,7 +95,8 @@ namespace Basketball_LiveScore.Server.Controllers
             return Ok(options);
         }
 
-        [Authorize(Policy = "AdminOnly")]
+
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("settings/timeout-amount")]
         public ActionResult<List<int>> GetTimeOutAmountOptions()
         {
@@ -99,7 +105,7 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
 
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("settings/defaults")]
         public IActionResult GetDefaultSettings()
         {
@@ -122,6 +128,7 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         //Ci-dessous : endpoints des events
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("{matchId}/add-foul")]
         public async Task<IActionResult> AddFoulEvent(int matchId, [FromBody] FoulEventDTO foulEventDTO)
         {
@@ -136,6 +143,7 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("{matchId}/add-basket")]
         public async Task<IActionResult> AddBasketEvent(int matchId, [FromBody] BasketEventDTO basketEventDTO)
         {
@@ -160,6 +168,7 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("{matchId}/add-substitution")]
         public async Task<IActionResult> AddSubstitutionEvent(int matchId, [FromBody] SubstitutionEventDTO substitutionEventDTO)
         {
@@ -174,6 +183,7 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("{matchId}/add-timeout")]
         public async Task<IActionResult> AddTimeoutEvent(int matchId, [FromBody] TimeoutEventDTO timeoutEventDTO)
         {
@@ -188,6 +198,7 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("{matchId}/add-chrono")]
         public async Task<IActionResult> AddChronoEvent(int matchId, [FromBody] ChronoEventDTO chronoEventDTO)
         {
@@ -202,6 +213,7 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("{matchId}/add-quarter-change")]
         public async Task<IActionResult> AddQuarterChangeEvent(int matchId, [FromBody] QuarterChangeEventDTO quarterChangeEventDTO)
         {
@@ -217,6 +229,7 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
 
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("foul-types")]
         public IActionResult GetFoulTypes()
         {
@@ -229,6 +242,8 @@ namespace Basketball_LiveScore.Server.Controllers
             return Ok(foulTypes);
         }
 
+
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("basket-points")]
         public IActionResult GetBasketPoints()
         {
@@ -267,7 +282,5 @@ namespace Basketball_LiveScore.Server.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-
-
     }
 }

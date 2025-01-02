@@ -20,7 +20,7 @@
                 this.teamService = teamService;
             }
 
-            [Authorize(Policy = "AdminOnly")]
+            [Authorize(Policy = "AdminAndEncoder")]
             [HttpPost]
             [Route("create")]
             public async Task<IActionResult> CreateTeam([FromBody] CreateTeamDTO createTeamDTO)
@@ -46,7 +46,7 @@
                 }
             }
 
-            [Authorize(Policy = "AuthenticatedUsers")]
+            [Authorize(Policy = "AdminAndEncoder")]
             [HttpGet]
             [Route("all")]
             public async Task<IActionResult> GetTeams()
@@ -63,7 +63,7 @@
                 }
             }
 
-            [Authorize(Policy = "AuthenticatedUsers")]
+            [Authorize(Policy = "AdminAndEncoder")]
             [HttpGet("{teamId}")]
             public async Task<IActionResult> GetTeam(int teamId)
             {

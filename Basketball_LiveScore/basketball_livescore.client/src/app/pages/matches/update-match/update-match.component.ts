@@ -79,7 +79,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
         this.subscribeToMatchEvents();
       } else {
         // Handle invalid ID - redirect to matches list
-        this.router.navigate(['/matches/all']);
+        this.router.navigate(['/matches']);
       }
     });
   }
@@ -118,7 +118,6 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
         this.matchStatus = statusUpdate.matchStatus;
 
         if (this.matchStatus === 'Live') {
-          console.log("liveeeeeeeeeeeeeeeeeeeeee")
           this.isRunning = true;
         } else if (this.matchStatus === 'Finished') {
           this.isRunning = false;
@@ -251,17 +250,13 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
   private startTimer() {
     
     this.timerInterval = setInterval(() => {
-      console.log("isrunning : " + this.isRunning + " this.time = " + this.time);
-      console.log((this.isRunning && this.time > 0));
       if (this.isRunning /*&& this.time > 0*/) {
-        console.log("jmmm")
         if (!this.isMatchStarted) {
           this.matchService.startMatch(this.idMatch);
           this.isMatchStarted = true;
         }
         this.time--;
         if (this.time === 0) {
-          //this.isRunning = false;
           //si chrono est à 0 sec on met en pause, ce qui va en plus declencher save en db
           this.toggleTimer();
           
@@ -290,10 +285,8 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     if (this.isTimeout) {
       return;
     }
-    console.log("hmmmm")
     this.isLocalUpdate = true;
     this.isRunning = !this.isRunning;
-    console.log("run? " + this.isRunning)
 
     const minutes = Math.floor(this.time / 60);
     const seconds = this.time % 60;
@@ -331,7 +324,7 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     // Create quarter change event
     const quarterChangeEvent: QuarterChangeEvent = {
       matchId: this.idMatch,
-      quarter: this.quarter + 1,  // Send the next quarter number
+      quarter: this.quarter,  // Send the next quarter number
       time: formattedTime
     };
 
@@ -393,7 +386,6 @@ export class UpdateMatchComponent implements OnInit, OnDestroy {
     }
   }
   updateScores(matchId: number, points: number, playerId: number): void {
-    console.log("Dans update score...") //on ne veut pas update 2 fois le score (1 fois via front et 1 fois signalR)
     if (this.idMatch === matchId && !this.isLocalUpdate) {
       // Met à jour le score de l'équipe
       const player = this.team1.players.find(p => p.id === playerId) ||

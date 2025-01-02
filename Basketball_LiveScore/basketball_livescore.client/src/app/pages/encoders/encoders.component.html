@@ -1,0 +1,69 @@
+<div class="encoder-management-container">
+  <div class="search-container">
+    <div class="search-wrapper">
+      <i class="search-icon">🔍</i>
+      <input type="text"
+             [formControl]="searchControl"
+             placeholder="Search by username, name, or email..."
+             class="search-input">
+    </div>
+  </div>
+
+  <div class="sections-container">
+    <div class="section">
+      <div class="section-header">
+        <h2>Add Encoder</h2>
+        <span class="user-count">{{ filteredUsers.length }} users found</span>
+      </div>
+      <div class="users-list" *ngIf="filteredUsers.length > 0; else noUsers">
+        <div *ngFor="let user of filteredUsers" class="user-card">
+          <div class="user-info">
+            <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+          </div>
+          <button (click)="addEncoder(user.id)" class="add-button">
+            <span class="button-icon">+</span>
+            Add as Encoder
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2>Remove Encoder</h2>
+        <span class="user-count">{{ filteredEncoders.length }} encoders found</span>
+      </div>
+      <div class="users-list" *ngIf="filteredEncoders.length > 0; else noEncoders">
+        <div *ngFor="let encoder of filteredEncoders" class="user-card">
+          <div class="user-info">
+            <h3>{{ encoder.firstName }} {{ encoder.lastName }}</h3>
+            <p><strong>Username:</strong> {{ encoder.username }}</p>
+            <p><strong>Email:</strong> {{ encoder.email }}</p>
+          </div>
+          <button (click)="removeEncoder(encoder.id)" class="remove-button">
+            <span class="button-icon">−</span>
+            Remove Encoder
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUsers>
+  <div class="empty-state">
+    <div class="empty-state-icon">👥</div>
+    <h3>No Users Found</h3>
+    <p>There are no users available to be added as encoders.</p>
+  </div>
+</ng-template>
+
+<ng-template #noEncoders>
+  <div class="empty-state">
+    <div class="empty-state-icon">🎯</div>
+    <h3>No Encoders Found</h3>
+    <p>There are currently no encoders in the system.</p>
+  </div>
+</ng-template>

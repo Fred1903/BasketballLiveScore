@@ -8,7 +8,7 @@ import { LivescoreComponent } from './livescore/livescore.component';
 const routes: Routes = [
   { path: 'create', component: CreateMatchComponent },
   { path: 'update/:id', component: UpdateMatchComponent },
-  { path: 'all', component: LivescoreComponent },
+  { path: '', component: LivescoreComponent },
   { path: ':id', component: MatchViewerComponent },
   //route avec param dynamique comme id doit etre derriere le all et route specifique
 ];

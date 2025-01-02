@@ -72,7 +72,7 @@
 <ng-template #matchCard let-match>
   <div class="match-status">
     <span class="status-indicator" [ngClass]="match.status.toLowerCase()">
-      {{ getStatusDisplay(match.status) }}
+      {{ getStatusDisplay(match.status, match.matchDate) }}
       <ng-container *ngIf="match.status === 'Live'">
         - Q{{ match.currentQuarter }}
       </ng-container>

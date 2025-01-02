@@ -57,20 +57,26 @@ export class CreateMatchComponent implements OnInit {
   }
 
   loadEncoders(): void {
-    this.userService.getUsersByRole('Admin').subscribe({
+    this.getUsersByRole("Admin");
+    this.getUsersByRole("Encoder");
+  }
+
+  getUsersByRole(Role:string):void {
+    this.userService.getUsersByRole(Role).subscribe({
       next: (users) => {
-        this.encodersOptions = users.map((user: any) => ({
+        const newEncoders = users.map((user: any) => ({
           value: user.id,
           display: user.firstName + " " + user.lastName,
         }));
-
+        //Ajoute les nvx encodeurs à ceux deja présents
+        this.encodersOptions = [...this.encodersOptions, ...newEncoders];
       },
       error: (err) => {
         console.error('Error fetching encoders:', err);
       },
     });
   }
-
+  
   loadSettings(): void {
     //On met les valeurs par défaut du back-end d'abord
     this.matchService.getDefaultSettings().subscribe({

@@ -46,7 +46,7 @@ namespace Basketball_LiveScore.Server.Services
                 issuer: configuration["Jwt:Issuer"],
                 audience: configuration["Jwt:Audience"],
                 claims: claims,//on ajoute les infos du user dans le token
-                expires: DateTime.UtcNow.AddMinutes(30),//token sera valide pendant cette durée
+                expires: DateTime.UtcNow.AddMinutes(150),//token sera valide pendant cette durée
                 notBefore: DateTime.UtcNow,//token n'est pas valide avant mtn
                 signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),

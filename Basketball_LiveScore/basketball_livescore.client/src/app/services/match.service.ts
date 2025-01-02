@@ -31,7 +31,6 @@
     subscribeToBasketEvents(callback: (eventData: BasketEvent) => void): void {
       console.log('Subscribing to basket events');
       this.hubConnection.on("BasketEventOccurred", (eventData: BasketEvent) => {
-        console.log('Basket event received:', eventData);
         callback(eventData);
       });
     }

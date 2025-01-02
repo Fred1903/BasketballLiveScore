@@ -16,9 +16,11 @@ const routes: Routes = [
 
   //Matchs
   { path: 'matches', loadChildren: () => import('./pages/matches/matches.module').then(m => m.MatchesModule) },
-
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, //par défaut on est redirigé vers cette page
-  { path: '**', redirectTo: '/login' }, //si chemin invalide, on est redirigé ici
+  //Encoders
+  { path: 'encoders', loadChildren: () => import('./pages/encoders/encoders.module').then(m => m.EncodersModule) },
+  //Par défaut
+  { path: '', redirectTo: '/matches', pathMatch: 'full' }, //par défaut on est redirigé vers cette page
+  { path: '**', redirectTo: '/matches' }, //si chemin invalide, on est redirigé ici
   
  
 

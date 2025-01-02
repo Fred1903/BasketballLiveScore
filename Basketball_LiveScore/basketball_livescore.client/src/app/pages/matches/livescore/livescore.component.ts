@@ -172,9 +172,22 @@ export class LivescoreComponent implements OnInit {
     });
   }
 
-  getStatusDisplay(status: string): string {
+  getStatusDisplay(status: string, matchDate: number): string {
+    const now = new Date();
+    const matchDateTime = new Date(matchDate);
+    const isToday =
+      now.getFullYear() === matchDateTime.getFullYear() &&
+      now.getMonth() === matchDateTime.getMonth() &&
+      now.getDate() === matchDateTime.getDate();
+
+    // Calcul de la différence en millisecondes
+    const timeDifference = matchDateTime.getTime() - now.getTime();
+
+    //Si match dans moins de 2h on ecrit starting sson sinon rien du tt
+    const isStartingSoon = isToday && timeDifference > 0 && timeDifference <= 2 * 60 * 60 * 1000;
+
     switch (status) {
-      case 'NotStarted': return 'Starting Soon';
+      case 'NotStarted': return isStartingSoon ? 'Starting Soon' : 'Upcoming';
       case 'Live': return 'Live';
       case 'Finished': return 'Final';
       default: return status;

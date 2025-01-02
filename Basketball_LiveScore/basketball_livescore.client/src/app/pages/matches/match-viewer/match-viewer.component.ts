@@ -26,7 +26,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   timeoutDuration: number = 0;
   matchStatus: string = 'NotStarted';//Au debut n a pas encore commencé avant qu on init
   numberOfQuarters: number = 0;
-    
+  matchDateTime: Date | null = null;
 
   team1: Team = {
     name: '',
@@ -60,7 +60,6 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
         this.loadMatchDetails(this.idMatch);
         this.matchService.joinMatchGroup(this.idMatch);
         this.subscribeToMatchEvents();
-        this.loadRecentEvents();
       }
     });
   }
@@ -117,7 +116,15 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
             })),
           coach: data.awayTeam.coach,
         };
-        console.log("players team1 : " + this.team1.players);
+        if (data.matchDate) {
+          this.matchDateTime = new Date(data.matchDate);
+        }
+
+        console.log('Team 1 players after load:', this.team1.players);  // Debug log
+        console.log('Team 2 players after load:', this.team2.players);  // Debug log
+
+        // Load events AFTER we have player information
+        this.loadRecentEvents();
       },
       error: (err) => console.error('Error loading match details:', err)
     });
@@ -163,18 +170,20 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
     });
 
     this.matchService.subscribeToMatchStatusEvents((statusUpdate) => {
-      console.log("subscribeheinnnnnnnnnn")
-      console.log("ssstautsUpdate.matchId = " + statusUpdate.matchId + " et this.idMatch = " + this.idMatch);
       if (statusUpdate.matchId === this.idMatch) {
-        console.log("stautsUpdate.matchId = " + statusUpdate.matchId + " et this.idMatch = " + this.idMatch);
-        console.log("statut = " + this.matchStatus);
-        console.log("statuts.stauts = " + statusUpdate.matchStatus);
+        const oldStatus = this.matchStatus;
         this.matchStatus = statusUpdate.matchStatus;
-        console.log("statute = " + this.matchStatus);
-        console.log("statuts.stautes = " + statusUpdate.matchStatus);
+        if (oldStatus === 'NotStarted' && statusUpdate.matchStatus === 'Live') {
+          // Match just started
+          this.addRecentEvent('status', 'Match started');
+          this.loadMatchDetails(this.idMatch);
+        } 
         if (this.matchStatus === 'Live') {
-          console.log("jeeeeeeeeeeeeee loaaaaad matchhhhhhhh")
           this.loadMatchDetails(this.idMatch); //si le statut du match était à NotStarted et qu'il passe à live on reload la pages
+        }
+        if (this.matchStatus === 'Finished') {
+          this.addRecentEvent('status', `Match ended - Final Score: ${this.team1.name} ${this.team1.score} - ${this.team2.score} ${this.team2.name}`);
+          this.isRunning = false;
         }
       }
     });
@@ -189,7 +198,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
         if (team) {
           team.score += event.points;
         }
-        this.addRecentEvent('score', `${player.name} scores ${event.points} points`);
+        this.addRecentEvent('score', `${player.name} (#${player.number}) scores ${event.points} points`);
       }
     }
   }
@@ -240,10 +249,10 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
 
   private handleQuarterChangeEvent(event: QuarterChangeEvent): void {
     if (this.idMatch === event.matchId) {
-      this.quarter = event.quarter;
+      this.quarter = event.quarter+1; //car dans le backc ommecne a 0 pas 1
       this.time = this.quarterTime;
       this.isRunning = false;
-      this.addRecentEvent('quarter', `Quarter ${this.quarter} starts`);
+      this.addRecentEvent('quarter', `Quarter ${event.quarter+1} starts`);
     }
   }
 
@@ -251,6 +260,7 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
     if (this.idMatch === event.matchId) {
       this.isRunning = event.isRunning;
       this.time = this.parseTime(event.time);
+      this.addRecentEvent('chrono', `Clock is ${event.isRunning ? 'running' : 'stopped'}`);
     }
   }
 
@@ -261,6 +271,12 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
 
   // Utility methods remain the same
   private findPlayerById(playerId: number | undefined): PlayerMatch | null {
+    console.log('Finding player by id:', playerId);  // Log 10
+    console.log('Team 1 players:', this.team1.players);  // Log 11
+    console.log('Team 2 players:', this.team2.players);
+    console.log('Found player:', this.team1.players.find(p => p.id === playerId) ||
+      this.team2.players.find(p => p.id === playerId) ||
+      null);
     return (
       this.team1.players.find(p => p.id === playerId) ||
       this.team2.players.find(p => p.id === playerId) ||
@@ -279,10 +295,16 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
     return hours * 3600 + minutes * 60 + seconds;
   }
 
-  private addRecentEvent(type: 'score' | 'foul' | 'timeout' | 'substitution' | 'quarter', description: string): void {
-    const icon = this.getEventIcon(type);
+  private addRecentEvent(type:'score' | 'foul' | 'timeout' | 'substitution' | 'quarter'|'chrono'|'status', description: string): void {
     const timeStr = this.formatTime(this.time);
-    this.recentEvents.unshift({ icon, time: timeStr, description, type });
+    const event = {
+      icon: this.getEventIcon(type),
+      quarter: this.quarter,  
+      time: timeStr,
+      description: description,
+      type
+    };
+    this.recentEvents.unshift(event);
     if (this.recentEvents.length > 10) {
       this.recentEvents.pop();
     }
@@ -302,26 +324,47 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
-  private getEventIcon(eventType: string): string {
-    switch (eventType) {
-      case 'Basket': return '🏀';
-      case 'Foul': return '⚠️';
-      case 'Substitution': return '🔄';
-      case 'Timeout': return '⏳';
-      case 'QuarterChange': return '⏰';
-      case 'Chrono': return '⏱️';
-      default: return '❓';
+  public getEventIcon(eventType: string): string {
+    switch (eventType.toLowerCase()) {
+      case 'score':
+      case 'basket':
+        return '🏀';
+      case 'foul':
+        return '⚠️';
+      case 'substitution':
+        return '🔄';
+      case 'timeout':
+        return '⏳';
+      case 'quarter':
+        return '⏰';
+      case 'chrono':
+        return '⏱️';
+      case 'status':
+        return '📢';
+      default:
+        console.warn('Unknown event type for icon:', eventType);
+        return '❓';
     }
   }
   private loadRecentEvents(): void {
     this.matchService.getMatchEvents(this.idMatch).subscribe({
       next: (events) => {
-        this.recentEvents = events.map(event => ({
-          icon: this.getEventIcon(event.eventType),
-          time: event.time,
-          description: this.formatEventDescription(event),
-          type: event.eventType
-        }));
+        this.recentEvents = events.map(event => {
+          console.log('Processing event:', event);  
+          // Normalize the event type
+          let normalizedType = event.eventType.toLowerCase();
+          if (normalizedType === 'basket') normalizedType = 'score';
+          if (normalizedType === 'quarterchange') normalizedType = 'quarter'; 
+          console.log('Formatted description:', this.formatEventDescription(event));
+          return {
+            icon: this.getEventIcon(normalizedType),
+            quarter: event.quarter,
+            time: event.time,
+            description: this.formatEventDescription(event),
+            type: normalizedType
+          };
+          console.log('Final processed events:', this.recentEvents);
+        });
         console.log('Recent events loaded:', this.recentEvents);
       },
       error: (err) => console.error('Error fetching recent events:', err)
@@ -329,20 +372,39 @@ export class MatchViewerComponent implements OnInit, OnDestroy {
   }
 
   private formatEventDescription(event: any): string {
-    switch (event.eventType) {
-      case 'Basket':
-        return `Player ${event.playerId} scored ${event.points} points.`;
-      case 'Foul':
-        return `Player ${event.playerId} committed a foul (${event.foulType}).`;
-      case 'Substitution':
-        return `Player ${event.playerInId} IN, Player ${event.playerOutId} OUT.`;
-      case 'Timeout':
-        return `Timeout called by ${event.team}.`;
-      case 'QuarterChange':
-        return `Quarter ${event.quarter} starts.`;
-      case 'Chrono':
-        return `Clock is ${event.isRunning ? 'running' : 'stopped'}.`;
+    const type = event.eventType?.toLowerCase() || '';
+    const getPlayerName = (id: number) => {
+      const currentPlayer = this.findPlayerById(id);
+      if (currentPlayer) {
+        return `${currentPlayer.name} (#${currentPlayer.number})`;
+      }
+      // If the event contains player data (for loaded events)
+      if (event.player) {
+        console.log('Player info from event:', event.player);
+        return `${event.playerName} (#${event.playerNumber})`;
+      }
+      console.log('No player information found for id:', id);
+      // Fallback
+      return `Player ${id}`;
+    };
+
+    switch (type) {
+      case 'basket':
+      case 'score':
+        return `${getPlayerName(event.playerId)} scores ${event.points} points`;
+      case 'foul':
+        return `${getPlayerName(event.playerId)} committed a foul (${event.foulType})`;
+      case 'substitution':
+        return `Substitution: ${getPlayerName(event.playerInId)} IN, ${getPlayerName(event.playerOutId)} OUT`;
+      case 'timeout':
+        return `Timeout called by ${event.team}`;
+      case 'quarter':
+      case 'quarterchange':  // Changed from 'quarter' to match the event type
+        return `Quarter ${event.quarter} starts`;
+      case 'chrono':
+        return `Clock is ${event.isRunning ? 'running' : 'stopped'}`;
       default:
+        console.warn('Unknown event type:', type, event);
         return 'Unknown event.';
     }
   }

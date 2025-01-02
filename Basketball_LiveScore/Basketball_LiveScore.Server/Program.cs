@@ -69,11 +69,14 @@ builder.Services.AddAuthorization(options =>
     // Admins seulement
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 
-    // Utilisateurs seulement
-    options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
-
     // Tous les utilisateurs connectés (Admin ou User)
     options.AddPolicy("AuthenticatedUsers", policy => policy.RequireAuthenticatedUser());
+
+    //Admin ou encoder
+    options.AddPolicy("AdminAndEncoder", policy =>
+    {
+        policy.RequireRole("Admin", "Encoder"); 
+    });
 
     // Utilisateurs non connectés (anonymes)
     options.AddPolicy("AnonymousOnly", policy =>

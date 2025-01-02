@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { AuthService } from '../../../services/auth.service';
 export class NavbarComponent implements OnInit {
   isAuthenticated = false;
   isAdmin = false;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     //Subscribe au statut d authentification
@@ -29,5 +30,9 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {//Pas besoin de rediriger qql part qd pas login on a pas accès aux autres pages
     this.authService.logout();
+  }
+
+  navigateToMatches(): void {
+    this.router.navigate(['/']);
   }
 }

@@ -2,17 +2,19 @@
   <button mat-icon-button class="logo" routerLink="/">
     <img src="assets/logo.png" alt="Logo" width="30" height="30">
   </button>
-  <span class="brand">Basketball Live Score</span>
+  <span class="brand" (click)="navigateToMatches()">Basketball Live Score</span>
 
   <div class="spacer"></div>
 
   <!-- Qd user est connecté : -->
   <ng-container *ngIf="isAuthenticated; else guestLinks">
-    <button mat-button routerLink="/matches/all" routerLinkActive="active-link">Matches</button>
+    <!--on doit preciser exact pr match sinon va aussi s activer qd on est sur une page matches/..-->
+    <button mat-button routerLink="/matches" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Matches</button>
     <ng-container *ngIf="isAdmin">
       <button mat-button routerLink="/players/create" routerLinkActive="active-link">Create Player</button>
       <button mat-button routerLink="/teams/create" routerLinkActive="active-link">Create Team</button>
       <button mat-button routerLink="/matches/create" routerLinkActive="active-link">Create Match</button>
+      <button mat-button routerLink="/encoders" routerLinkActive="active-link">Encoders</button>
     </ng-container>
     <button mat-button (click)="logout()">Logout</button>
   </ng-container>

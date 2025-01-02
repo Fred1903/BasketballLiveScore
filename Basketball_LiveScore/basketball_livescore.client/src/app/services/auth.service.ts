@@ -81,7 +81,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('authToken'); //avant de logout, on supprime le token !!!
     this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/login']);//redirection vers page de login
+    this.router.navigate(['/matches']);//redirection vers page de match!!
   }
 
   isAuthenticated(): boolean {

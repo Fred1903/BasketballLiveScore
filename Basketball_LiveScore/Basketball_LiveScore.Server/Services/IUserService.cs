@@ -9,7 +9,10 @@ namespace Basketball_LiveScore.Server.Services
         public User GetByUsername(string username);
         public User GetByEmail(string email);
         public Task<bool> AddUser(User user);
-
         public Task<List<UserDTO>> GetUsersByRole(string role);
+
+        public Task AddUserAsEncoder(Guid userId);
+        public Task RemoveUserFromEncoders(Guid userId);
+
     }
 }

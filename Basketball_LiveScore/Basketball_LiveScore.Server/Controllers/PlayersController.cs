@@ -18,7 +18,8 @@ namespace Basketball_LiveScore.Server.Controllers
             this.playerService = playerService;
         }
 
-        //[Authorize(Policy = "AdminOnly")]
+        
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreatePlayer([FromBody] CreatePlayerDTO playerDto)
@@ -43,11 +44,8 @@ namespace Basketball_LiveScore.Server.Controllers
             }
         }
 
-        [Authorize(Policy = "AuthenticatedUsers")]
-        [HttpGet("playersOfTeam")]
 
-
-        [Authorize(Policy = "AuthenticatedUsers")]
+        [Authorize(Policy = "AdminAndEncoder")]
         [HttpGet("positions")]
         public IActionResult GetPositions()
         {//pour pouvoir use p.GetDescription obligé d'importer Utilities

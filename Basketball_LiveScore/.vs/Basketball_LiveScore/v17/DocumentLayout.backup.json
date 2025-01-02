@@ -3,164 +3,96 @@
   "WorkspaceRootPath": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\players\\players.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\players\\players.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\services\\matchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\services\\matchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\models\\interfaces.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\models\\interfaces.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\services\\match-settings.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\services\\match-settings.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\services\\match.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\services\\match.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\dto\\matcheventdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\dto\\matcheventdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\hubs\\matchhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\hubs\\matchhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\models\\interfaces.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\models\\interfaces.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\controllers\\matchescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\controllers\\matchescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\models\\coach.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\models\\coach.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\controllers\\teamscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\controllers\\teamscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\services\\player.service.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\services\\player.service.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\matches.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\matches.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\matches-routing.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\matches-routing.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\models\\userlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\models\\userlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\encoders\\encoders.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\encoders\\encoders.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\services\\user.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\services\\user.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\services\\iteamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\services\\iteamservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\app-routing.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\app-routing.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\dto\\updatescoredto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\dto\\updatescoredto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\services\\team.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\services\\team.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\services\\auth.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\services\\auth.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|solutionrelative:basketball_livescore.server\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{DA817E2A-4FEC-49F8-8831-D0D698A046D5}|basketball_livescore.client\\basketball_livescore.client.esproj|solutionrelative:basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{840B4299-CF01-4E4E-9C7D-ADA0A5E0FA8A}|Basketball_LiveScore.Server\\Basketball_LiveScore.Server.csproj|c:\\users\\ff\\documents\\helb\\bac3\\q5\\web\\basketballlivescore\\basketball_livescore\\basketball_livescore.server\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -214,258 +146,297 @@
       "DocumentGroups": [
         {
           "DockedWidth": 144,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\index.html",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\index.html",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\index.html",
-              "RelativeToolTip": "basketball_livescore.client\\src\\index.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABrAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "navbar.component.html",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.html",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.html",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.html",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-01-01T19:04:56.88Z",
+              "WhenOpened": "2025-01-02T14:28:32.899Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "players.module.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\players\\players.module.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\players\\players.module.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\players\\players.module.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\players\\players.module.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-01-01T18:45:00.454Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "livescore.component.html",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-01-01T18:28:12.152Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "livescore.component.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
-              "ViewState": "AgIAADYAAAAAAAAAAAAQwEgAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-01-01T18:28:08.03Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "livescore.component.spec.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.spec.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.spec.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.spec.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.spec.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-01-01T18:28:05.495Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "match.service.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\match.service.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\services\\match.service.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\match.service.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\services\\match.service.ts",
-              "ViewState": "AgIAACQAAAAAAAAAAAAcwDkAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-28T14:45:40.114Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "update-match.component.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAlwJkAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-28T16:34:53.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "livescore.component.css",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.css",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.css",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.css",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.css",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAwwGwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-01-01T18:34:38.687Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MatchService.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\MatchService.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\MatchService.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\MatchService.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\MatchService.cs",
-              "ViewState": "AgIAANEAAAAAAAAAAAApwN0AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T13:22:12.857Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
               "Title": "interfaces.ts",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\models\\interfaces.ts",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\models\\interfaces.ts",
               "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\models\\interfaces.ts",
               "RelativeToolTip": "basketball_livescore.client\\src\\app\\models\\interfaces.ts",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAhwHkAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAuwLEAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-01-01T16:11:18.62Z",
+              "WhenOpened": "2025-01-02T12:13:15.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "match-viewer.component.css",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-01-02T12:29:11.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "match-viewer.component.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
+              "ViewState": "AgIAAFkBAAAAAAAAAAAqwGQBAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T12:28:53.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "navbar.component.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\shared\\navbar\\navbar.component.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T09:32:45.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "match-viewer.component.html",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAwJ8AAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-01-02T12:28:52.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\AuthService.cs",
+              "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\AuthService.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAkwDAAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T17:22:51.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "livescore.component.html",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.html",
+              "ViewState": "AgIAADgAAAAAAAAAAAAqwEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-01-02T12:09:20.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "livescore.component.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\livescore\\livescore.component.ts",
+              "ViewState": "AgIAALYAAAAAAAAAAAAAALsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T12:02:21.892Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MatchesController.cs",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\MatchesController.cs",
+              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Controllers\\MatchesController.cs",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\MatchesController.cs",
+              "RelativeToolTip": "Basketball_LiveScore.Server\\Controllers\\MatchesController.cs",
+              "ViewState": "AgIAAOwAAAAAAAAAAAAAwBsBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-02T11:54:47.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Program.cs",
+              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Program.cs",
+              "RelativeToolTip": "Basketball_LiveScore.Server\\Program.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAEsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-02T11:51:45.099Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\UserService.cs",
+              "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\UserService.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAmwFAAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-02T10:40:38.108Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "user.service.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\user.service.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\services\\user.service.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\user.service.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\services\\user.service.ts",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAwAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T11:02:48.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "encoders.component.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\encoders\\encoders.component.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\encoders\\encoders.component.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\encoders\\encoders.component.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\encoders\\encoders.component.ts",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwA0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T09:52:35.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "login.component.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.ts",
+              "ViewState": "AgIAABcAAAAAAAAAAAAuwCMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T09:35:29.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\index.html",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\index.html",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\index.html",
+              "RelativeToolTip": "basketball_livescore.client\\src\\index.html",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAAAgAAABhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-01-02T09:35:27.057Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "app-routing.module.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\app-routing.module.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\app-routing.module.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\app-routing.module.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\app-routing.module.ts",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T09:25:27.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "team.service.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\team.service.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\services\\team.service.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\team.service.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\services\\team.service.ts",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAABoAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T09:35:55.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "auth.service.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\auth.service.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\services\\auth.service.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\auth.service.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\services\\auth.service.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T09:33:05.06Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "update-match.component.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.ts",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAcwFIAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T08:37:13.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "app.module.ts",
+              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\app.module.ts",
+              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\app.module.ts",
+              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\app.module.ts",
+              "RelativeToolTip": "basketball_livescore.client\\src\\app\\app.module.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-01-02T09:25:19.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
               "Title": "update-match.component.html",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html",
               "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html",
               "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.html",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-01-01T16:21:38.602Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "MatchHub.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Hubs\\MatchHub.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Hubs\\MatchHub.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Hubs\\MatchHub.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Hubs\\MatchHub.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T17:22:56.43Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "match-settings.service.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\match-settings.service.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\services\\match-settings.service.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\match-settings.service.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\services\\match-settings.service.ts",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAhwBUAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-30T16:25:01.252Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "match-viewer.component.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.ts",
-              "ViewState": "AgIAABoBAAAAAAAAAAAAACUBAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-01-01T17:00:56.978Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "MatchEventDTO.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\DTO\\MatchEventDTO.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\DTO\\MatchEventDTO.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\DTO\\MatchEventDTO.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\DTO\\MatchEventDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T17:40:37.847Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "match-viewer.component.html",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.html",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAwwLoAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-12-30T16:22:10.03Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "match-viewer.component.css",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\match-viewer\\match-viewer.component.css",
-              "ViewState": "AgIAAC8BAAAAAAAAAAAwwDoBAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-30T20:14:36.851Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\IUserService.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\IUserService.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\IUserService.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\IUserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T11:11:56.403Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Models\\Player.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Models\\Player.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Models\\Player.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Models\\Player.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAmwAUAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T13:29:40.176Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "update-match.component.css",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.css",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\update-match\\update-match.component.css",
@@ -478,267 +449,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Coach.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Models\\Coach.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Models\\Coach.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Models\\Coach.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Models\\Coach.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-28T10:30:09.23Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "TeamsController.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\TeamsController.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Controllers\\TeamsController.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\TeamsController.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Controllers\\TeamsController.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAQwCUAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T16:23:38.484Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "create-match.component.html",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.html",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.html",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.html",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.html",
-              "ViewState": "AgIAAIwAAAAAAAAAAAAUwJwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-12-22T16:12:24.641Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "player.service.spec.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\player.service.spec.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\services\\player.service.spec.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\services\\player.service.spec.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\services\\player.service.spec.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-21T13:20:18.571Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 23,
-              "Title": "create-match.component.css",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.css",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.css",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.css",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\create-match\\create-match.component.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-21T19:06:07.536Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "matches.module.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\matches.module.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\matches.module.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\matches.module.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\matches.module.ts",
-              "ViewState": "AgIAAAMAAAAAAAAAAIBZwAsAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-28T11:22:54.208Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "matches-routing.module.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\matches-routing.module.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\matches\\matches-routing.module.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\matches\\matches-routing.module.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\matches\\matches-routing.module.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-28T13:16:41.143Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "app.module.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\app.module.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\app.module.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\app.module.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\app.module.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-21T16:39:22.463Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "UserLogin.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Models\\UserLogin.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Models\\UserLogin.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Models\\UserLogin.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Models\\UserLogin.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-28T11:38:58.053Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\UserService.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\UserService.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\UserService.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAawDIAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T11:12:24.156Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwBgAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T11:09:36.66Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "UpdateScoreDTO.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\DTO\\UpdateScoreDTO.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\DTO\\UpdateScoreDTO.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\DTO\\UpdateScoreDTO.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\DTO\\UpdateScoreDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T18:07:39.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "ITeamService.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\ITeamService.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\ITeamService.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\ITeamService.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\ITeamService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T18:33:56.096Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "form-input.component.css",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.css",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.css",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.css",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.css",
-              "ViewState": "AgIAABMAAAAAAAAAAAAcwB8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-22T15:48:45.564Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "form-input.component.html",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.html",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.html",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.html",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-12-22T14:56:09.167Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "form-input.component.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\shared\\form-input\\form-input.component.ts",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAkwA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-21T12:33:04.87Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "form-dropdown.component.html",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.html",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.html",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.html",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-12-22T14:55:51.609Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAYwBAAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T13:05:32.546Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "form-dropdown.component.ts",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.ts",
-              "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.ts",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.ts",
-              "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\shared\\form-dropdown\\form-dropdown.component.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-12-22T12:00:11.875Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\AuthService.cs",
-              "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\AuthService.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwCMAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T17:22:51.008Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
               "Title": "UserDTO.cs",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\DTO\\UserDTO.cs",
               "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\DTO\\UserDTO.cs",
@@ -746,12 +457,11 @@
               "RelativeToolTip": "Basketball_LiveScore.Server\\DTO\\UserDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-22T11:11:22.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-22T11:11:22.116Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 24,
               "Title": "CreatePlayerDTO.cs",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\DTO\\CreatePlayerDTO.cs",
               "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\DTO\\CreatePlayerDTO.cs",
@@ -759,12 +469,11 @@
               "RelativeToolTip": "Basketball_LiveScore.Server\\DTO\\CreatePlayerDTO.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAIwBkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T13:36:33.103Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T13:36:33.103Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 25,
               "Title": "TeamService.cs",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\Services\\TeamService.cs",
               "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\Services\\TeamService.cs",
@@ -772,12 +481,11 @@
               "RelativeToolTip": "Basketball_LiveScore.Server\\Services\\TeamService.cs",
               "ViewState": "AgIAACwAAAAAAAAAAAAuwC8AAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T18:24:51.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T18:24:51.901Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 26,
               "Title": "signup.component.ts",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\auth\\signup\\signup.component.ts",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\auth\\signup\\signup.component.ts",
@@ -790,20 +498,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 27,
               "Title": "signup.component.html",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\auth\\signup\\signup.component.html",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\auth\\signup\\signup.component.html",
               "ToolTip": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\auth\\signup\\signup.component.html",
               "RelativeToolTip": "basketball_livescore.client\\src\\app\\pages\\auth\\signup\\signup.component.html",
-              "ViewState": "AgIAABUAAAAAAAAAACBjwDMAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAIBpwDMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2024-12-21T14:46:40.373Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 28,
               "Title": "login.component.html",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.html",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.html",
@@ -816,7 +524,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 29,
               "Title": "CreateTeamDTO.cs",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\DTO\\CreateTeamDTO.cs",
               "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\DTO\\CreateTeamDTO.cs",
@@ -824,12 +532,11 @@
               "RelativeToolTip": "Basketball_LiveScore.Server\\DTO\\CreateTeamDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-21T13:36:39.449Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T13:36:39.449Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 30,
               "Title": "players-routing.module.ts",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\players\\players-routing.module.ts",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\players\\players-routing.module.ts",
@@ -842,7 +549,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 31,
               "Title": "create-player.component.spec.ts",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\players\\create-player\\create-player.component.spec.ts",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\players\\create-player\\create-player.component.spec.ts",
@@ -855,7 +562,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 32,
               "Title": "login.component.spec.ts",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.spec.ts",
               "RelativeDocumentMoniker": "basketball_livescore.client\\src\\app\\pages\\auth\\login\\login.component.spec.ts",
@@ -868,7 +575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 33,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\ff\\Documents\\HELB\\BAC3\\Q5\\WEb\\BasketballLiveScore\\Basketball_LiveScore\\Basketball_LiveScore.Server\\appsettings.json",
               "RelativeDocumentMoniker": "Basketball_LiveScore.Server\\appsettings.json",
@@ -876,8 +583,7 @@
               "RelativeToolTip": "Basketball_LiveScore.Server\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-21T12:00:31.123Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-21T12:00:31.123Z"
             }
           ]
         }

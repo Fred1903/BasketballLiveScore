@@ -360,7 +360,7 @@ namespace Basketball_LiveScore.Server.Services
             var match = await basketballDBContext.Matches.Include(m => m.Quarters).FirstOrDefaultAsync(m => m.Id == matchId);
             if (match == null) throw new Exception($"Match {matchId} not found");
 
-            if (dto.Quarter + 1 > match.Quarters.Count())
+            if (dto.Quarter == match.Quarters.Count())//car quarter commence a 1 et count à 0 !!
                 throw new Exception("Cannot exceed number of quarters");
 
             match.CurrentQuarter = dto.Quarter + 1;
