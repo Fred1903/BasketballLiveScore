@@ -15,7 +15,6 @@ namespace Basketball_LiveScore.Server.Services
 
         public Dictionary<string, int> GetDefaultSettings();
         public Match CreateMatch(CreateMatchDTO matchDTO);
-        //public MatchEvent AddMatchEvent(MatchEventDTO matchEventDto);
         public List<GetMatchEventDTO> GetMatchEvents(int matchId);
         public MatchDTO GetMatchDetails(int matchId);
 
