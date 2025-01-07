@@ -1,6 +1,8 @@
 ﻿using Basketball_LiveScore.Server.Data;
 using Basketball_LiveScore.Server.DTO;
 using Basketball_LiveScore.Server.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Basketball_LiveScore.Server.Services
 {
@@ -15,13 +17,14 @@ namespace Basketball_LiveScore.Server.Services
 
         public async Task<Player> CreatePlayerAsync(CreatePlayerDTO createPlayerDto)
         {
-            var team = basketballDBContext.Teams.FirstOrDefault(t => t.Name == createPlayerDto.Team);
+            var team = await basketballDBContext.Teams.FirstOrDefaultAsync(t => t.Name == createPlayerDto.Team);
 
             if(basketballDBContext.Players.Any(p=>p.Team.Name==createPlayerDto.Team &&
                 p.Number == createPlayerDto.Number))
             {
                 throw new ArgumentException("There is already a player with the same number in the team, please choose another one");
             }
+
             var player = new Player
             {
                 FirstName = createPlayerDto.FirstName,
@@ -29,7 +32,7 @@ namespace Basketball_LiveScore.Server.Services
                 Number = createPlayerDto.Number,
                 Position = createPlayerDto.Position,
                 Height = createPlayerDto.Height,
-                TeamId = basketballDBContext.Teams.FirstOrDefault(t => t.Name.Equals(createPlayerDto.Team)).Id,
+                TeamId = team.Id,
             };
 
             basketballDBContext.Players.Add(player);

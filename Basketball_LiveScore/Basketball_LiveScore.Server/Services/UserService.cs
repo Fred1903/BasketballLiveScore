@@ -30,23 +30,23 @@ namespace Basketball_LiveScore.Server.Services
             }
         }
 
-        public User Get(UserLogin userLogin)
+        public async Task<User> Get(UserLogin userLogin)
         {
             if (userLogin == null || userLogin.Username == null || userLogin.Password==null)
             {
                 throw new ArgumentNullException(nameof(userLogin), "UserLogin or its User property is null.");
             }   
-            return basketballDBContext.Users.FirstOrDefault(o => o.Username.Equals(userLogin.Username));
+            return await basketballDBContext.Users.FirstOrDefaultAsync(o => o.Username.Equals(userLogin.Username));
         }
 
-        public User GetByEmail(string email)
+        public async Task<User> GetByEmail(string email)
         {
-            return basketballDBContext.Users.FirstOrDefault(u => u.Email.Equals(email));
+            return await basketballDBContext.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
 
-        public User GetByUsername(string username)
+        public async Task<User> GetByUsername(string username)
         { //On renvoie le user ou null
-            return basketballDBContext.Users.FirstOrDefault(u => u.Username.Equals(username));
+            return await basketballDBContext.Users.FirstOrDefaultAsync(u => u.Username.Equals(username));
         }
 
         public async Task<List<UserDTO>> GetUsersByRole(string role)

@@ -27,11 +27,11 @@ namespace Basketball_LiveScore.Server.Controllers
         [Authorize(Policy = "AnonymousOnly")]
         [Route("login")]
         [HttpPost]
-        public IActionResult Login([FromBody] UserLogin user)
+        public async Task<IActionResult> Login([FromBody] UserLogin user)
         {
             try
             {
-                var token = authService.Authenticate(user);
+                var token = await authService.Authenticate(user);
                 return Ok(new { token });
             }
             catch (ArgumentException ex)

@@ -22,11 +22,11 @@ namespace Basketball_LiveScore.Server.Controllers
 
         [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("create")]
-        public IActionResult CreateMatch([FromBody] CreateMatchDTO matchDTO)
+        public async Task<IActionResult> CreateMatch([FromBody] CreateMatchDTO matchDTO)
         {
             try
             {
-                var createdMatch = matchService.CreateMatch(matchDTO);
+                var createdMatch = await matchService.CreateMatch(matchDTO);
                 return CreatedAtAction(nameof(CreateMatch), new { id = createdMatch.Id }, createdMatch);
             }
             catch (System.ArgumentException ex)
@@ -40,11 +40,11 @@ namespace Basketball_LiveScore.Server.Controllers
 
         [Authorize(Policy = "AdminAndEncoder")]
         [HttpPost("start/{matchId}")]
-        public IActionResult StartMatch(int matchId)
+        public async Task<IActionResult> StartMatch(int matchId)
         {
             try
             {
-                matchService.StartMatch(matchId);
+                await matchService.StartMatch(matchId);
                 return Ok(new { message = "Match started successfully." });
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@ namespace Basketball_LiveScore.Server.Controllers
         {
             try
             {
-                matchService.FinishMatch(matchId);
+                await matchService.FinishMatch(matchId);
                 return Ok(new { message = "Match finished successfully." });
             }
             catch (Exception ex)
@@ -114,11 +114,11 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpGet("{matchId}")]
-        public IActionResult GetMatchDetails(int matchId)
+        public async Task<IActionResult> GetMatchDetails(int matchId)
         {
             try
             {
-                var matchDetails = matchService.GetMatchDetails(matchId);
+                var matchDetails = await matchService.GetMatchDetails(matchId);
                 return Ok(matchDetails);
             }
             catch (Exception ex)
@@ -256,11 +256,11 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpGet("all")]
-        public IActionResult GetAllMatchesWithStatus()
+        public async Task<IActionResult> GetAllMatchesWithStatus()
         {
             try
             {
-                var matches = matchService.GetAllMatchesWithStatus();
+                var matches = await matchService.GetAllMatchesWithStatus();
                 return Ok(matches);
             }
             catch (Exception ex)
@@ -270,11 +270,11 @@ namespace Basketball_LiveScore.Server.Controllers
         }
 
         [HttpGet("events/{matchId}")]
-        public IActionResult GetAllEvents(int matchId)
+        public async Task<IActionResult> GetAllEvents(int matchId)
         {
             try
             {
-                var events = matchService.GetMatchEvents(matchId);
+                var events = await matchService.GetMatchEvents(matchId);
                 return Ok(events);
             }
             catch (Exception ex)

@@ -55,14 +55,14 @@ namespace Basketball_LiveScore.Server.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string Authenticate(UserLogin userLogin)
+        public async Task<string> Authenticate(UserLogin userLogin)
         {
             if (string.IsNullOrEmpty(userLogin.Username) || string.IsNullOrEmpty(userLogin.Password))
             {
                 throw new ArgumentException("Username and password are required.");
             }
 
-            var user = userService.Get(userLogin);
+            var user = await userService.Get(userLogin);
             if (user == null || !VerifyPassword(userLogin.Password, user.PasswordHash))
             {
                 throw new UnauthorizedAccessException("Invalid username or password.");
@@ -82,12 +82,12 @@ namespace Basketball_LiveScore.Server.Services
             }
 
             //Vérif si username ou email existe déjà
-            if (userService.GetByUsername(newUser.Username) != null)
+            if (await userService.GetByUsername(newUser.Username) != null)
             {
                 throw new InvalidOperationException("Username already exists.");
             }
 
-            if (userService.GetByEmail(newUser.Email) != null)
+            if (await userService.GetByEmail(newUser.Email) != null)
             {
                 throw new InvalidOperationException("There is already an account with this email.");
             }
@@ -108,7 +108,5 @@ namespace Basketball_LiveScore.Server.Services
             }
             return "User registered successfully.";
         }
-
-
     }
 }

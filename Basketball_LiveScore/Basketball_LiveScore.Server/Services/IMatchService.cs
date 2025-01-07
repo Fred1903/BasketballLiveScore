@@ -14,9 +14,9 @@ namespace Basketball_LiveScore.Server.Services
         public List<int> GetTimeOutAmountOptions();
 
         public Dictionary<string, int> GetDefaultSettings();
-        public Match CreateMatch(CreateMatchDTO matchDTO);
-        public List<GetMatchEventDTO> GetMatchEvents(int matchId);
-        public MatchDTO GetMatchDetails(int matchId);
+        public Task<Match> CreateMatch(CreateMatchDTO matchDTO);
+        public Task<List<GetMatchEventDTO>> GetMatchEvents(int matchId);
+        public Task<MatchDTO> GetMatchDetails(int matchId);
 
         public Task<MatchEvent> AddFoulEvent(int matchId, FoulEventDTO foulEventDTO);
         public Task<MatchEvent> AddBasketEvent(int matchId, BasketEventDTO basketEventDTO);
@@ -25,8 +25,8 @@ namespace Basketball_LiveScore.Server.Services
         public Task<MatchEvent> AddChronoEvent(int matchId, ChronoEventDTO chronoEventDTO);
         Task<MatchEvent> AddQuarterChangeEvent(int matchId, QuarterChangeEventDTO quarterChangeEventDTO);
 
-        List<MatchWithStatusDTO> GetAllMatchesWithStatus();
-        public void StartMatch(int matchId);
-        public void FinishMatch(int matchId);
+        Task<List<MatchWithStatusDTO>> GetAllMatchesWithStatus();
+        public Task StartMatch(int matchId);
+        public Task FinishMatch(int matchId);
     }
 }

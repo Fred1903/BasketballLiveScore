@@ -21,7 +21,7 @@ namespace Basketball_LiveScore.Server.Services
             this.basketballDBContext = basketballDBContext;
             this.hubContext = hubContext;
         }
-        public Match CreateMatch(CreateMatchDTO matchDTO)
+        public async Task<Match> CreateMatch(CreateMatchDTO matchDTO)
         {
             if (!Enum.IsDefined(typeof(TimeOutAmount), matchDTO.TimeoutAmount))
             {
@@ -48,21 +48,21 @@ namespace Basketball_LiveScore.Server.Services
             {
                 throw new System.ArgumentException("You can maximum select 13 players for the game");
             }
-            var playersTeam1 = basketballDBContext.Players
+            var playersTeam1 = await basketballDBContext.Players
                .Where(p => matchDTO.PlayersTeam1.Contains(p.Id))
-               .ToList();
+               .ToListAsync();
 
-            var playersTeam2 = basketballDBContext.Players
+            var playersTeam2 = await basketballDBContext.Players
                 .Where(p => matchDTO.PlayersTeam2.Contains(p.Id))
-                .ToList();
+                .ToListAsync();
             if (playersTeam1.Count != matchDTO.PlayersTeam1.Count || playersTeam2.Count != matchDTO.PlayersTeam2.Count)
             {
                 throw new Exception("One or more players could not be found in the database.");
             }
             var match = new Match
             {
-                HomeTeam = basketballDBContext.Teams.Find(matchDTO.Team1),
-                AwayTeam = basketballDBContext.Teams.Find(matchDTO.Team2),
+                HomeTeam = await basketballDBContext.Teams.FindAsync(matchDTO.Team1),
+                AwayTeam = await basketballDBContext.Teams.FindAsync(matchDTO.Team2),
                 Quarters = Enumerable.Range(1, matchDTO.NumberOfQuarters).Select(q => new Quarter
                 {
                     Number = (NumberOfQuarters)q,
@@ -89,8 +89,8 @@ namespace Basketball_LiveScore.Server.Services
             };
 
             // Ajout du match à la db
-            basketballDBContext.Matches.Add(match);
-            basketballDBContext.SaveChanges();
+            await basketballDBContext.Matches.AddAsync(match);
+            await basketballDBContext.SaveChangesAsync();
 
             // Ajouter les joueurs au match
             var matchPlayers = playersTeam1.Select(p => new MatchPlayer
@@ -106,8 +106,8 @@ namespace Basketball_LiveScore.Server.Services
                 IsStarter = matchDTO.StartersTeam2.Contains(p.Id),
                 IsHomeTeam = false
             })).ToList();
-            basketballDBContext.MatchPlayers.AddRange(matchPlayers);
-            basketballDBContext.SaveChanges();
+            await basketballDBContext.MatchPlayers.AddRangeAsync(matchPlayers);
+            await basketballDBContext.SaveChangesAsync();
 
             return match;
         }
@@ -145,19 +145,19 @@ namespace Basketball_LiveScore.Server.Services
 
         
 
-        public MatchDTO GetMatchDetails(int matchId)
+        public async Task<MatchDTO> GetMatchDetails(int matchId)
         {
             try
             {
                 //On prend le match depuis la db
-                var match = basketballDBContext.Matches
+                var match = await basketballDBContext.Matches
                     .Include(m => m.Quarters)
                     .Include(m => m.Timeouts)
                     .Include(m => m.HomeTeam)
                     .Include(m => m.AwayTeam)
                     .Include(m => m.MatchPlayers)
                         .ThenInclude(mp => mp.Player)
-                    .FirstOrDefault(m => m.Id == matchId);
+                    .FirstOrDefaultAsync(m => m.Id == matchId);
 
                 // Si le match n'existe pas
                 if (match == null) throw new Exception($"Match with ID {matchId} not found.");
@@ -169,11 +169,11 @@ namespace Basketball_LiveScore.Server.Services
                     .Where(q => (int)q.Number == currentQuarter)
                     .Select(q => (int)q.RemainingTime.TotalSeconds)
                     .FirstOrDefault();
-                var lastChronoEvent = basketballDBContext.MatchEvents
+                var lastChronoEvent = await basketballDBContext.MatchEvents
                     .OfType<ChronoEvent>()
                     .Where(e => e.MatchId == matchId)
                     .OrderByDescending(e => e.Id) //Trier par ID pour obtenir le dernier événement
-                    .FirstOrDefault();
+                    .FirstOrDefaultAsync();
 
                 return new MatchDTO
                 {
@@ -251,7 +251,7 @@ namespace Basketball_LiveScore.Server.Services
             if (quarterEntity != null)
                 quarterEntity.RemainingTime = dto.Time;
 
-            basketballDBContext.MatchEvents.Add(basketEvent);
+            await basketballDBContext.MatchEvents.AddAsync(basketEvent);
             await basketballDBContext.SaveChangesAsync();
 
             await hubContext.Clients.Group(matchId.ToString()).SendAsync("BasketEventOccurred", dto);
@@ -276,7 +276,7 @@ namespace Basketball_LiveScore.Server.Services
             if (quarterEntity != null)
                 quarterEntity.RemainingTime = dto.Time;
 
-            basketballDBContext.MatchEvents.Add(foulEvent);
+            await basketballDBContext.MatchEvents.AddAsync(foulEvent);
             await basketballDBContext.SaveChangesAsync();
 
             await hubContext.Clients.Group(matchId.ToString()).SendAsync("FoulEventOccurred", dto);
@@ -313,7 +313,7 @@ namespace Basketball_LiveScore.Server.Services
             if (quarterEntity != null)
                 quarterEntity.RemainingTime = dto.Time;
 
-            basketballDBContext.MatchEvents.Add(subEvent);
+            await basketballDBContext.MatchEvents.AddAsync(subEvent);
             await basketballDBContext.SaveChangesAsync();
 
             await hubContext.Clients.Group(matchId.ToString()).SendAsync("SubstitutionEventOccurred", dto);
@@ -348,7 +348,7 @@ namespace Basketball_LiveScore.Server.Services
             if (quarterEntity != null)
                 quarterEntity.RemainingTime = dto.Time;
 
-            basketballDBContext.MatchEvents.Add(timeoutEvent);
+            await basketballDBContext.MatchEvents.AddAsync(timeoutEvent);
             await basketballDBContext.SaveChangesAsync();
 
             await hubContext.Clients.Group(matchId.ToString()).SendAsync("TimeoutEventOccurred", dto);
@@ -371,7 +371,7 @@ namespace Basketball_LiveScore.Server.Services
                 Quarter = match.CurrentQuarter
             };
 
-            basketballDBContext.MatchEvents.Add(quarterEvent);
+            await basketballDBContext.MatchEvents.AddAsync(quarterEvent);
             await basketballDBContext.SaveChangesAsync();
 
             await hubContext.Clients.Group(matchId.ToString()).SendAsync("QuarterChangeEventOccurred", dto);
@@ -395,7 +395,7 @@ namespace Basketball_LiveScore.Server.Services
             if (quarterEntity != null)
                 quarterEntity.RemainingTime = dto.Time;
 
-            basketballDBContext.MatchEvents.Add(chronoEvent);
+            await basketballDBContext.MatchEvents.AddAsync(chronoEvent);
             await basketballDBContext.SaveChangesAsync();
 
             await hubContext.Clients.Group(matchId.ToString()).SendAsync("ChronoEventOccurred", dto);
@@ -403,9 +403,9 @@ namespace Basketball_LiveScore.Server.Services
         }
 
 
-        public void StartMatch(int matchId)
+        public async Task StartMatch(int matchId)
         {
-            var match = basketballDBContext.Matches.Find(matchId);
+            var match = await basketballDBContext.Matches.FindAsync(matchId);
             if (match == null)
             {
                 throw new Exception("Match not found.");
@@ -416,13 +416,13 @@ namespace Basketball_LiveScore.Server.Services
             }
 
             match.Status = MatchStatus.Live;
-            basketballDBContext.SaveChanges();
+            await basketballDBContext.SaveChangesAsync();
             hubContext.Clients.Group(matchId.ToString()).SendAsync("MatchStatusChanged", new { matchId, matchStatus = MatchStatus.Live.ToString() });
         }
 
-        public void FinishMatch(int matchId)
+        public async Task FinishMatch(int matchId)
         {
-            var match = basketballDBContext.Matches.Find(matchId);
+            var match = await basketballDBContext.Matches.FindAsync(matchId);
             if (match == null)
             {
                 throw new Exception("Match not found.");
@@ -432,15 +432,15 @@ namespace Basketball_LiveScore.Server.Services
                 throw new Exception("Match has not started");
             }
             match.Status = MatchStatus.Finished;
-            basketballDBContext.SaveChanges();
+            await basketballDBContext.SaveChangesAsync();
             hubContext.Clients.Group(matchId.ToString()).SendAsync("MatchStatusChanged", MatchStatus.Finished.ToString());
         }
             
-        public List<MatchWithStatusDTO> GetAllMatchesWithStatus()
+        public async Task<List<MatchWithStatusDTO>> GetAllMatchesWithStatus()
         {
             var currentTime = DateTime.UtcNow;
 
-            var matches = basketballDBContext.Matches
+            var matches = await basketballDBContext.Matches
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)
                 .Select(m => new MatchWithStatusDTO
@@ -474,17 +474,17 @@ namespace Basketball_LiveScore.Server.Services
                         .FirstOrDefault(),
                     EncoderRealTimeId = m.EncoderRealTimeId
                 })
-                .ToList();
+                .ToListAsync();
             return matches;
         }
 
-        public List<GetMatchEventDTO> GetMatchEvents(int matchId)
+        public async Task<List<GetMatchEventDTO>> GetMatchEvents(int matchId)
         {
             // Retrieve all events for the match
-            var events = basketballDBContext.MatchEvents
+            var events = await basketballDBContext.MatchEvents
                 .Where(e => e.MatchId == matchId)
                 .OrderByDescending(e => e.Id)
-                .ToList();
+                .ToListAsync();
 
             // Map events to their respective DTOs
             return events.Select<MatchEvent, GetMatchEventDTO>(e =>
